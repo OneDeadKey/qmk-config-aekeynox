@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  AS(1),  AS(2),  AS(3),  AS(4),  AS(5),        AS(6),  AS(7),     AS(8),     AS(9),    AS(0),     __,
         __,  ODK_1,  ODK_2,  ODK_3,  ODK_4,  ODK_5,        XX,     AS(MINS),  AS(COMM),  AS(DOT),  AS(SLSH),  __,
 
-                           LAFAYETTE,  KC_SPC,  XX,        XX,  KC_SPC,  LAFAYETTE
+                             SYMBOLS,  KC_SPC,  XX,        XX,  KC_SPC,  SYMBOLS
     ),
 
     [_vim_nav] = ONEDEADKEY_LAYOUT(
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   XX,        XX,  KC_LCTL,  KC_LALT,  KC_LGUI,  __,  __,
         __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  XX,       XX,       XX,       XX,  __,
 
-                           LAFAYETTE,  KC_SPC,  XX,        XX,  KC_SPC,  LAFAYETTE
+                             SYMBOLS,  KC_SPC,  XX,        XX,  KC_SPC,  SYMBOLS
     ),
 
 };
@@ -112,11 +112,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
+    // ----------------------------------------
+    // Code for your custom keycodes goes here.
+    // ----------------------------------------
     switch (keycode) {
-            // ----------------------------------------
-            // Code for your custom keycodes goes here.
-            // ----------------------------------------
-
         case ODK_1: ODK1_SEQUENCE; return false;
         case ODK_2: ODK2_SEQUENCE; return false;
         case ODK_3: ODK3_SEQUENCE; return false;

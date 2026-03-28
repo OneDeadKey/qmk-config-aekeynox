@@ -1,6 +1,5 @@
 #pragma once
 #include "keycodes.h"
-// clang-format off
 
 // Aliases
 #define EL_GRV  KC_GRV  // `
@@ -52,7 +51,7 @@
 #define EL_COMM KC_DOT  // ,
 #define EL_K    KC_SLSH // K
 
-//SHIFTED
+// SHIFTED
 #define EL_TILD S(EL_GRV)  // ~
 #define EL_EURO S(EL_1)    // €
 #define EL_LDQF S(EL_2)    // «
@@ -76,44 +75,44 @@
 #define EL_COLN S(EL_DOT)  // :
 #define EL_SCLN S(EL_COMM) // ;
 
-//ALTGR  //Symbol layer
-#define EL_SUB1 ALGR(EL_1)    // ₁
-#define EL_SUB2 ALGR(EL_2)    // ₂
-#define EL_SUB3 ALGR(EL_3)    // ₃
-#define EL_SUB4 ALGR(EL_4)    // ₄
-#define EL_SUB5 ALGR(EL_5)    // ₅
-#define EL_SUB6 ALGR(EL_6)    // ₆
-#define EL_SUB7 ALGR(EL_7)    // ₇
-#define EL_SUB8 ALGR(EL_8)    // ₈
-#define EL_SUB9 ALGR(EL_9)    // ₉
-#define EL_SUB0 ALGR(EL_0)    // ₀
-#define EL_LPRN ALGR(EL_S)    // (
-#define EL_RPRN ALGR(EL_E)    // )
-#define EL_LT   ALGR(EL_C)    // <
-#define EL_GT   ALGR(EL_O)    // >
+// ALTGR  //Symbol layer
+#define EL_SUB1 ALGR(EL_1) // ₁
+#define EL_SUB2 ALGR(EL_2) // ₂
+#define EL_SUB3 ALGR(EL_3) // ₃
+#define EL_SUB4 ALGR(EL_4) // ₄
+#define EL_SUB5 ALGR(EL_5) // ₅
+#define EL_SUB6 ALGR(EL_6) // ₆
+#define EL_SUB7 ALGR(EL_7) // ₇
+#define EL_SUB8 ALGR(EL_8) // ₈
+#define EL_SUB9 ALGR(EL_9) // ₉
+#define EL_SUB0 ALGR(EL_0) // ₀
+#define EL_LPRN ALGR(EL_S) // (
+#define EL_RPRN ALGR(EL_E) // )
+#define EL_LT   ALGR(EL_C) // <
+#define EL_GT   ALGR(EL_O) // >
 
-//ALTGR  //Symbol layer //SHIFTED
-#define EL_SUP1 ALGR(S(EL_1))    // ¹
-#define EL_SUP2 ALGR(S(EL_2))    // ²
-#define EL_SUP3 ALGR(S(EL_3))    // ³
-#define EL_SUP4 ALGR(S(EL_4))    // ⁴
-#define EL_SUP5 ALGR(S(EL_5))    // ⁵
-#define EL_SUP6 ALGR(S(EL_6))    // ⁶
-#define EL_SUP7 ALGR(S(EL_7))    // ⁷
-#define EL_SUP8 ALGR(S(EL_8))    // ⁸
-#define EL_SUP9 ALGR(S(EL_9))    // ⁹
-#define EL_SUP0 ALGR(S(EL_0))    // ⁰
+// ALTGR  //Symbol layer //SHIFTED
+#define EL_SUP1 ALGR(S(EL_1)) // ¹
+#define EL_SUP2 ALGR(S(EL_2)) // ²
+#define EL_SUP3 ALGR(S(EL_3)) // ³
+#define EL_SUP4 ALGR(S(EL_4)) // ⁴
+#define EL_SUP5 ALGR(S(EL_5)) // ⁵
+#define EL_SUP6 ALGR(S(EL_6)) // ⁶
+#define EL_SUP7 ALGR(S(EL_7)) // ⁷
+#define EL_SUP8 ALGR(S(EL_8)) // ⁸
+#define EL_SUP9 ALGR(S(EL_9)) // ⁹
+#define EL_SUP0 ALGR(S(EL_0)) // ⁰
 
-#define EL_DCIR ALGR(S(EL_Q))    // ^ (dead)
-#define EL_LEEQ ALGR(S(EL_C))    // <=
-#define EL_GREQ ALGR(S(EL_O))    // >=
-#define EL_CURR ALGR(S(EL_P))    // ¤ (dead)
-#define EL_PERM ALGR(S(EL_W))    // ‰
-#define EL_RNGA ALGR(S(EL_J))    // ° (dead)
-#define EL_MUL  ALGR(S(EL_D))    // ×
-#define EL_ACUT ALGR(S(EL_ODK))  // ´ (dead)
-#define EL_DGRV ALGR(S(EL_Y))    // ` (dead)
-#define EL_CARN ALGR(S(EL_A))    // ˇ (dead)
+#define EL_DCIR ALGR(S(EL_Q))   // ^ (dead)
+#define EL_LEEQ ALGR(S(EL_C))   // <=
+#define EL_GREQ ALGR(S(EL_O))   // >=
+#define EL_CURR ALGR(S(EL_P))   // ¤ (dead)
+#define EL_PERM ALGR(S(EL_W))   // ‰
+#define EL_RNGA ALGR(S(EL_J))   // ° (dead)
+#define EL_MUL  ALGR(S(EL_D))   // ×
+#define EL_ACUT ALGR(S(EL_ODK)) // ´ (dead)
+#define EL_DGRV ALGR(S(EL_Y))   // ` (dead)
+#define EL_CARN ALGR(S(EL_A))   // ˇ (dead)
 // #define EL_RNGA ALGR(S(EL_N))    // ° (dead)
 #define EL_NEQL ALGR(S(EL_F))    // !=
 #define EL_DSLS ALGR(S(EL_L))    // TODO!! / dead

@@ -14,9 +14,20 @@
  * other variants you might want to check out.
  */
 
+// Host layout mapping
+#if defined KB_LAYOUT_ERGOL
+#    define ARSENIK_HOST_LAYOUT_ERGOL
+#elif defined KB_LAYOUT_AZERTY
+#    define ARSENIK_HOST_LAYOUT_AZERTY
+#elif defined KB_LAYOUT_QWERTY_LAFAYETTE
+#    define ARSENIK_HOST_LAYOUT_QWERTY
+#else
+#    define ARSENIK_HOST_LAYOUT_QWERTY
+#endif
+
 // Mac modifier swap
 #ifdef MACOS
-#    define MAC_MODIFIERS
+#    define ARSENIK_MAC_MODIFIERS
 #endif
 
 // Timing defaults and QMK mapping

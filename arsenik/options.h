@@ -4,7 +4,7 @@
 // can pick and choose them by (un)commenting the different `#define`
 // declarations.
 
-#define ARSENIK_ENABLE_LAFAYETTE_LAYER
+#define ARSENIK_ENABLE_SYMBOLS_LAYER
 /* When active, gives access to the programming symbols layer used by layouts
  * like Ergo‑L and all of the "Lafayette" familly of layouts (it's their AltGr
  * layer). The definition of this layer depends on the keyboard layout you are
@@ -36,7 +36,7 @@
  *
  * Base thumb config: LSFT_T(KC_ESC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
  * When it's active: KC_ALT  KC_CTL  KC_GUI     MO(_num_nav)  KC_SPC  KC_RALT
- * (KC_RALT becomes the `_lafayette` layer if `ARSENIK_ENABLE_LAFAYETTE_LAYER`
+ * (KC_RALT becomes the `_symbols` layer if `ARSENIK_ENABLE_SYMBOLS_LAYER`
  * is active)
  *
  * (Prevents using `ARSENIK_ENABLE_SELENIUM_VARIANT`)

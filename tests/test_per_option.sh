@@ -37,7 +37,7 @@ run_arsenik() {
     run_compile_test arsenik "defaults" ""
 
     run_compile_test arsenik "lafayette=off" \
-        "$(disable ARSENIK_ENABLE_LAFAYETTE_LAYER)"
+        "$(disable ARSENIK_ENABLE_SYMBOLS_LAYER)"
 
     run_compile_test arsenik "hrm=on" \
         "$(enable ARSENIK_ENABLE_HRM)"

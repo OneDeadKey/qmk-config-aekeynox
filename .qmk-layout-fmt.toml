@@ -1,0 +1,4 @@
+[layouts.ONEDEADKEY_LAYOUT]
+main_rows = 4
+cols_per_side = 6
+thumb_per_side = 3

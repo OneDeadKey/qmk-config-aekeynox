@@ -1,0 +1,74 @@
+name: QMK Compile Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  QMK_HOME: /qmk_firmware
+
+jobs:
+  compile-per-option:
+    name: Compile per-option (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    container:
+      image: qmkfm/qmk_cli:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [arsenik, selenium]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load config
+        run: |
+          . .env
+          echo "QMK_VERSION=$QMK_VERSION" >> $GITHUB_ENV
+          echo "QMK_KEYBOARD=$QMK_KEYBOARD" >> $GITHUB_ENV
+
+      - name: Setup QMK firmware
+        run: qmk setup -y -b $QMK_VERSION
+
+      - name: Configure QMK
+        run: |
+          qmk config user.keyboard=$QMK_KEYBOARD
+          qmk config user.keymap=default
+          qmk config user.qmk_home=$QMK_HOME
+
+      - name: Compile per-option tests
+        run: bash tests/test_per_option.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -j 0
+
+  compile-exhaustive:
+    name: Compile exhaustive (${{ matrix.target }})
+    needs: compile-per-option
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    container:
+      image: qmkfm/qmk_cli:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [arsenik, selenium]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load config
+        run: |
+          . .env
+          echo "QMK_VERSION=$QMK_VERSION" >> $GITHUB_ENV
+          echo "QMK_KEYBOARD=$QMK_KEYBOARD" >> $GITHUB_ENV
+
+      - name: Setup QMK firmware
+        run: qmk setup -y -b $QMK_VERSION
+
+      - name: Configure QMK
+        run: |
+          qmk config user.keyboard=$QMK_KEYBOARD
+          qmk config user.keymap=default
+          qmk config user.qmk_home=$QMK_HOME
+
+      - name: Compile exhaustive tests
+        run: bash tests/test_exhaustive.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -j 0

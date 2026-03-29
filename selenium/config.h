@@ -27,7 +27,7 @@
 
 // Mac modifier swap
 #ifdef MACOS
-#    define ARSENIK_MAC_MODIFIERS
+#    define MAC_MODIFIERS
 #endif
 
 // Timing defaults and QMK mapping

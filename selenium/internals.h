@@ -26,7 +26,7 @@
 #endif
 
 // Modifier aliases (swapped for Mac)
-#ifdef ARSENIK_MAC_MODIFIERS
+#ifdef MAC_MODIFIERS
 #    define _GUI_T LALT_T
 #    define _CTL_T LGUI_T
 #    define _ALT_T LCTL_T

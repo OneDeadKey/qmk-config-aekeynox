@@ -14,7 +14,7 @@
  * other variants you might want to check out.
  */
 
-#define ARSENIK_HRM_TAPPING_TERM 300
+#define HRM_TAPPING_TERM 300
 /* This is the delay used by Arsenik for sensitive tap-holds, which include
  * home-row-mods and mod-taps using the spacebar
  */

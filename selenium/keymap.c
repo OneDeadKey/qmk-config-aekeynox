@@ -223,7 +223,7 @@ static inline bool tap_keycode_is_tap_preferred(uint16_t keycode) {
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    return tap_keycode_is_tap_preferred(keycode) ? ARSENIK_HRM_TAPPING_TERM : TAPPING_TERM;
+    return tap_keycode_is_tap_preferred(keycode) ? HRM_TAPPING_TERM : TAPPING_TERM;
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

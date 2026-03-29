@@ -37,17 +37,17 @@ run_arsenik() {
     run_compile_test arsenik "defaults" ""
 
     run_compile_test arsenik "lafayette=off" \
-        "$(disable ARSENIK_ENABLE_SYMBOLS_LAYER)"
+        "$(disable ENABLE_SYMBOLS_LAYER)"
 
     run_compile_test arsenik "hrm=on" \
-        "$(enable ARSENIK_ENABLE_HRM)"
+        "$(enable ENABLE_HRM)"
 
     run_compile_test arsenik "hrm=on mac=on" \
-        "$(enable ARSENIK_ENABLE_HRM)" \
-        "$(enable ARSENIK_MAC_MODIFIERS)"
+        "$(enable ENABLE_HRM)" \
+        "$(enable MAC_MODIFIERS)"
 
     run_compile_test arsenik "simple_thumbs=on" \
-        "$(enable ARSENIK_ENABLE_SIMPLE_THUMBS)"
+        "$(enable SIMPLE_THUMBS)"
 
     run_compile_test arsenik "selenium_variant=on" \
         "$(enable VIM_NAVIGATION)"

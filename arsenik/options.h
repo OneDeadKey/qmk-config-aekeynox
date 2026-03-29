@@ -4,7 +4,7 @@
 // can pick and choose them by (un)commenting the different `#define`
 // declarations.
 
-#define ARSENIK_ENABLE_SYMBOLS_LAYER
+#define ENABLE_SYMBOLS_LAYER
 /* When active, gives access to the programming symbols layer used by layouts
  * like Ergo‑L and all of the "Lafayette" familly of layouts (it's their AltGr
  * layer). The definition of this layer depends on the keyboard layout you are
@@ -13,22 +13,22 @@
  * When inactive, this layer is discarded and replaced by AltGr.
  */
 
-// #define ARSENIK_ENABLE_HRM
+// #define ENABLE_HRM
 /* When active, adds a Meta, Ctrl and Alt home-row-mod on respectively s/l,
  * d/k or f/j on a Qwerty keyboard. Those home-row-mods stay on those exact
  * keys regardless of the layout being used, meaning they would be on r/i, s/e
  * and t/n on a Colemak keyboard.
  */
 
-// #define ARSENIK_MAC_MODIFIERS
+// #define MAC_MODIFIERS
 /* Swaps around home-row-mods from Meta, Ctrl, Alt to Alt, Meta, Ctrl, as it
  * may make more sense on a Mac, like to keep common shortcuts accessible with
  * the Ergo‑L layout, for instance
  *
- * (Requires `ARSENIK_ENABLE_HRM`)
+ * (Requires `ENABLE_HRM`)
  */
 
-// #define ARSENIK_ENABLE_SIMPLE_THUMBS
+// #define SIMPLE_THUMBS
 /* When active, uses an extra simple config without any tap-holds on the thumb
  * keys. It may be a *lot* simpler to use, but requieres a keyboard with at
  * least 6 thumb keys (so 3 per thumb) instead of 3 thumb keys total and is
@@ -36,7 +36,7 @@
  *
  * Base thumb config: LSFT_T(KC_ESC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
  * When it's active: KC_ALT  KC_CTL  KC_GUI     MO(_num_nav)  KC_SPC  KC_RALT
- * (KC_RALT becomes the `_symbols` layer if `ARSENIK_ENABLE_SYMBOLS_LAYER`
+ * (KC_RALT becomes the `_symbols` layer if `ENABLE_SYMBOLS_LAYER`
  * is active)
  *
  * (Prevents using `VIM_NAVIGATION`)

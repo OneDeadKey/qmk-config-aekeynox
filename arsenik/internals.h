@@ -4,7 +4,7 @@
 #include "../shared/layouts.h"
 
 // Symbols layer access
-#ifdef ARSENIK_ENABLE_SYMBOLS_LAYER
+#ifdef ENABLE_SYMBOLS_LAYER
 #    define SYMBOLS            MO(_symbols)
 #    define SYMBOLS_T(keycode) LT(_symbols, keycode)
 #else
@@ -13,7 +13,7 @@
 #endif
 
 // TODO: find better names for those macros ?
-#ifdef ARSENIK_MAC_MODIFIERS
+#ifdef MAC_MODIFIERS
 #    define _GUI_T LALT_T
 #    define _CTL_T LGUI_T
 #    define _ALT_T LCTL_T
@@ -29,7 +29,7 @@
 #    define _ALT   KC_LALT
 #endif
 
-#ifdef ARSENIK_ENABLE_HRM
+#ifdef ENABLE_HRM
 #    define KC_SS _GUI_T(KC_S)
 #    define KC_DD _CTL_T(KC_D)
 #    define KC_FF _ALT_T(KC_F)
@@ -46,7 +46,7 @@
 #endif
 
 // Extra simple config for beginners with bigger keyboards
-#if defined ARSENIK_ENABLE_SIMPLE_THUMBS
+#if defined SIMPLE_THUMBS
 #    define AS_TL_TUCK  _ALT
 #    define AS_TL_HOME  _CTL
 #    define AS_TL_REACH _GUI

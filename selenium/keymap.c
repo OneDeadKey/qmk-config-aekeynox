@@ -29,7 +29,6 @@ enum custom_keycodes {
     ODK_4,              // ¢
     ODK_5,              // ‰
     LSK_RALT,           // EZ_LSK(RALT): go to base layer, then sticky RALT
-    BSL_SYM,            // EZ_SL(SYMBOLS): hold=momentary, tap=one-shot _symbols
 };
 
 // QMK implementation of the Selenium specification.
@@ -55,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  AS(EQL),   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_PGDN,         AS(MINS),   AS(4),  AS(5),  AS(6),  AS(0),     __,
         __,  AS_MONEY,  AS(COLN),  AS(ASTR),  AS(PLUS),  AS(PERC),        AS(COMM),   AS(1),  AS(2),  AS(3),  AS(DOT),   __,
 
-                              __,  LT(_num_nav, KC_BSPC),  KC_TAB,        __,  LT(_num_nav, KC_SPC),  BSL_SYM
+                              __,  LT(_num_nav, KC_BSPC),  KC_TAB,        __,  LT(_num_nav, KC_SPC),  OSL(_symbols)
     ),
 
     // 2. Symbols layer -- programming symbols (AltGr layer for Ergol)
@@ -116,28 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static bool lsk_ralt_held = false;
 static bool lsk_ralt_used = false;
 
-// BSL_SYM state: replaces OSL(_symbols) with explicit hold=momentary, tap=one-shot.
-// QMK's OSL() uses a single state machine for both modes, which breaks when nested
-// with other layer-changing keys (e.g. OSL inside OSL). This custom keycode uses
-// layer_on/layer_off for hold and manual one-shot tracking for tap.
-// QMK's set_oneshot_layer() doesn't work reliably when called from process_record_user
-// (the one-shot is never consumed), so we track the one-shot state ourselves.
-static bool bsl_sym_held = false;
-static bool bsl_sym_used = false;
-static bool bsl_sym_oneshot = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        // Track whether another key was pressed while custom hold-tap keys are held
+        // Track whether another key was pressed while LSK_RALT is held
         if (lsk_ralt_held && keycode != LSK_RALT) { lsk_ralt_used = true; }
-        if (bsl_sym_held && keycode != BSL_SYM) { bsl_sym_used = true; }
-
-        // Consume BSL_SYM one-shot: the keycode was already resolved from _symbols
-        // at matrix scan time, so turning off the layer here is safe.
-        if (bsl_sym_oneshot && keycode != BSL_SYM) {
-            bsl_sym_oneshot = false;
-            layer_off(_symbols);
-        }
     }
 
     // NOTE: Insecable space (Shift+Space for Ergol) is NOT implemented.
@@ -158,17 +139,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 lsk_ralt_held = true;
                 lsk_ralt_used = false;
                 return false;
-            case BSL_SYM:
-                if (bsl_sym_oneshot) {
-                    // Tap-to-cancel: one-shot is pending, clear it
-                    bsl_sym_oneshot = false;
-                    layer_off(_symbols);
-                    return false;
-                }
-                layer_on(_symbols);
-                bsl_sym_held = true;
-                bsl_sym_used = false;
-                return false;
         }
     } else {
         switch (keycode) {
@@ -176,16 +146,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_mods(MOD_BIT(KC_RALT));
                 if (!lsk_ralt_used) { set_oneshot_mods(MOD_BIT(KC_RALT)); }
                 lsk_ralt_held = false;
-                return false;
-            case BSL_SYM:
-                if (!bsl_sym_held) { return false; }
-                layer_off(_symbols);
-                if (!bsl_sym_used) {
-                    // Tap: activate one-shot (keep layer on, consume on next keypress)
-                    bsl_sym_oneshot = true;
-                    layer_on(_symbols);
-                }
-                bsl_sym_held = false;
                 return false;
         }
     }

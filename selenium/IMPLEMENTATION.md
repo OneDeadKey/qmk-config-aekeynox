@@ -11,7 +11,7 @@ This document refers to four distinct layers of implementation:
 - **ZMK native**: features built into the ZMK firmware — `&lt`, `&mt`, `&sl`, `&sk`, the `flavor` property (`tap-preferred`, `hold-preferred`, `balanced`, `tap-unless-interrupted`), and devicetree configuration like `tapping-term-ms`.
 - **Selenium ZMK**: custom behaviors defined in Selenium's ZMK config (`hold_taps.dtsi`) — `&hrm`, `&sc`, `bsl`, `bsk`, `lbsk`, and the `EZ_SL`/`EZ_SK`/`EZ_LSK` macros. These compose ZMK native primitives into Selenium-specific hold-tap behaviors.
 - **QMK native**: features built into the QMK firmware — `LT()`, `*_T()`, `OSM()`, `OSL()`, `PERMISSIVE_HOLD`, `HOLD_ON_OTHER_KEY_PRESS`, `TAPPING_TERM_PER_KEY`, and their associated per-key callbacks.
-- **Selenium QMK**: custom keycodes and logic in this implementation — `BSL_SYM`, `LSK_RALT`, `tap_keycode_is_tap_preferred()`, and the per-key callback implementations.
+- **Selenium QMK**: custom keycodes and logic in this implementation — `LSK_RALT`, `tap_keycode_is_tap_preferred()`, and the per-key callback implementations.
 
 ## Timing
 
@@ -138,8 +138,8 @@ Some Selenium ZMK behaviors (custom or reconfigured native) have no direct QMK n
 | Selenium ZMK behavior                                           | Selenium QMK approximation               | What's lost                                                                                                                   |
 | --------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `EZ_SK(LSHIFT)` (Selenium custom: sticky key hold-tap)          | QMK native `OSM(MOD_LSFT)`               | — (equivalent: QMK native `OSM()` is one-shot on tap and continuous modifier on hold)                                         |
-| `sym_shift_altgr` (Selenium custom: shift→AltGr morph)          | `BSL_SYM` (Selenium QMK custom keycode)  | Shift morph: tapping shift doesn't switch to AltGr                                                                            |
-| `EZ_SL` (Selenium custom: hold=momentary, tap=one-shot layer)   | `BSL_SYM` (Selenium QMK custom keycode)  | — (equivalent: see [BSL_SYM](#bsl_sym-better-sticky-layer-for-symbols) below)                                                 |
+| `sym_shift_altgr` (Selenium custom: shift→AltGr morph)          | QMK native `OSL(_symbols)`               | Shift morph: tapping shift doesn't switch to AltGr                                                                            |
+| `EZ_SL` (Selenium custom: hold=momentary, tap=one-shot layer)   | QMK native `OSL(_symbols)`               | — (equivalent: QMK native `OSL()` provides one-shot on tap and momentary on hold)                                             |
 | `EZ_LSK(RALT)` (Selenium custom: sticky key on base layer)      | `LSK_RALT` (Selenium QMK custom keycode) | — (equivalent: see [EZ_LSK(RALT)](#ez_lskralt-sticky-altgr-on-base-layer) below)                                              |
 | `magic_backspace` / `magic_space` (Selenium custom: mod-morphs) | Not implemented                          | See [Mod-morph decision](#mod-morph-magic_backspacemagic_space) below                                                         |
 | `&lt FUNCTION LS(SPACE)` (ZMK native, with shifted tap)         | Not implemented                          | See [Insecable space](#insecable-space) below.                                                                                |
@@ -190,7 +190,7 @@ In Selenium ZMK, `sym_shift_altgr` is a custom nested mod-morph (using ZMK nativ
 
 The purpose: on Ergol, this lets you tap Shift (left tuck) then tap the symbol key (right tuck) to get AltGr instead of the symbol layer, giving access to accented characters.
 
-This feature is **not implemented** in Selenium QMK. The right tuck thumb uses `BSL_SYM` unconditionally.
+This feature is **not implemented** in Selenium QMK. The right tuck thumb uses `OSL(_symbols)` unconditionally.
 
 ### Why not implement it
 
@@ -208,21 +208,17 @@ This feature is **not implemented** in Selenium QMK.
 
 QMK native `LT()` only accepts basic keycodes, so `LT(layer, S(KC_SPC))` is not possible. An initial approach intercepted taps in `process_record_user` by checking if the keycode matched `LT(_num_nav, KC_SPC)` or `LT(_function, KC_SPC)`. However, the base layer space key also uses `LT(_num_nav, KC_SPC)` — making it impossible to distinguish a base layer space tap from a NumLock/NumNav layer space tap. This caused every space on the base layer to send Shift+Space (non-breaking space), breaking normal typing.
 
-## BSL_SYM (better sticky layer for symbols)
+## OSL nesting bug and SYM_NUM_LAYER
 
-In Selenium ZMK, `EZ_SL(SYMBOLS_LAYER)` is a Selenium macro that expands to `bsl` (a Selenium custom hold-tap behavior) with completely separate code paths:
+In Selenium ZMK, `EZ_SL(SYMBOLS_LAYER)` expands to `bsl` (a custom hold-tap: hold=momentary, tap=one-shot). QMK native `OSL()` provides the same behavior natively.
 
-- **Hold** (ZMK native `&mo`): pure momentary layer activation
-- **Tap** (Selenium custom `&osl`): one-shot layer activation
+However, QMK's `OSL()` state machine breaks when two `OSL()` keys are nested: pressing `SYM_NUM_LAYER` = `OSL(_num_nav)` while `OSL(_symbols)` is active corrupts the first OSL's state, leaving `_symbols` permanently active.
 
-QMK native `OSL()` handles both modes in a single internal state machine. While this works for simple cases, the state machine breaks when `OSL()` is nested with other layer-changing keys (e.g. pressing `SYM_NUM_LAYER` = `OSL(_num_nav)` while holding `OSL(_symbols)`). The first OSL's state gets corrupted, leaving `_symbols` permanently active until manually toggled off.
+A custom keycode `BSL_SYM` was initially implemented to avoid this nesting bug, using manual `layer_on()`/`layer_off()` for the hold path and manual one-shot tracking for the tap path. However, the manual one-shot implementation could not reliably activate the layer for the next keypress — `layer_on()` called from `process_record_user` during a release event was not seen by the next key's matrix scan.
 
-In Selenium QMK, this is implemented via a custom keycode `BSL_SYM` with explicit `layer_on()`/`layer_off()` for the hold path:
+### Decision
 
-- On press: `layer_on(_symbols)`
-- On release: `layer_off(_symbols)`, and if no other key was pressed during the hold, `set_oneshot_layer(_symbols, ONESHOT_START)` for one-shot behavior
-
-A static flag (`bsl_sym_used`) tracks whether another key was pressed while BSL_SYM was held, distinguishing tap from hold. This avoids QMK native `OSL`'s state machine entirely for the hold case, preventing the nesting corruption.
+Use QMK native `OSL(_symbols)` for the symbols layer (it works correctly for both tap and hold). Avoid the nesting bug by using `MO()` instead of `OSL()` for `SYM_NUM_LAYER` (the num key on the symbols layer). This means the num key requires holding instead of tapping — a minor deviation from the spec, which says this key should be sticky for flavors with three thumb keys.
 
 ## EZ_LSK(RALT) (sticky AltGr on base layer)
 
@@ -250,9 +246,9 @@ This tap action is **not implemented** in Selenium QMK. QMK defines the HID cons
 
 In Selenium ZMK, `SYM_NUM_LAYER` uses Selenium macro `EZ_SL(NUM_LAYER)` — a hold-tap where tap activates the number layer as one-shot (type one number, return to symbols) and hold keeps it active momentarily.
 
-In Selenium QMK, we use QMK native `OSL(_SE_NUM)` which provides the same tap=one-shot / hold=momentary behavior. `_SE_NUM` resolves to `_num_row` when `VIM_NAVIGATION` is enabled, `_num_nav` otherwise — matching the Selenium specification's layer routing.
+In Selenium QMK, we use `MO(_SE_NUM)` (momentary, hold-only) instead of the spec's sticky behavior. This is a workaround for the [OSL nesting bug](#osl-nesting-bug-and-sym_num_layer): using `OSL()` here would nest with `OSL(_symbols)` and corrupt QMK's one-shot state. `_SE_NUM` resolves to `_num_row` when `VIM_NAVIGATION` is enabled, `_num_nav` otherwise — matching the Selenium specification's layer routing.
 
-**Exception**: for `HT_TWO_THUMB_KEYS`, Selenium ZMK uses Selenium custom `&sc NUM_NAV_LAYER CAPSLOCK` — a `hold-preferred` hold-tap with CapsLock on tap. In Selenium QMK, we use QMK native `LT(_SE_NUM, KC_CAPS)`. Since `KC_CAPS` is not a text-producing key, `get_hold_on_other_key_press()` returns `true`, making it effectively hold-preferred — matching the ZMK behavior. The only difference is that the one-shot behavior from `OSL()` is lost in this variant because `LT()` sends the tap keycode (CapsLock) instead of activating a one-shot layer.
+**Exception**: for `HT_TWO_THUMB_KEYS`, Selenium ZMK uses Selenium custom `&sc NUM_NAV_LAYER CAPSLOCK` — a `hold-preferred` hold-tap with CapsLock on tap. In Selenium QMK, we use QMK native `LT(_SE_NUM, KC_CAPS)`. Since `KC_CAPS` is not a text-producing key, `get_hold_on_other_key_press()` returns `true`, making it effectively hold-preferred — matching the ZMK behavior.
 
 ## Configurable options
 

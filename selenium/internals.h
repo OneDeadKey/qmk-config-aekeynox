@@ -89,10 +89,11 @@
 #    define _SE_NUM _num_nav
 #endif
 
+// MO() instead of OSL() to avoid QMK's OSL nesting bug with OSL(_symbols).
 #if defined HT_TWO_THUMB_KEYS
 #    define SYM_NUM_LAYER LT(_SE_NUM, KC_CAPS)
 #else
-#    define SYM_NUM_LAYER OSL(_SE_NUM)
+#    define SYM_NUM_LAYER MO(_SE_NUM)
 #endif
 
 // Thumb key definitions
@@ -108,7 +109,7 @@
 #    define AS_TL_TUCK  OSM(MOD_LSFT)
 #    define AS_TL_REACH LGUI_T(_SE_REACH)
 #    define AS_TR_REACH LALT_T(KC_ENT)
-#    define AS_TR_TUCK  BSL_SYM
+#    define AS_TR_TUCK  OSL(_symbols)
 #    ifdef LEFT_HAND_SPACE
 #        define AS_TL_HOME LCTL_T(KC_SPC)
 #        define AS_TR_HOME LT(_SE_NAV, KC_BSPC)
@@ -121,7 +122,7 @@
 #    define AS_TL_TUCK  OSM(MOD_LSFT)
 #    define AS_TL_REACH LT(_SE_EXTRA, _SE_REACH)
 #    define AS_TR_REACH LT(_SE_EXTRA, KC_ENT)
-#    define AS_TR_TUCK  BSL_SYM
+#    define AS_TR_TUCK  OSL(_symbols)
 #    ifdef LEFT_HAND_SPACE
 #        define AS_TL_HOME LT(_SE_NAV, KC_SPC)
 #        define AS_TR_HOME LT(_SE_NAV, KC_BSPC)

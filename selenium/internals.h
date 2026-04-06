@@ -107,14 +107,18 @@
 
 #elif defined HT_THUMB_TAPS
 #    define AS_TL_TUCK  OSM(MOD_LSFT)
-#    define AS_TL_REACH LGUI_T(_SE_REACH)
-#    define AS_TR_REACH LALT_T(KC_ENT)
+#    define AS_TL_REACH _GUI_T(_SE_REACH)
+#    ifdef MAC_MODIFIERS
+#        define AS_TR_REACH LGUI_T(KC_ENT)
+#    else
+#        define AS_TR_REACH LALT_T(KC_ENT)
+#    endif
 #    define AS_TR_TUCK  OSL(_symbols)
 #    ifdef LEFT_HAND_SPACE
-#        define AS_TL_HOME LCTL_T(KC_SPC)
+#        define AS_TL_HOME _CTL_T(KC_SPC)
 #        define AS_TR_HOME LT(_SE_NAV, KC_BSPC)
 #    else
-#        define AS_TL_HOME LCTL_T(KC_BSPC)
+#        define AS_TL_HOME _CTL_T(KC_BSPC)
 #        define AS_TR_HOME LT(_SE_NAV, KC_SPC)
 #    endif
 

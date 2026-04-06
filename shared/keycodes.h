@@ -44,6 +44,7 @@
 #    define AS(stripped_keycode) BP_##stripped_keycode
 #    define SHIFTED_NUMBERS
 #    include "keymap_bepo.h"
+#    define TILDE_SEQUENCE tap_code16(BP_TILD); tap_code(KC_SPC)
 #elif defined KB_LAYOUT_DVORAK
 #    define AS(stripped_keycode) DV_##stripped_keycode
 #    include "keymap_dvorak.h"
@@ -71,6 +72,10 @@
 #endif
 #ifndef ODK5_SEQUENCE
 #    define ODK5_SEQUENCE tap_code(KC_NO)
+#endif
+
+#ifndef TILDE_SEQUENCE
+#    define TILDE_SEQUENCE tap_code16(AS(TILD))
 #endif
 
 

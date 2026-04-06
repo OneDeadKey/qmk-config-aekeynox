@@ -1,16 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "internals.h"
 
-// Shortcuts adapted for Ergol host layout
-// (In Ergol, some letters are at different physical positions than QWERTY)
-#define SC_UNDO  C(KC_Z)
-#define SC_CUT   C(KC_X)
-#define SC_COPY  C(KC_W) // C is at W position in Ergol
-#define SC_PASTE C(KC_V)
-#define SC_REDO  C(KC_P) // Y is at P position in Ergol
-#define SC_CLOSE C(KC_T) // W is at T position in Ergol
-#define SC_SAVE  C(KC_S)
-#define SC_ALL   C(KC_A)
+// Shortcuts use AS() to adapt to the active host keyboard layout
+#define SC_UNDO  C(AS(Z))
+#define SC_CUT   C(AS(X))
+#define SC_COPY  C(AS(C))
+#define SC_PASTE C(AS(V))
+#define SC_REDO  C(AS(Y))
+#define SC_CLOSE C(AS(W))
+#define SC_SAVE  C(AS(S))
+#define SC_ALL   C(AS(A))
 
 enum arsenik_layers {
     _base,

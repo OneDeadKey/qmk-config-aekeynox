@@ -1,4 +1,4 @@
-# qmk-1dk-keymaps
+# qmk-config-aekeynox
 
 [QMK](https://qmk.fm/) keymap implementations for [OneDeadKey](https://github.com/OneDeadKey) keyboard layouts.
 
@@ -47,8 +47,8 @@ qmk config
 ### 3. Clone this repository
 
 ```bash
-git clone https://github.com/OneDeadKey/qmk-1dk-keymaps.git
-cd qmk-1dk-keymaps
+git clone https://github.com/OneDeadKey/qmk-config-aekeynox.git
+cd qmk-config-aekeynox
 ```
 
 ### 4. Customize (optional)
@@ -158,7 +158,7 @@ The keymaps use a `ONEDEADKEY_LAYOUT` macro that adapts automatically to differe
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 
-If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-1dk-keymaps/issues) for help.
+If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
 
 ## Structure
 

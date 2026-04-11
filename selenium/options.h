@@ -29,6 +29,11 @@
 // #define HT_HOME_ROW_MODS  // (default behavior)
 // #define HT_TWO_THUMB_KEYS
 
+// Uncomment the following line if your keyboard has exactly 4 thumb keys
+// (2 per hand, e.g. Ferris/Sweep). This forces HT_TWO_THUMB_KEYS mode.
+
+// #define FOUR_THUMB_KEYS
+
 // Timing is key! Keep the default value if unsure.
 // This defines how long (in ms) a hold-tap key with the "tap-preferred" flavor
 // must be held to be considered as a modifier or layer shift. These hold-taps

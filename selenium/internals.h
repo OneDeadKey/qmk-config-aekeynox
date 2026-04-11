@@ -22,6 +22,14 @@
 // │               Hold-Tap configuration                    │
 // ╰─────────────────────────────────────────────────────────╯
 
+// FOUR_THUMB_KEYS forces HT_TWO_THUMB_KEYS regardless of other HT options
+#ifdef FOUR_THUMB_KEYS
+#    undef HT_NONE
+#    undef HT_THUMB_TAPS
+#    undef HT_HOME_ROW_MODS
+#    define HT_TWO_THUMB_KEYS
+#endif
+
 // Default to HT_HOME_ROW_MODS if no hold-tap config is selected
 #if !defined HT_NONE && !defined HT_THUMB_TAPS && !defined HT_HOME_ROW_MODS && !defined HT_TWO_THUMB_KEYS
 #    define HT_HOME_ROW_MODS

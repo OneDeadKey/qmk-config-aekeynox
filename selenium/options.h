@@ -13,6 +13,8 @@
 #define KB_LAYOUT_ERGOL
 // #define KB_LAYOUT_ERGLACE
 // #define KB_LAYOUT_BEPO
+// #define KB_LAYOUT_BEPOLAR
+// #define KB_LAYOUT_DVORAK
 
 // Uncomment the following line if using a Mac:
 

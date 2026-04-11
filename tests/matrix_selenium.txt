@@ -74,3 +74,5 @@ layout qwerty_lafayette                   | -KB_LAYOUT_ERGOL +KB_LAYOUT_QWERTY_L
 layout azerty                             | -KB_LAYOUT_ERGOL +KB_LAYOUT_AZERTY
 layout erglace                            | -KB_LAYOUT_ERGOL +KB_LAYOUT_ERGLACE
 layout bepo                               | -KB_LAYOUT_ERGOL +KB_LAYOUT_BEPO
+layout bepolar                            | -KB_LAYOUT_ERGOL +KB_LAYOUT_BEPOLAR
+layout dvorak                             | -KB_LAYOUT_ERGOL +KB_LAYOUT_DVORAK

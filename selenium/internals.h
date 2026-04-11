@@ -14,6 +14,8 @@
 #    define AS_MONEY ALGR(KC_E) // € on AZERTY
 #elif defined KB_LAYOUT_BEPO
 #    define AS_MONEY BP_EURO // € on Bepo
+#elif defined KB_LAYOUT_BEPOLAR
+#    define AS_MONEY S(KC_BSLS) // € on Bepolar
 #else
 #    define AS_MONEY AS(DLR) // $ on QWERTY/Lafayette
 #endif

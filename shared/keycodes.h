@@ -46,6 +46,9 @@
 #    define SHIFTED_NUMBERS
 #    include "keymap_bepo.h"
 #    define TILDE_SEQUENCE tap_code16(BP_TILD); tap_code(KC_SPC)
+#elif defined KB_LAYOUT_BEPOLAR
+#    define AS(stripped_keycode) BL_##stripped_keycode
+#    include "keymap_bepolar.h"
 #elif defined KB_LAYOUT_DVORAK
 #    define AS(stripped_keycode) DV_##stripped_keycode
 #    include "keymap_dvorak.h"

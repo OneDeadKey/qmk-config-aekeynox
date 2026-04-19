@@ -14,10 +14,10 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
-log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-log_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $1" >&2; }
+log_info()    { echo -e "${BLUE}[INFO]${NC} $1"    >&2; }
+log_warn()    { echo -e "${YELLOW}[WARN]${NC} $1"  >&2; }
+log_success() { echo -e "${GREEN}[SUCCESS]${NC} $1" >&2; }
+log_error()   { echo -e "${RED}[ERROR]${NC} $1"    >&2; }
 
 # Resolve the directory where this script lives
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -163,8 +163,9 @@ detect_layout_name() {
     fi
 
     # Warn (don't fail) if the resolved layout has no matching branch in shared/layouts.h.
+    # Branches may use either `#elif defined FOO` (space) or `#elif defined(FOO)` (paren, for OR-guards).
     # Compilation would later fail at the '#error "Arsenik: Unknown layout"' fallthrough.
-    if ! grep -q "defined $layout\b" "$SCRIPT_DIR/shared/layouts.h" 2>/dev/null; then
+    if ! grep -Eq "defined[[:space:](]+$layout\b" "$SCRIPT_DIR/shared/layouts.h" 2>/dev/null; then
         log_warn "Layout ${CYAN}$layout${NC} has no branch in shared/layouts.h — compile will fail unless you add one."
     fi
 
@@ -238,6 +239,7 @@ if [ "$copy_keymap" = true ]; then
         rm -rf "$dest_dir"
     fi
     log_info "Copying ${CYAN}$output_dir${NC} to ${CYAN}$dest_dir${NC} ..."
+    mkdir -p "$(dirname "$dest_dir")"
     rsync -a "$output_dir/" "$dest_dir"
     log_success "Copied keymap to ${CYAN}$dest_dir${NC}"
     log_info "Finally, you may want to :"

@@ -172,6 +172,7 @@ The keymaps use a `ONEDEADKEY_LAYOUT` macro that adapts automatically to differe
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT` on Lily58 (all variants: `rev1`, `light`, `lite_rev3`, `glow_enc`, `r2g` — see below)
+- `LAYOUT` on Sofle (all variants: `sofle/rev1`, `sofle/keyhive`, `sofle_choc`, `sofle_pico`, `splitkb/aurora/sofle_v2`, `mechboards/sofle/pro`, `keebart/sofle_choc_pro` — see below)
 
 If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
 
@@ -187,6 +188,21 @@ Lily58 has **4 keys beyond** the 42-key Selenium/Arsenik spec: 1 inner-corner ke
 ```
 
 **Selenium caveat:** Selenium is a 42-key spec, so logical row 1 (the top row) is transparent on every layer. On Lily58 with Selenium, the physical number row emits nothing until you edit `selenium/keymap.c` row 1 locally. **Arsenik is unaffected** — its base layer uses the top row for numbers natively.
+
+### Sofle (60 keys, Lily58 + 1 extra outermost thumb per side)
+
+Sofle adds **2 more keys** to the Lily58 layout — an extra outermost thumb per side (matrix `[4,0]` left, `[9,0]` right). On most Sofle builds, that position is a rotary encoder press.
+
+Everything from the Lily58 section applies, plus two more override slots:
+
+```c
+#define ODK_EXT_THUMB_FAR_L KC_MUTE  // left  outermost thumb (encoder press)
+#define ODK_EXT_THUMB_FAR_R KC_MPLY  // right outermost thumb (encoder press)
+```
+
+The same Selenium top-row caveat applies.
+
+**Note for `keebart/sofle_choc_pro` users:** that board exposes `LAYOUT_split_4x6_5` (a community layout name) rather than a Sofle-specific one. Auto-detection would produce `ONEDEADKEY_LAYOUT_split_4x6_5`, which is intentionally not matched (the community name has a different meaning on other keyboards). Generate with `-layout LAYOUT_sofle` to force the Sofle branch.
 
 ### Inner-column extensions (`_ex2` layouts)
 

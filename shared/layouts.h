@@ -3,7 +3,37 @@
 #pragma once
 
 // ╭─────────────────────────────────────────────────────────╮
-// │                 QMK layouts definitions                 │
+// │          Keymap facades over ONEDEADKEY_LAYOUT          │
+// ╰─────────────────────────────────────────────────────────╯
+
+#define ARSENIK_LAYOUT(\
+    k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
+    k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
+    k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
+    k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
+                   k51, k52, k53,     k54, k55, k56\
+) ONEDEADKEY_LAYOUT(\
+    k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
+    k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
+    k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
+    k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
+                   k51, k52, k53,     k54, k55, k56)
+
+// Row 1 is not part of Selenium's 42-key spec; the facade fills its 12 slots with `__`.
+#define SELENIUM_LAYOUT(\
+    LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+    LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+    LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                     LT1, LT2, LT3,     RT3, RT2, RT1\
+) ONEDEADKEY_LAYOUT(\
+    __,    __,  __,  __,  __,  __,      __,  __,  __,  __,  __,  __,\
+    LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+    LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+    LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                     LT1, LT2, LT3,     RT3, RT2, RT1)
+
+// ╭─────────────────────────────────────────────────────────╮
+// │     Physical descriptors — ONEDEADKEY_LAYOUT per board  │
 // ╰─────────────────────────────────────────────────────────╯
 
 //  ──────────────────────────< Generic layouts >──────────────────────────

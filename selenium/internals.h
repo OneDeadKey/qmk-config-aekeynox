@@ -185,6 +185,15 @@
 
 #endif
 
+// _nav_num layer thumb cluster
+#ifdef HT_TWO_THUMB_KEYS
+#    define NAV_LTHUMB_TUCK  S(KC_TAB)
+#    define NAV_LTHUMB_REACH __
+#else
+#    define NAV_LTHUMB_TUCK  KC_CAPS
+#    define NAV_LTHUMB_REACH S(KC_TAB)
+#endif
+
 // ╭─────────────────────────────────────────────────────────╮
 // │       Outer column keys (42-key boards only)            │
 // ╰─────────────────────────────────────────────────────────╯

@@ -346,6 +346,44 @@
         ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L, k51, k52, k53,     k54, k55, k56, ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R\
     )
 
+#elif defined(ONEDEADKEY_LAYOUT_keyboardio_atreus)
+#ifndef ODK_EXT_INNER_L
+#    define ODK_EXT_INNER_L KC_NO
+#endif
+#ifndef ODK_EXT_INNER_R
+#    define ODK_EXT_INNER_R KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_L
+#    define ODK_EXT_THUMB_OUT_L KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_R
+#    define ODK_EXT_THUMB_OUT_R KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_FAR_L
+#    define ODK_EXT_THUMB_FAR_L KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_FAR_R
+#    define ODK_EXT_THUMB_FAR_R KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_FAR_EXT_L
+#    define ODK_EXT_THUMB_FAR_EXT_L KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_FAR_EXT_R
+#    define ODK_EXT_THUMB_FAR_EXT_R KC_NO
+#endif
+#define ONEDEADKEY_LAYOUT(\
+        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
+        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
+        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
+        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
+                       k51, k52, k53,     k54, k55, k56\
+    ) LAYOUT(\
+        k22, k23, k24, k25, k26,                                   k27, k28, k29, k2a, k2b,\
+        k32, k33, k34, k35, k36,                                   k37, k38, k39, k3a, k3b,\
+        k42, k43, k44, k45, k46, ODK_EXT_INNER_L, ODK_EXT_INNER_R, k47, k48, k49, k4a, k4b,\
+        ODK_EXT_THUMB_FAR_EXT_L, ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L, k51, k52, k53, k54, k55, k56, ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R, ODK_EXT_THUMB_FAR_EXT_R\
+    )
+
 #else
 #    error "Arsenik: Unknown layout"
 #endif

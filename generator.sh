@@ -97,20 +97,26 @@ if [ -z "$keyboard_model" ] || { [ -z "$keymap" ] && [ -z "$layout_override" ]; 
     qmk config || true
 fi
 
+# Recent milc versions (qmk's CLI framework) annotate values with a trailing
+# provenance marker like " (config)", " (env)", " (default)"; strip any such suffix.
+qmk_config_value() {
+    qmk config "$1" | awk -F= '{print $2}' | sed -E 's/ \([a-z_]+\)$//' | xargs
+}
+
 # If keyboard_model is empty, get from qmk config
 if [ -z "$keyboard_model" ]; then
-    keyboard_model=$(qmk config user.keyboard | awk -F= '{print $2}' | xargs)
+    keyboard_model=$(qmk_config_value user.keyboard)
     log_info "No keyboard_model provided with '-kb' argument, using value from qmk config: ${CYAN}$keyboard_model${NC}"
 fi
 # -km is only needed when the layout must be auto-detected from a reference keymap
 if [ -z "$keymap" ] && [ -z "$layout_override" ]; then
-    keymap=$(qmk config user.keymap | awk -F= '{print $2}' | xargs)
+    keymap=$(qmk_config_value user.keymap)
     log_info "No keymap provided with '-km' argument, using value from qmk config: ${CYAN}$keymap${NC}"
 fi
 
 # Set QMK_HOME if not already set
 if [ -z "${QMK_HOME+x}" ]; then
-    QMK_HOME=$(qmk config user.qmk_home | awk -F= '{print $2}' | xargs | envsubst)
+    QMK_HOME=$(qmk_config_value user.qmk_home | envsubst)
 fi
 
 # Find the keymaps folder for a given keyboard name

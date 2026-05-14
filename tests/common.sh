@@ -26,6 +26,12 @@ log_fail()    { echo -e "${RED}[FAIL]${NC} $1"; FAIL=$((FAIL + 1)); FAILED_TESTS
 log_skip()    { echo -e "${YELLOW}[SKIP]${NC} $1"; SKIP=$((SKIP + 1)); }
 log_section() { echo -e "\n${CYAN}═══ $1 ═══${NC}"; }
 
+# Recent milc versions (qmk's CLI framework) annotate values with a trailing
+# provenance marker like " (config)", " (env)", " (default)"; strip any such suffix.
+qmk_config_value() {
+    qmk config "$1" | awk -F= '{print $2}' | sed -E 's/ \([a-z_]+\)$//' | xargs
+}
+
 # ─────────────────────────────────────────────────────────────
 # Environment setup
 # ─────────────────────────────────────────────────────────────
@@ -35,11 +41,11 @@ setup_env() {
     JOBS="${JOBS:-0}"
 
     if [ -z "$KEYBOARD" ]; then
-        KEYBOARD=$(qmk config user.keyboard | awk -F= '{print $2}' | xargs)
+        KEYBOARD=$(qmk_config_value user.keyboard)
     fi
 
     if [ -z "${QMK_HOME+x}" ]; then
-        QMK_HOME=$(qmk config user.qmk_home | awk -F= '{print $2}' | xargs)
+        QMK_HOME=$(qmk_config_value user.qmk_home)
         # Expand $HOME if envsubst is available, otherwise use eval
         if command -v envsubst > /dev/null 2>&1; then
             QMK_HOME=$(echo "$QMK_HOME" | envsubst)

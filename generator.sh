@@ -116,7 +116,10 @@ fi
 
 # Set QMK_HOME if not already set
 if [ -z "${QMK_HOME+x}" ]; then
-    QMK_HOME=$(qmk_config_value user.qmk_home | envsubst)
+    # Mirror qmk's own expansion: literal $HOME or leading ~ → absolute path.
+    QMK_HOME=$(qmk_config_value user.qmk_home)
+    QMK_HOME="${QMK_HOME//\$HOME/$HOME}"
+    QMK_HOME="${QMK_HOME/#\~/$HOME}"
 fi
 
 # Find the keymaps folder for a given keyboard name

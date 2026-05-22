@@ -320,7 +320,7 @@ if [ "$copy_keymap" = true ]; then
     mkdir -p "$dest_dir"
     cp -R "$output_dir/." "$dest_dir/"
     log_success "Copied keymap to ${CYAN}$dest_dir${NC}"
-    log_info "Finally, you may want to :"
+    log_info "Finally, you may want to:"
     log_info "    qmk compile -kb $keyboard_model -km $target_name    # compile the keymap"
     log_info "    # connect the keyboard"
     log_info "    qmk flash -kb $keyboard_model -km $target_name      # flash the keyboard"

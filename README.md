@@ -61,6 +61,8 @@ Each option is documented with inline comments. Edit this file **before** genera
 
 The defaults work out of the box — you can skip this step and come back later.
 
+> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
+
 ### 5. Generate the keymap and copy it to QMK
 
 Run the generator to build your keymap. The `--copy` flag installs it into
@@ -131,73 +133,23 @@ After setting, run `qmk config` and verify the value resolves to an absolute pat
 
 ### Supported keyboards
 
-The following physical layouts are supported:
+Any QMK keyboard with a compatible physical layout works:
 
-- `LAYOUT_split_3x5_2`
-- `LAYOUT_split_3x5_3`
-- `LAYOUT_split_3x5_3_ex2` (4 extra inner-column keys — see below)
-- `LAYOUT_split_3x6_3`
-- `LAYOUT_split_3x6_3_ex2` (4 extra inner-column keys — see below)
-- `LAYOUT_ortho_4x10`
-- `LAYOUT_ortho_4x12`
-- `LAYOUT_ortho_5x10`
-- `LAYOUT_ortho_5x12`
-- `LAYOUT_planck_grid`
-- `LAYOUT_keebio_iris`
-- `LAYOUT` on Lily58 (all variants: `rev1`, `light`, `lite_rev3`, `glow_enc`, `r2g` — see below)
-- `LAYOUT` on Sofle (all variants: `sofle/rev1`, `sofle/keyhive`, `sofle_choc`, `sofle_pico`, `splitkb/aurora/sofle_v2`, `mechboards/sofle/pro`, `keebart/sofle_choc_pro` — see below)
+- 32-key splits (3×5, 2 thumbs)
+- 36-key splits (3×5, 3 thumbs) — Ferris, Corne (3×5)
+- 40-key splits, inner column — cornifi → see [docs](docs/supported_keyboards.md#inner-column-extensions-_ex2-layouts)
+- 42-key splits (3×6, 3 thumbs) — Corne (crkbd), Piantor
+- 46-key splits, inner column — Corne v4 → see [docs](docs/supported_keyboards.md#inner-column-extensions-_ex2-layouts)
+- 40-key ortho (4×10)
+- 48-key ortho (4×12) — Planck (incl. grid), Preonic-likes
+- 50-key ortho (5×10)
+- 60-key ortho (5×12)
+- Iris (keebio)
+- Atreus (keyboardio) → see [docs](docs/supported_keyboards.md#atreus)
+- Lily58 (all revs) → see [docs](docs/supported_keyboards.md#lily58)
+- Sofle (all revs incl. `keebart/sofle_choc_pro`) → see [docs](docs/supported_keyboards.md#sofle)
 
 If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
-
-#### Lily58 (58 keys, 5 rows + 4 thumbs per side)
-
-Lily58 has **4 keys beyond** the 42-key Selenium/Arsenik spec: 1 inner-corner key per side (below the home row) and 1 extra outermost thumb per side.
-They default to `KC_NO` (inert). Override in your keymap's `options.h`:
-
-```c
-#define ODK_EXT_INNER_L     KC_LBRC  // left  inner corner
-#define ODK_EXT_INNER_R     KC_RBRC  // right inner corner
-#define ODK_EXT_THUMB_OUT_L KC_LCTL  // left  outermost thumb
-#define ODK_EXT_THUMB_OUT_R KC_RCTL  // right outermost thumb
-```
-
-**Selenium caveat:** Selenium is a 42-key spec, so logical row 1 (the top row) is transparent on every layer.
-On Lily58 with Selenium, the physical number row emits nothing until you edit `selenium/keymap.c` row 1 locally.
-**Arsenik is unaffected** — its base layer uses the top row for numbers natively.
-
-#### Sofle (60 keys, Lily58 + 1 extra outermost thumb per side)
-
-Sofle adds **2 more keys** to the Lily58 layout — an extra outermost thumb per side (matrix `[4,0]` left, `[9,0]` right).
-On most Sofle builds, that position is a rotary encoder press.
-
-Everything from the Lily58 section applies, plus two more override slots:
-
-```c
-#define ODK_EXT_THUMB_FAR_L KC_MUTE  // left  outermost thumb (encoder press)
-#define ODK_EXT_THUMB_FAR_R KC_MPLY  // right outermost thumb (encoder press)
-```
-
-The same Selenium top-row caveat applies.
-
-**Note for `keebart/sofle_choc_pro` users:** that board exposes `LAYOUT_split_4x6_5` (a community layout name) rather than a Sofle-specific one.
-Auto-detection would produce `ONEDEADKEY_LAYOUT_split_4x6_5`, which is intentionally not matched (the community name has a different meaning on other keyboards).
-Generate with `-layout LAYOUT_sofle` to force the Sofle layout.
-
-#### Inner-column extensions (`_ex2` layouts)
-
-Boards like the Corne v4 expose an `_ex2` variant with **4 extra physical keys** — 2 per side, stacked as a short inner column on the top and middle rows.
-These keys are outside the Selenium/Arsenik spec, so they default to `KC_NO` (inert).
-
-To bind them, add to your keymap's `options.h` before generating:
-
-```c
-#define ODK_EXT_LT KC_TAB   // left  inner-top
-#define ODK_EXT_LB KC_LCTL  // left  inner-middle
-#define ODK_EXT_RT KC_BSPC  // right inner-top
-#define ODK_EXT_RB KC_RSFT  // right inner-middle
-```
-
-The bound keycode is the same across all layers.
 
 ### Generator options
 

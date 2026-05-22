@@ -3,7 +3,10 @@
 # Run all compile tests: per-option → exhaustive
 #
 # Usage:
-#   ./run_all.sh [-kb <keyboard>] [-target <target>] [-j <jobs>]
+#   ./run_all.sh [-kb <keyboard>] [-target <target>] [-layout <LAYOUT>] [-j <jobs>]
+#
+# -layout is required for multi-layout boards (e.g. crkbd/rev1, beekeeb/piantor)
+# because the generator refuses to guess in non-interactive contexts.
 
 set -euo pipefail
 

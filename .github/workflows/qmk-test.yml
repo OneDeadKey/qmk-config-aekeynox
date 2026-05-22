@@ -27,6 +27,7 @@ jobs:
           . $GITHUB_WORKSPACE/.env
           echo "QMK_VERSION=$QMK_VERSION" >> $GITHUB_ENV
           echo "QMK_KEYBOARD=$QMK_KEYBOARD" >> $GITHUB_ENV
+          echo "QMK_LAYOUT=$QMK_LAYOUT" >> $GITHUB_ENV
 
       - name: Setup QMK firmware
         run: qmk setup -y -b $QMK_VERSION
@@ -38,7 +39,7 @@ jobs:
           qmk config user.qmk_home=$QMK_HOME
 
       - name: Compile per-option tests
-        run: bash $GITHUB_WORKSPACE/tests/test_per_option.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -j 0
+        run: bash $GITHUB_WORKSPACE/tests/test_per_option.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -layout $QMK_LAYOUT -j 0
 
   compile-exhaustive:
     name: Compile exhaustive (${{ matrix.target }})
@@ -60,6 +61,7 @@ jobs:
           . $GITHUB_WORKSPACE/.env
           echo "QMK_VERSION=$QMK_VERSION" >> $GITHUB_ENV
           echo "QMK_KEYBOARD=$QMK_KEYBOARD" >> $GITHUB_ENV
+          echo "QMK_LAYOUT=$QMK_LAYOUT" >> $GITHUB_ENV
 
       - name: Setup QMK firmware
         run: qmk setup -y -b $QMK_VERSION
@@ -71,4 +73,4 @@ jobs:
           qmk config user.qmk_home=$QMK_HOME
 
       - name: Compile exhaustive tests
-        run: bash $GITHUB_WORKSPACE/tests/test_exhaustive.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -j 0
+        run: bash $GITHUB_WORKSPACE/tests/test_exhaustive.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -layout $QMK_LAYOUT -j 0

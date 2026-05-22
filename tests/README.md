@@ -28,6 +28,10 @@ bash tests/test_exhaustive.sh -target selenium
 
 # Override keyboard and parallel jobs
 bash tests/test_per_option.sh -kb beekeeb/piantor -j 4
+
+# Multi-layout boards require -layout (the generator refuses to guess in
+# non-interactive contexts)
+bash tests/test_per_option.sh -kb crkbd/rev1 -layout LAYOUT_split_3x6_3
 ```
 
 ## Running tests in Docker

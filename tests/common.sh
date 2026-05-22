@@ -77,9 +77,13 @@ _generate_and_install() {
     local output_dir="$REPO_DIR/output/$KEYBOARD/keymaps/$KEYMAP_NAME"
     local dest_dir="$QMK_HOME/keyboards/$KEYBOARD/keymaps/$KEYMAP_NAME"
 
-    # Generate (generator outputs relative to cwd, so run from REPO_DIR)
+    # Generate (generator outputs relative to cwd, so run from REPO_DIR).
+    # Forward -layout when set — required for multi-layout boards in non-
+    # interactive mode (the generator refuses to guess without a TTY).
+    local layout_arg=()
+    [ -n "${LAYOUT_OVERRIDE:-}" ] && layout_arg=(-layout "$LAYOUT_OVERRIDE")
     rm -rf "$output_dir" "$gen_dir"
-    (cd "$REPO_DIR" && bash generator.sh -src "./$target" -kb "$KEYBOARD" > /dev/null 2>&1)
+    (cd "$REPO_DIR" && bash generator.sh -src "./$target" -kb "$KEYBOARD" "${layout_arg[@]}" > /dev/null 2>&1)
     mv "$gen_dir" "$output_dir"
 
     # Patch options.h

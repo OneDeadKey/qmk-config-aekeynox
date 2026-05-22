@@ -13,11 +13,13 @@ TESTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$TESTS_DIR/common.sh"
 
 # CLI — accept the superset of flags used across the test suite so run_all.sh
-# can forward "$@" uniformly. -target and -j are irrelevant here and ignored.
+# can forward "$@" uniformly. -target, -layout and -j are irrelevant here
+# (each test below passes its own -layout explicitly) and ignored.
 while [ "$#" -gt 0 ]; do
     case "$1" in
         -kb)     shift; KEYBOARD="$1" ;;
         -target) shift ;;  # accepted for parity, unused
+        -layout) shift ;;  # accepted for parity, unused
         -j)      shift ;;  # accepted for parity, unused
         *)       echo "Usage: $0 [-kb <keyboard>]"; exit 1 ;;
     esac
@@ -57,27 +59,19 @@ _run_layout_test "bare form (split_3x6_3)"                    "split_3x6_3"
 _run_layout_test "LAYOUT_ prefix (LAYOUT_split_3x6_3)"        "LAYOUT_split_3x6_3"
 _run_layout_test "full prefix (ONEDEADKEY_LAYOUT_split_3x6_3)" "ONEDEADKEY_LAYOUT_split_3x6_3"
 
-# Unknown-layout path: generator must emit a WARN to stdout/stderr but still succeed.
-# (Compile would later fail at the '#error' fallthrough in shared/layouts.h.)
+# Unknown-layout path: generator must fail-fast (exit non-zero) with a clear
+# error message and must not produce config.h.
 rm -rf "$OUTPUT_DIR"
-warn_output=$(cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_does_not_exist" 2>&1)
-if echo "$warn_output" | grep -q "has no branch in shared/layouts.h"; then
-    log_pass "unknown layout emits warning"
+err_output=$(cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_does_not_exist" 2>&1)
+err_status=$?
+if [ "$err_status" -eq 0 ]; then
+    log_fail "unknown layout fails fast (generator exited 0, expected non-zero)"
+elif ! echo "$err_output" | grep -q "is not supported by shared/layouts.h"; then
+    log_fail "unknown layout fails fast (expected 'is not supported' in error output)"
+elif [ -f "$OUTPUT_DIR/config.h" ]; then
+    log_fail "unknown layout fails fast (config.h was written despite the error)"
 else
-    log_fail "unknown layout emits warning (expected WARN in output)"
-fi
-
-# -layout should work without -km and without qmk config user.keymap.
-# Clear QMK_CONFIG's user.keymap in a subshell-safe way by pointing HOME elsewhere.
-rm -rf "$OUTPUT_DIR"
-if (cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_split_3x6_3" > /dev/null 2>&1); then
-    if grep -qF "$EXPECTED_DEFINE" "$OUTPUT_DIR/config.h" 2>/dev/null; then
-        log_pass "-layout works without -km"
-    else
-        log_fail "-layout works without -km (expected define missing)"
-    fi
-else
-    log_fail "-layout works without -km (generator exited non-zero)"
+    log_pass "unknown layout fails fast"
 fi
 
 rm -rf "$OUTPUT_DIR"

@@ -151,6 +151,21 @@ Any QMK keyboard with a compatible physical layout works:
 
 If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
 
+#### Boards not in mainline QMK
+
+Keyboards missing from mainline QMK may still be supported by a fork. The setup is fork-specific; the Keebart fork below is a worked example.
+
+[`vial-kb/vial-qmk`](https://github.com/vial-kb/vial-qmk) is another fork worth checking — it adds ~150 boards. Layout-compatible candidates include `bastardkb/charybdis` (3×5/3×6 variants), `beekeeb/piantor` controller variants, and Lily58-shaped boards. None tested from this repo.
+
+##### Keebart fork
+
+[`Keebart/vial-qmk-keebart`](https://github.com/Keebart/vial-qmk-keebart) carries Keebart's own product line:
+
+- Corne Choc Pro
+- Corne MX Pro
+
+See [`docs/keebart_keyboards.md`](docs/keebart_keyboards.md) for the setup recipe and per-variant build targets.
+
 ### Generator options
 
 ```bash

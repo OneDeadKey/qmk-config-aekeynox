@@ -385,5 +385,5 @@
     )
 
 #else
-#    error "Arsenik: Unknown layout"
+#    error "Your keyboard appears unsupported — open an issue on GitHub to propose an implementation or ask the team for support."
 #endif

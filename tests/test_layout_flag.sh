@@ -29,7 +29,7 @@ setup_env
 log_section "generator.sh — -layout flag"
 
 TARGET="selenium"
-OUTPUT_DIR="$QMK_DIR/output/$KEYBOARD/keymaps/$TARGET"
+OUTPUT_DIR="$REPO_DIR/output/$KEYBOARD/keymaps/$TARGET"
 EXPECTED_DEFINE="#define ONEDEADKEY_LAYOUT_split_3x6_3"
 
 # Run the generator with a -layout argument and assert the generated
@@ -41,7 +41,7 @@ _run_layout_test() {
     local expected="${3:-$EXPECTED_DEFINE}"
 
     rm -rf "$OUTPUT_DIR"
-    if ! (cd "$QMK_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "$layout_arg" > /dev/null 2>&1); then
+    if ! (cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "$layout_arg" > /dev/null 2>&1); then
         log_fail "$name (generator exited non-zero)"
         return
     fi
@@ -60,7 +60,7 @@ _run_layout_test "full prefix (ONEDEADKEY_LAYOUT_split_3x6_3)" "ONEDEADKEY_LAYOU
 # Unknown-layout path: generator must emit a WARN to stdout/stderr but still succeed.
 # (Compile would later fail at the '#error' fallthrough in shared/layouts.h.)
 rm -rf "$OUTPUT_DIR"
-warn_output=$(cd "$QMK_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_does_not_exist" 2>&1)
+warn_output=$(cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_does_not_exist" 2>&1)
 if echo "$warn_output" | grep -q "has no branch in shared/layouts.h"; then
     log_pass "unknown layout emits warning"
 else
@@ -70,7 +70,7 @@ fi
 # -layout should work without -km and without qmk config user.keymap.
 # Clear QMK_CONFIG's user.keymap in a subshell-safe way by pointing HOME elsewhere.
 rm -rf "$OUTPUT_DIR"
-if (cd "$QMK_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_split_3x6_3" > /dev/null 2>&1); then
+if (cd "$REPO_DIR" && bash generator.sh -src "./$TARGET" -kb "$KEYBOARD" -layout "LAYOUT_split_3x6_3" > /dev/null 2>&1); then
     if grep -qF "$EXPECTED_DEFINE" "$OUTPUT_DIR/config.h" 2>/dev/null; then
         log_pass "-layout works without -km"
     else

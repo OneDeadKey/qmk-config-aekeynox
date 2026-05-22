@@ -4,7 +4,7 @@
 # Source this file from test scripts.
 
 TESTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-QMK_DIR="$(cd "$TESTS_DIR/.." && pwd)"
+REPO_DIR="$(cd "$TESTS_DIR/.." && pwd)"
 
 # Colors
 RED='\033[0;31m'
@@ -73,13 +73,13 @@ _generate_and_install() {
     local sed_exprs=("$@")
 
     KEYMAP_NAME="test_${target}"
-    local gen_dir="$QMK_DIR/output/$KEYBOARD/keymaps/$target"
-    local output_dir="$QMK_DIR/output/$KEYBOARD/keymaps/$KEYMAP_NAME"
+    local gen_dir="$REPO_DIR/output/$KEYBOARD/keymaps/$target"
+    local output_dir="$REPO_DIR/output/$KEYBOARD/keymaps/$KEYMAP_NAME"
     local dest_dir="$QMK_HOME/keyboards/$KEYBOARD/keymaps/$KEYMAP_NAME"
 
-    # Generate (generator outputs relative to cwd, so run from QMK_DIR)
+    # Generate (generator outputs relative to cwd, so run from REPO_DIR)
     rm -rf "$output_dir" "$gen_dir"
-    (cd "$QMK_DIR" && bash generator.sh -src "./$target" -kb "$KEYBOARD" > /dev/null 2>&1)
+    (cd "$REPO_DIR" && bash generator.sh -src "./$target" -kb "$KEYBOARD" > /dev/null 2>&1)
     mv "$gen_dir" "$output_dir"
 
     # Patch options.h
@@ -96,7 +96,7 @@ _generate_and_install() {
 # Cleanup generated and installed files
 _cleanup() {
     local target="$1"
-    local output_dir="$QMK_DIR/output/$KEYBOARD/keymaps/test_${target}"
+    local output_dir="$REPO_DIR/output/$KEYBOARD/keymaps/test_${target}"
     local dest_dir="$QMK_HOME/keyboards/$KEYBOARD/keymaps/test_${target}"
     rm -rf "$dest_dir" "$output_dir"
 }

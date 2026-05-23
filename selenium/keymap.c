@@ -229,10 +229,10 @@ static inline bool tap_keycode_is_tap_preferred(uint16_t keycode) {
     // Remove "quantum" part of the keycode to get the action on tap.
     const uint16_t tap_keycode = keycode & 0xff;
 
-    // Letters, numbers, KC_NO, Space — text-producing keys on base layer HRMs
+    // Letters, numbers, KC_NO, Space, punctuation — text-producing keys on base layer HRMs
     // and Space thumb. KC_NO is included because it is used as a placeholder
     // for complex tap actions.
-    if (tap_keycode <= KC_0 || tap_keycode == KC_SPACE) return true;
+    if (tap_keycode <= KC_0 || (tap_keycode >= KC_SPACE && tap_keycode <= KC_SLASH)) return true;
 
     // Media/system keys used as HRM taps on the function layer.
     // ZMK uses &hrm (tap-preferred, 300ms) for these positions.

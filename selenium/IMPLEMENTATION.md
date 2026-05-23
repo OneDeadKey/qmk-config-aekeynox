@@ -41,7 +41,7 @@ QMK natively provides one global `TAPPING_TERM` plus optional per-key callback f
 
 The split is driven by `tap_keycode_is_tap_preferred()` (Selenium QMK helper), which returns `true` for keycodes that correspond to Selenium ZMK's `&hrm`/`&lt` behaviors:
 
-- Letters, numbers, `KC_NO`, `KC_SPACE` — text-producing keys on base layer HRMs and Space thumb
+- Letters, numbers, `KC_NO`, `KC_SPACE`, punctuation — text-producing keys on base layer HRMs and Space thumb
 - `KC_MPLY`, `KC_MUTE`, `KC_PSCR` — media/system keys used as HRM taps on the function layer (Selenium ZMK uses `&hrm` for these)
 
 The result:

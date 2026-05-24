@@ -161,10 +161,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENABLE_MOD_HOLD_NAVIGATION
     switch (keycode) {
         case KC_FF:
-          if (!record->event.pressed && mhn_alt_held) {
-            return false;
-          }
-          return true;
+            if (!record->event.pressed && mhn_alt_held) {
+                return false;
+            }
+            return true;
         case LTHUMB_HOME:
             if (record->event.pressed && (get_mods() & MOD_BIT(_ALT)) != 0) {
                 mhn_alt_held = true;

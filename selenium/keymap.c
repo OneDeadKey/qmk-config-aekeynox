@@ -216,32 +216,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Determines whether a hold-tap key should use tap-preferred behavior (300ms,
-// no hold_on_other_key_press) or hold-preferred behavior (150ms, immediate hold
-// on other key press). This maps ZMK's per-behavior split onto QMK's per-key
-// callbacks:
-//   - true  → ZMK &hrm / &lt  (tap-preferred, TAPPING_TERM = 300ms)
-//   - false → ZMK &sc  / &mt  (hold-preferred, SHORT_TAPPING_TERM = 150ms)
+// Returns whether a hold-tap keycode should resolve as tap-preferred:
+//  - true  → long tapping term (HRM_TAPPING_TERM), no hold-on-other-key-press
+//  - false → short tapping term (TAPPING_TERM), hold-on-other-key-press
+//
+// The aekeynox/selenium spec splits hold-taps into two groups:
+//   - HRMs and the Space layer-tap fire constantly inside normal
+//     typing flow; rolling onto the next key must never be misread as a
+//     hold. They favor tap.
+//   - Layer-taps on non-text thumb keys (Enter, Escape, Backspace, Tab)
+//     are pressed in chord with the next key. They favor hold.
+//
+// The enumerated keycodes below are the tap-targets of every key in the
+// first group.
 static inline bool tap_keycode_is_tap_preferred(uint16_t keycode) {
-    // Custom keycodes use their own logic (e.g. LSK_RALT)
+    // Custom keycodes (LSK_RALT, …) carry their own hold/tap logic.
     if (keycode >= SAFE_RANGE) return false;
 
-    // Remove "quantum" part of the keycode to get the action on tap.
+    // Strip the modifier/layer bits to recover the underlying tap keycode.
     const uint16_t tap_keycode = keycode & 0xff;
 
-    // Letters, numbers, KC_NO, Space — text-producing keys on base layer HRMs
-    // and Space thumb. KC_NO is included because it is used as a placeholder
-    // for complex tap actions.
-    if (tap_keycode <= KC_0 || tap_keycode == KC_SPACE) return true;
-
-    // Media/system keys used as HRM taps on the function layer.
-    // ZMK uses &hrm (tap-preferred, 300ms) for these positions.
     switch (tap_keycode) {
+        // Space thumb LT
+        case KC_SPACE:
+
+        // base-layer HRMs
+        case KC_S:
+        case KC_D:
+        case KC_F:
+        case KC_J:
+        case KC_K:
+        case KC_L:
+
+        // placeholder used by HRMs whose tap is a complex action
+        case KC_NO:
+
+        // function-layer media HRMs
         case KC_MPLY:
         case KC_MUTE:
-        case KC_PSCR: return true;
+        case KC_PSCR:
+
+#ifdef HRM_SHIFT
+        // pinky HRMs (HRM_SHIFT)
+        case KC_A:
+        case KC_SCLN:
+#endif
+
+            // tap-preferred
+            return true;
     }
 
+    // hold-preferred
     return false;
 }
 

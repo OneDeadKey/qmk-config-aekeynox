@@ -142,22 +142,11 @@ static void vim_next_action(void) {
 }
 
 #ifdef ENABLE_MOD_HOLD_NAVIGATION
-// The left-thumb LT keycode depends on LEFT_HAND_SPACE; the right thumb always
-// resolves to a different keycode (either via a different tap code or a
-// different target layer), so matching on the left-thumb keycode is unambiguous.
-#    ifdef LEFT_HAND_SPACE
-#        define MHN_LEFT_LT LT(_SE_NAV, KC_SPC)
-#    else
-#        define MHN_LEFT_LT LT(_SE_NAV, KC_BSPC)
-#    endif
-
-static bool mhn_left_thumb_pressed = false;
 static bool mhn_alt_held = false;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (mhn_left_thumb_pressed && !mhn_alt_held && IS_LAYER_ON_STATE(state, _SE_NAV)) {
-        register_mods(MOD_BIT(KC_LALT));
-        mhn_alt_held = true;
+    if (mhn_alt_held && IS_LAYER_ON_STATE(state, _SE_NAV)) {
+        register_mods(MOD_BIT(_ALT));
     }
     return state;
 }
@@ -168,6 +157,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Track whether another key was pressed while LSK_RALT is held
         if (lsk_ralt_held && keycode != LSK_RALT) { lsk_ralt_used = true; }
     }
+
+#ifdef ENABLE_MOD_HOLD_NAVIGATION
+    switch (keycode) {
+        case KC_FF:
+            if (!record->event.pressed && mhn_alt_held) {
+                return false;
+            }
+            return true;
+        case LTHUMB_HOME:
+            if (record->event.pressed && (get_mods() & MOD_BIT(_ALT)) != 0) {
+                mhn_alt_held = true;
+            } else if (mhn_alt_held) {
+                unregister_mods(MOD_BIT(_ALT));
+                mhn_alt_held = false;
+            }
+            return true;
+    }
+#endif
 
     // NOTE: Insecable space (Shift+Space for Ergol) is NOT implemented.
     // The base layer space uses LT(_nav_num, KC_SPC), which shares the same
@@ -190,9 +197,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 lsk_ralt_held = true;
                 lsk_ralt_used = false;
                 return false;
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-            case MHN_LEFT_LT: mhn_left_thumb_pressed = true; return true;
-#endif
         }
     } else {
         switch (keycode) {
@@ -201,15 +205,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!lsk_ralt_used) { set_oneshot_mods(MOD_BIT(KC_RALT)); }
                 lsk_ralt_held = false;
                 return false;
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-            case MHN_LEFT_LT:
-                mhn_left_thumb_pressed = false;
-                if (mhn_alt_held) {
-                    unregister_mods(MOD_BIT(KC_LALT));
-                    mhn_alt_held = false;
-                }
-                return true;
-#endif
         }
     }
 

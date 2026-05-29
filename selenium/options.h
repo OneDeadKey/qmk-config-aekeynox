@@ -84,7 +84,9 @@
 // This enables one-handed Alt+Tab using VIM_PREV/VIM_NEXT on the vim_nav layer,
 // but may cause unwanted side effects.
 
-// #define ENABLE_MOD_HOLD_NAVIGATION
+#ifdef VIM_NAVIGATION
+// #    define ENABLE_MOD_HOLD_NAVIGATION
+#endif
 
 // Uncomment the following line to swap Space and Backspace.
 // Beware: this increases the typing load of the left thumb.

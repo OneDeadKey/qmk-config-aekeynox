@@ -142,25 +142,16 @@ static void vim_next_action(void) {
 }
 
 #ifdef ENABLE_MOD_HOLD_NAVIGATION
-// The left-thumb LT keycode depends on LEFT_HAND_SPACE; the right thumb always
-// resolves to a different keycode (either via a different tap code or a
-// different target layer), so matching on the left-thumb keycode is unambiguous.
-#    ifdef LEFT_HAND_SPACE
-#        define MHN_LEFT_LT LT(_SE_NAV, KC_SPC)
+// Mods pinned for the lifetime of the nav-layer thumb hold (0 = inactive).
+// These match VIM_PREV / VIM_NEXT's mod-morph trigger, which fires on LAlt or
+// LGUI: pin LGUI on Mac, LAlt elsewhere, so pinning actually engages the morph.
+#    ifdef MAC_MODIFIERS
+#        define MHN_MODS_TO_PIN (MOD_BIT(KC_LGUI))
 #    else
-#        define MHN_LEFT_LT LT(_SE_NAV, KC_BSPC)
+#        define MHN_MODS_TO_PIN (MOD_BIT(KC_LALT))
 #    endif
 
-static bool mhn_left_thumb_pressed = false;
-static bool mhn_alt_held = false;
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    if (mhn_left_thumb_pressed && !mhn_alt_held && IS_LAYER_ON_STATE(state, _SE_NAV)) {
-        register_mods(MOD_BIT(KC_LALT));
-        mhn_alt_held = true;
-    }
-    return state;
-}
+static uint8_t mhn_pinned_mods = 0;
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -168,6 +159,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Track whether another key was pressed while LSK_RALT is held
         if (lsk_ralt_held && keycode != LSK_RALT) { lsk_ralt_used = true; }
     }
+
+#ifdef ENABLE_MOD_HOLD_NAVIGATION
+    if (keycode == LTHUMB_HOME) {
+        if (record->event.pressed) {
+            // Pin whichever target mods are held at the instant the thumb goes down.
+            mhn_pinned_mods = get_mods() & MHN_MODS_TO_PIN;
+        } else if (mhn_pinned_mods) {
+            unregister_mods(mhn_pinned_mods);
+            mhn_pinned_mods = 0;
+        }
+    }
+#endif
 
     // NOTE: Insecable space (Shift+Space for Ergol) is NOT implemented.
     // The base layer space uses LT(_nav_num, KC_SPC), which shares the same
@@ -190,9 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 lsk_ralt_held = true;
                 lsk_ralt_used = false;
                 return false;
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-            case MHN_LEFT_LT: mhn_left_thumb_pressed = true; return true;
-#endif
         }
     } else {
         switch (keycode) {
@@ -201,20 +201,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!lsk_ralt_used) { set_oneshot_mods(MOD_BIT(KC_RALT)); }
                 lsk_ralt_held = false;
                 return false;
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-            case MHN_LEFT_LT:
-                mhn_left_thumb_pressed = false;
-                if (mhn_alt_held) {
-                    unregister_mods(MOD_BIT(KC_LALT));
-                    mhn_alt_held = false;
-                }
-                return true;
-#endif
         }
     }
 
     return true;
 }
+
+#ifdef ENABLE_MOD_HOLD_NAVIGATION
+// Runs after QMK's default processing: re-assert the pinned mods so any
+// HRM/mod-tap release during the thumb hold can't clear them before the next
+// HID report. Decoupling the pin from its source key means it survives no
+// matter which key supplied the mod (KC_FF, KC_JJ, ...) or when it is released.
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (mhn_pinned_mods) { register_mods(mhn_pinned_mods); }
+}
+#endif
 
 // Returns whether a hold-tap keycode should resolve as tap-preferred:
 //  - true  → long tapping term (HRM_TAPPING_TERM), no hold-on-other-key-press

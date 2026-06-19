@@ -68,10 +68,10 @@ ht_two_thumbs vim shift left_space        | +HT_TWO_THUMB_KEYS +VIM_NAVIGATION +
 
 # ── ENABLE_MOD_HOLD_NAVIGATION across HT modes ──────────────────────
 
-mod_hold_nav ht_none                      | +HT_NONE +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_thumb_taps                | +HT_THUMB_TAPS +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_hrm                       | +HT_HOME_ROW_MODS +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_two_thumbs                | +HT_TWO_THUMB_KEYS +ENABLE_MOD_HOLD_NAVIGATION
+mod_hold_nav ht_none vim                  | +HT_NONE +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
+mod_hold_nav ht_thumb_taps vim            | +HT_THUMB_TAPS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
+mod_hold_nav ht_hrm vim                    | +HT_HOME_ROW_MODS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
+mod_hold_nav ht_two_thumbs vim            | +HT_TWO_THUMB_KEYS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
 mod_hold_nav ht_hrm vim left_space        | +HT_HOME_ROW_MODS +ENABLE_MOD_HOLD_NAVIGATION +VIM_NAVIGATION +LEFT_HAND_SPACE
 
 # ── Layout variations ─────────────────────────────────────────────────

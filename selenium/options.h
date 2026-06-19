@@ -86,6 +86,10 @@
 
 // #define ENABLE_MOD_HOLD_NAVIGATION
 
+#if defined(ENABLE_MOD_HOLD_NAVIGATION) && !defined(VIM_NAVIGATION)
+#    error "ENABLE_MOD_HOLD_NAVIGATION requires VIM_NAVIGATION"
+#endif
+
 // Uncomment the following line to swap Space and Backspace.
 // Beware: this increases the typing load of the left thumb.
 

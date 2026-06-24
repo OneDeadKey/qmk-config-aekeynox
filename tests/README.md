@@ -23,7 +23,7 @@ bash tests/test_per_option.sh
 bash tests/test_exhaustive.sh
 
 # One layout branch (defaults compile for the given board's layout)
-bash tests/test_layouts.sh -kb planck/rev6 -layout ortho_4x12
+bash tests/test_layouts.sh -kb planck/rev5 -layout ortho_4x12
 
 # Filter by target
 bash tests/test_per_option.sh -target arsenik

@@ -51,10 +51,10 @@ jobs:
       matrix:
         target: [arsenik, selenium]
         # One (board, branch) pair per ONEDEADKEY_LAYOUT_* branch the canonical
-        # split_3x6_3 board (compile-per-option) never activates. planck/rev5
-        # exposes ortho_4x12 and the planck_grid alias; add planck_mit here when
-        # the layout lands in shared/layouts.h. All boards are AVR so the matrix
-        # needs no ARM/ChibiOS toolchain.
+        # split_3x6_3 board (compile-per-option) never activates. Each board is
+        # the smallest mainline QMK target that exposes the branch's LAYOUT
+        # macro; the ex2 boards are RP2040, the rest AVR. planck/rev5 exposes
+        # ortho_4x12, the planck_grid alias and planck_mit.
         layout:
           - { kb: planck/rev5, name: ortho_4x12 }
           - { kb: planck/rev5, name: planck_grid }
@@ -62,6 +62,13 @@ jobs:
           - { kb: 40percentclub/5x5, name: ortho_5x10 }
           - { kb: marksard/rhymestone/rev1, name: ortho_4x10 }
           - { kb: keebio/iris/rev2, name: keebio_iris }
+          - { kb: a_dux, name: split_3x5_2 }
+          - { kb: gboards/gergoplex, name: split_3x5_3 }
+          - { kb: crkbd/rev4_0/standard, name: split_3x6_3_ex2 }
+          - { kb: cornifi, name: split_3x5_3_ex2 }
+          - { kb: lily58/rev1, name: lily58 }
+          - { kb: sofle/rev1, name: sofle }
+          - { kb: keyboardio/atreus, name: keyboardio_atreus }
     steps:
       - name: Checkout
         uses: actions/checkout@v4

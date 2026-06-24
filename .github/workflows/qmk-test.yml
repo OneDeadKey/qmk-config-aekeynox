@@ -41,6 +41,48 @@ jobs:
       - name: Compile per-option tests
         run: bash $GITHUB_WORKSPACE/tests/test_per_option.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -layout $QMK_LAYOUT -j 0
 
+  compile-layouts:
+    name: Compile layout (${{ matrix.layout.name }} / ${{ matrix.target }})
+    runs-on: ubuntu-latest
+    container:
+      image: qmkfm/qmk_cli:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [arsenik, selenium]
+        # One (board, branch) pair per ONEDEADKEY_LAYOUT_* branch the canonical
+        # split_3x6_3 board (compile-per-option) never activates. planck/rev5
+        # exposes ortho_4x12 and the planck_grid alias; add planck_mit here when
+        # the layout lands in shared/layouts.h. All boards are AVR so the matrix
+        # needs no ARM/ChibiOS toolchain.
+        layout:
+          - { kb: planck/rev5, name: ortho_4x12 }
+          - { kb: planck/rev5, name: planck_grid }
+          - { kb: boardsource/5x12, name: ortho_5x12 }
+          - { kb: 40percentclub/5x5, name: ortho_5x10 }
+          - { kb: marksard/rhymestone/rev1, name: ortho_4x10 }
+          - { kb: keebio/iris/rev2, name: keebio_iris }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load config
+        run: |
+          . $GITHUB_WORKSPACE/.env
+          echo "QMK_VERSION=$QMK_VERSION" >> $GITHUB_ENV
+
+      - name: Setup QMK firmware
+        run: qmk setup -y -b $QMK_VERSION
+
+      - name: Configure QMK
+        run: |
+          qmk config user.keyboard=${{ matrix.layout.kb }}
+          qmk config user.keymap=default
+          qmk config user.qmk_home=$QMK_HOME
+
+      - name: Compile layout branch
+        run: bash $GITHUB_WORKSPACE/tests/test_layouts.sh -target ${{ matrix.target }} -kb ${{ matrix.layout.kb }} -layout ${{ matrix.layout.name }} -j 0
+
   compile-exhaustive:
     name: Compile exhaustive (${{ matrix.target }})
     needs: compile-per-option

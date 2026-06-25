@@ -141,9 +141,10 @@ Any QMK keyboard with a compatible physical layout works:
 - 42-key splits (3×6, 3 thumbs) — Corne (crkbd), Piantor
 - 46-key splits, inner column — Corne v4 → see [docs](docs/supported_keyboards.md#inner-column-extensions-_ex2-layouts)
 - 40-key ortho (4×10)
-- 48-key ortho (4×12) — Planck (incl. grid), Preonic-likes
+- 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout)
+- 48-key ortho (4×12) — Planck-likes (grid layout)
 - 50-key ortho (5×10)
-- 60-key ortho (5×12)
+- 60-key ortho (5×12) — Preonic-likes (grid layout)
 - Iris (keebio)
 - Atreus (keyboardio) → see [docs](docs/supported_keyboards.md#atreus)
 - Lily58 (all revs) → see [docs](docs/supported_keyboards.md#lily58)

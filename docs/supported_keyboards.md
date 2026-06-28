@@ -13,6 +13,7 @@ The following physical layouts are supported:
 - `LAYOUT_ortho_4x12`
 - `LAYOUT_ortho_5x10`
 - `LAYOUT_ortho_5x12`
+- `LAYOUT_planck_mit`
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))

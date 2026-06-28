@@ -43,13 +43,12 @@
  */
 
 // #define VIM_NAVIGATION
-/* Most ergonomic keyboards have at least 4 comfortable thumb keys keys (so 2
- * per thumb). Selenium is a variant of Arsenik made to fit on 34 keys keyboard
- * to take advantage of the extra thumb key. It does it by splitting the numbers
- * and navigation layers to 2 distict layers, and adds an escape key.
+/* Targets keyboards with two comfortable thumb keys per hand (4 thumb keys
+ * total). When active, the numbers and navigation layers are split into two
+ * distinct layers and an escape key is added, using the extra thumb key.
  *
- * Base thumb config: LSFT_T(KC_ËSC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
- * Selenium: LSFT_T(KC_ESC) LT(_num_row, KC_BSPC) LT(_vim_nav, KC_SPC) RALT_T(KC_ENT)
+ * Base thumb config:  LSFT_T(KC_ESC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
+ * When active:        LSFT_T(KC_ESC)  LT(_num_row, KC_BSPC)  LT(_vim_nav, KC_SPC)  RALT_T(KC_ENT)
  */
 
 // #define LEFT_HAND_SPACE

@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   KC_A,  KC_SS,  KC_DD,  KC_FF,  KC_G,        KC_H,  KC_JJ,  KC_KK,    KC_LL,   KC_SCLN,  KC_ENTER,
         KC_LSFT,  KC_Z,  KC_X,   KC_C,   KC_V,   KC_B,        KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
 
-             LTHUMB_TUCK,  LTHUMB_HOME,  LTHUMB_REACH,        RTHUMB_REACH,  RTHUMB_HOME,  RTHUMB_TUCK
+					 LTHUMB_TUCK, LTHUMB_HOME, LTHUMB_REACH
     ),
 
     [_symbols] = ARSENIK_LAYOUT(
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  AS(LCBR),  AS(LPRN),  AS(RPRN),  AS(RCBR),  AS(EQL),         AS(BSLS),  AS(PLUS),  AS(MINS),  AS(SLSH),  AS(DQUO),  __,
         __,  TILDE,     AS(LBRC),  AS(RBRC),  AS(UNDS),  AS(HASH),        AS(PIPE),  AS(EXLM),  AS(SCLN),  AS(COLN),  AS(QUES),  __,
 
-                                       MO(_num_row),  KC_SPC,  XX,        XX,  KC_SPC,  MO(_num_row)
+						     MO(_num_row), KC_SPC, __
     ),
 
     // Not fully implemented yet
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  AS(1),  AS(2),  AS(3),  AS(4),  AS(5),        AS(6),     AS(7),     AS(8),    AS(9),     AS(0),     __,
         __,  ODK_1,  ODK_2,  ODK_3,  ODK_4,  ODK_5,        AS(MINS),  AS(COMM),  AS(DOT),  AS(COLN),  AS(SLSH),  __,
 
-                             SYMBOLS,  KC_SPC,  XX,        XX,  KC_SPC,  SYMBOLS
+						__, KC_SPC, __
     ),
 
     [_vim_nav] = ARSENIK_LAYOUT(
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  C(AS(A)),      C(AS(S)),  S(KC_TAB),  KC_TAB,    XX,             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  MO(_fun_pad),  __,
         __,  C(AS(Z)),      C(AS(X)),  C(AS(C)),   C(AS(V)),  XX,             MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  XX,            __,
 
-                                                     KC_DEL,  __,  XX,        XX,  __,  KC_ESC
+                                                                KC_DEL, __, KC_ESC
     ),
 
     [_num_nav] = ARSENIK_LAYOUT(
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  C(AS(A)),  KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_PGDN,          AS(MINS),  AS(4),    AS(5),    AS(6),    AS(0),     __,
         __,  C(AS(Z)),  C(AS(X)),  C(AS(C)),  C(AS(V)),  S(KC_TAB),        AS(COMM),  AS(1),    AS(2),    AS(3),    AS(DOT),   __,
 
-                                                  KC_DEL,  __,  XX,        XX,  __,  KC_ESC
+							      KC_DEL, __, KC_ESC
     ),
 
     [_fun_pad] = ARSENIK_LAYOUT(
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   XX,        XX,  KC_LCTL,  KC_LALT,  KC_LGUI,  __,  __,
         __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  XX,       XX,       XX,       XX,  __,
 
-                             SYMBOLS,  KC_SPC,  XX,        XX,  KC_SPC,  SYMBOLS
+						__, KC_SPC, __
     ),
 
 };

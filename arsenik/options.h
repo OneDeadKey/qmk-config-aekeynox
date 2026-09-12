@@ -23,6 +23,10 @@
  * d/k or f/j on a Qwerty keyboard. Those home-row-mods stay on those exact
  * keys regardless of the layout being used, meaning they would be on r/i, s/e
  * and t/n on a Colemak keyboard.
+ *
+ * NOT enabling HRMs assumes Meta, Ctrl and Alt are assigned to available slots
+ * in your keyboard layout. Edit layouts.h to map those keys to empty slots (XX)
+ * in the targeted layout.
  */
 
 // #define MAC_MODIFIERS
@@ -35,12 +39,13 @@
 
 // #define SIMPLE_THUMBS
 /* When active, uses an extra simple config without any tap-holds on the thumb
- * keys. It may be a *lot* simpler to use, but requieres a keyboard with at
- * least 6 thumb keys (so 3 per thumb) instead of 3 thumb keys total and is
- * overall a lot less efficient (especially when combining modifiers).
+ * keys. It may be a *lot* simpler to use, but overall a lot less efficient,
+ * since you need to reach to less comfortable spots for utility keys such as
+ * Shift, Backspace or Enter. Those are assigned to their traditional outer
+ * column slots in keymap.c; this option assumes your keyboard has them.
  *
  * Base thumb config: LSFT_T(KC_BSPC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
- * When it's active: KC_ALT  KC_CTL  KC_GUI     MO(_num_nav)  KC_SPC  KC_RALT
+ * When it's active:     MO(_num_nav)         KC_SPC         KC_RALT
  * (KC_RALT becomes the `_symbols` layer if `ENABLE_SYMBOLS_LAYER`
  * is active)
  *
@@ -48,22 +53,16 @@
  */
 
 // #define VIM_NAVIGATION
-/* Targets keyboards with two comfortable thumb keys per hand (4 thumb keys
- * total). When active, the numbers and navigation layers are split into two
- * distinct layers and an escape key is added, using the extra thumb key.
+/* For those who like to move the cursor with HJKL in all apps with any keyboard
+ * layout, it is possible to enable a Vim-like Navigation layer when the spacebar
+ * is held, rather than the Num Nav layer.
  *
- * Base thumb config:  LSFT_T(KC_BSPC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
- * When active:        LSFT_T(KC_ESC)  LT(_vim_nav, KC_BSPC)  LT(_num_row, KC_SPC)  RALT_T(KC_ENT)
+ * It also has:
+ * - super-comfortable Tab and Shift-Tab
+ * - mouse emulation: previous/next and mouse scroll
  */
 
-// #define LEFT_HAND_SPACE
-/* Swaps around the backspace and space keycodes, for people who prefer using
- * their left thunb for the space bar.
- *
- * (Requires `VIM_NAVIGATION`)
- */
-
-#define RESTORE_SPACE
+// #define RESTORE_SPACE
 /* Having Space accessible to only one thumb may create some problems, especially
  * when trying to type Shift + Space or Lafayette / AltGr + Space (depending if
  * your space key is on your left or right hand). When active, backspace gets

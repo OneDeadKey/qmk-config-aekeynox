@@ -45,31 +45,28 @@
 #    define KC_LL KC_L
 #endif
 
-// Extra simple config for beginners with bigger keyboards
+// Extra simple config for beginners
 #if defined SIMPLE_THUMBS
-#    define LTHUMB_TUCK  _ALT
-#    define LTHUMB_HOME  _CTL
-#    define LTHUMB_REACH _GUI
-#    define RTHUMB_REACH MO(_num_nav)
-#    define RTHUMB_HOME  KC_SPC
-#    define RTHUMB_TUCK  SYMBOLS
+#    define LTHUMB_HOME  MO(_num_nav)
+#    define THUMB_BAR    KC_SPC
+#    define RTHUMB_HOME  SYMBOLS
 #elif defined VIM_NAVIGATION
-#    define LTHUMB_REACH XX
-#    define RTHUMB_REACH XX
-#    define LTHUMB_TUCK  LSFT_T(KC_ESC)
-#    define RTHUMB_TUCK  SYMBOLS_T(KC_ENT)
-#    if defined LEFT_HAND_SPACE
-#        define LTHUMB_HOME LT(_vim_nav, KC_SPC)
-#        define RTHUMB_HOME LT(_num_row, KC_BSPC)
-#    else
-#        define LTHUMB_HOME LT(_vim_nav, KC_BSPC)
-#        define RTHUMB_HOME LT(_num_row, KC_SPC)
-#    endif
+#    define LTHUMB_HOME  LSFT_T(KC_BSPC)
+#    define THUMB_BAR    LT(_vim_nav, KC_SPC)
+#    define RTHUMB_HOME  SYMBOLS_T(KC_ENT)
 #else
-#    define LTHUMB_TUCK  LSFT_T(KC_BSPC)
-#    define LTHUMB_HOME  LT(_num_nav, KC_BSPC)
-#    define LTHUMB_REACH XX
-#    define RTHUMB_REACH XX
-#    define RTHUMB_HOME  LTHUMB_HOME
-#    define RTHUMB_TUCK  SYMBOLS_T(KC_ENT)
+#    define LTHUMB_HOME  LSFT_T(KC_BSPC)
+#    define THUMB_BAR    LT(_num_nav, KC_SPC)
+#    define RTHUMB_HOME  SYMBOLS_T(KC_ENT)
+#endif
+
+// Layer-specific thumb mappings
+#if defined SIMPLE_THUMBS
+#    define SYM_LTHUMB_HOME  __
+#    define NAV_LTHUMB_HOME  __
+#    define NAV_RTHUMB_HOME  __
+#else
+#    define SYM_LTHUMB_HOME  MO(_num_row)
+#    define NAV_LTHUMB_HOME  KC_DEL
+#    define NAV_RTHUMB_HOME  KC_ESC
 #endif

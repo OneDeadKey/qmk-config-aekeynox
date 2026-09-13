@@ -62,15 +62,6 @@
  * - mouse emulation: previous/next and mouse scroll
  */
 
-// #define RESTORE_SPACE
-/* Having Space accessible to only one thumb may create some problems, especially
- * when trying to type Shift + Space or Lafayette / AltGr + Space (depending if
- * your space key is on your left or right hand). When active, backspace gets
- * temporarily replaced by space when the original space key is held.
- *
- * (Requires `VIM_NAVIGATION`)
- */
-
 // Lists of layouts supported by Arsenik. Some parts of the config are dependent
 // on keyboard layout used on your computer. If they don't match up some
 // characters may not be correctly placed or missing entirely. If multiple

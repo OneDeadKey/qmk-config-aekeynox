@@ -98,20 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // for instance, calling `tap_code(KC_B)` if KC_A is pressed but true is
 // returned, "ba" is sent, but if `false` is returned, it’s just "b"
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef RESTORE_SPACE
-    static bool thumb_mod_same_hand_as_space_held = false;
-    if ((keycode & 0xff) == KC_SPC && record->tap.count == 0) thumb_mod_same_hand_as_space_held = record->event.pressed;
-#endif
 
     // Let QMK do its thing on key releases.
     if (!record->event.pressed) return true;
-
-#ifdef RESTORE_SPACE
-    if ((keycode & 0xff) == KC_BSPC && !thumb_mod_same_hand_as_space_held && record->tap.count > 0) {
-        tap_code(KC_SPC);
-        return false;
-    }
-#endif
 
     // ----------------------------------------
     // Code for your custom keycodes goes here.

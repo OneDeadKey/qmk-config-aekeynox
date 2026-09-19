@@ -27,8 +27,8 @@ enum custom_keycodes {
 // QMK implementation of the Selenium specification.
 // Thumb keys are configurable via HT_*, VIM_NAVIGATION, and LEFT_HAND_SPACE
 // options in options.h. See internals.h for the thumb key definitions.
-// Selenium is a 42-key spec: physical row 1 (if present on the board) is
-// transparent on every layer — injected by the SELENIUM_LAYOUT facade.
+// Row 1, on boards that have it, carries the UR_* upper row on every layer,
+// injected by the SELENIUM_LAYOUT facade.
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

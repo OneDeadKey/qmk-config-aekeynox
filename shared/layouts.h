@@ -19,18 +19,19 @@
     k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
                    k51, k52, k53,     k54, k55, k56)
 
-// Row 1 is not part of Selenium's 42-key spec; the facade fills its 12 slots with `__`.
+// Row 1 is outside Selenium's 42-key spec; the facade fills its 12 slots with the UR_* keys
+// (defaults in selenium/internals.h).
 #define SELENIUM_LAYOUT(\
     LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
     LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
     LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
                      LT1, LT2, LT3,     RT3, RT2, RT1\
 ) ONEDEADKEY_LAYOUT(\
-    __,    __,  __,  __,  __,  __,      __,  __,  __,  __,  __,  __,\
-    LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
-    LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
-    LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
-                     LT1, LT2, LT3,     RT3, RT2, RT1)
+    UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,    UR_6,  UR_7, UR_8, UR_9, UR_0, UR_OR,\
+    LOUT1, L21,  L22,  L23,  L24,  L25,     R21,   R22,  R23,  R24,  R25,  ROUT1,\
+    LOUT2, L31,  L32,  L33,  L34,  L35,     R31,   R32,  R33,  R34,  R35,  ROUT2,\
+    LOUT3, L41,  L42,  L43,  L44,  L45,     R41,   R42,  R43,  R44,  R45,  ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1)
 
 // ╭─────────────────────────────────────────────────────────╮
 // │     Physical descriptors — ONEDEADKEY_LAYOUT per board  │
@@ -267,10 +268,8 @@
 //    #define ODK_EXT_THUMB_OUT_L KC_LCTL
 //    #define ODK_EXT_THUMB_OUT_R KC_RCTL
 //
-//  Note: on Selenium, logical row 1 (k1x) is transparent on every layer
-//  by design (Selenium is a 42-key spec). On Lily58 with Selenium, the
-//  physical number row emits nothing until you edit selenium/keymap.c.
-//  Arsenik uses the row natively, no action needed.
+//  Upper row: carries the UR_* and defaults to a num row.
+//  Arsenik uses the row natively.
 #elif defined(ONEDEADKEY_LAYOUT_lily58) \
    || defined(ONEDEADKEY_LAYOUT_lily58_light) \
    || defined(ONEDEADKEY_LAYOUT_lily58_lite) \
@@ -314,9 +313,7 @@
 //    #define ODK_EXT_THUMB_FAR_L KC_MUTE  // typically the encoder press
 //    #define ODK_EXT_THUMB_FAR_R KC_MPLY
 //
-//  Selenium caveat: same as Lily58 — logical row 1 is transparent, so
-//  the physical number row emits nothing unless selenium/keymap.c is
-//  customized. Arsenik is unaffected.
+//  Upper row: carries the UR_* and defaults to a num row.
 //
 //  Note: keebart/sofle_choc_pro exposes LAYOUT_split_4x6_5 (not plain
 //  LAYOUT), so its auto-detected name is ONEDEADKEY_LAYOUT_split_4x6_5,

@@ -222,3 +222,45 @@
 #ifndef OC_BR
 #    define OC_BR KC_RSFT
 #endif
+
+// ╭─────────────────────────────────────────────────────────╮
+// │    Extra upper row (boards with a 5th physical row)     │
+// ╰─────────────────────────────────────────────────────────╯
+// Defaults to a number row. Override in options.h.
+
+#ifndef UR_OL
+#    define UR_OL KC_EQL
+#endif
+#ifndef UR_1
+#    define UR_1 KC_1
+#endif
+#ifndef UR_2
+#    define UR_2 KC_2
+#endif
+#ifndef UR_3
+#    define UR_3 KC_3
+#endif
+#ifndef UR_4
+#    define UR_4 KC_4
+#endif
+#ifndef UR_5
+#    define UR_5 KC_5
+#endif
+#ifndef UR_6
+#    define UR_6 KC_6
+#endif
+#ifndef UR_7
+#    define UR_7 KC_7
+#endif
+#ifndef UR_8
+#    define UR_8 KC_8
+#endif
+#ifndef UR_9
+#    define UR_9 KC_9
+#endif
+#ifndef UR_0
+#    define UR_0 KC_0
+#endif
+#ifndef UR_OR
+#    define UR_OR KC_MINS
+#endif

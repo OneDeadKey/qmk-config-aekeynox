@@ -22,6 +22,22 @@ The following physical layouts are supported:
 
 If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
 
+## Upper row
+
+Selenium is a 42-key spec, no 5th row. Still, for boards with a 5th upper row, the keymap does carry an extra `UR_*` upper row.
+
+Defaults to `=` `1`…`0` `-`.
+
+Override in your keymap's `options.h`:
+
+```c
+#define UR_OL  KC_EQL   // left  outer key
+#define UR_1   KC_1     // … UR_2 … UR_9, UR_0
+#define UR_OR  KC_MINS  // right outer key
+```
+
+`XX` makes a key inert. Arsenik uses the top row natively.
+
 ## Lily58
 
 58 keys, 5 rows + 4 thumbs per side.
@@ -36,9 +52,7 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 #define ODK_EXT_THUMB_OUT_R KC_RCTL  // right outermost thumb
 ```
 
-**Selenium caveat:** Selenium is a 42-key spec, so logical row 1 (the top row) is transparent on every layer.
-On Lily58 with Selenium, the physical number row emits nothing until you edit `selenium/keymap.c` row 1 locally.
-**Arsenik is unaffected** — its base layer uses the top row for numbers natively.
+Lily58's top row is an [upper row](#upper-row).
 
 ## Sofle
 
@@ -53,8 +67,6 @@ Everything from the [Lily58](#lily58) section applies, plus two more override sl
 #define ODK_EXT_THUMB_FAR_L KC_MUTE  // left  outermost thumb (encoder press)
 #define ODK_EXT_THUMB_FAR_R KC_MPLY  // right outermost thumb (encoder press)
 ```
-
-The same Selenium top-row caveat applies.
 
 **`keebart/sofle_choc_pro` needs a manual override.** Unlike other Sofle variants, this board reports its layout to QMK as `LAYOUT_split_4x6_5` — a generic community-shared name that means a different physical layout on non-Sofle boards. The generator refuses to auto-bind it to avoid producing wrong keymaps elsewhere. Pass `-layout LAYOUT_sofle` to force the Sofle layout:
 
@@ -103,5 +115,3 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 
 `ODK_EXT_INNER_*`, `ODK_EXT_THUMB_OUT_*` and `ODK_EXT_THUMB_FAR_*` are shared with [Lily58](#lily58) / [Sofle](#sofle).
 `ODK_EXT_THUMB_FAR_EXT_L` and `ODK_EXT_THUMB_FAR_EXT_R` are Atreus-only.
-
-The same Selenium top-row caveat applies.

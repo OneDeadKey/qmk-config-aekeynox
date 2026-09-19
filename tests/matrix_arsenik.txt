@@ -9,8 +9,6 @@
 #
 # Constraints:
 #   - MAC_MODIFIERS requires ENABLE_HRM
-#   - LEFT_HAND_SPACE requires VIM_NAVIGATION
-#   - RESTORE_SPACE requires VIM_NAVIGATION
 #   - SIMPLE_THUMBS and VIM_NAVIGATION are mutually exclusive
 
 # ── Default thumb config ──────────────────────────────────────────────
@@ -31,32 +29,14 @@ simple symbols=off hrm=on               | +SIMPLE_THUMBS -ENABLE_SYMBOLS_LAYER +
 simple symbols=on hrm=on+mac            | +SIMPLE_THUMBS +ENABLE_HRM +MAC_MODIFIERS
 simple symbols=off hrm=on+mac           | +SIMPLE_THUMBS -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS
 
-# ── Selenium variant ──────────────────────────────────────────────────
+# ── Vim navigation ──────────────────────────────────────────────────
 
-selenium hrm=off                                          | +VIM_NAVIGATION
-selenium hrm=off left_space                               | +VIM_NAVIGATION +LEFT_HAND_SPACE
-selenium hrm=off restore_space                            | +VIM_NAVIGATION +RESTORE_SPACE
-selenium hrm=off left_space restore_space                 | +VIM_NAVIGATION +LEFT_HAND_SPACE +RESTORE_SPACE
-selenium symbols=off hrm=off                            | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER
-selenium symbols=off hrm=off left_space                 | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +LEFT_HAND_SPACE
-selenium symbols=off hrm=off restore_space              | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +RESTORE_SPACE
-selenium symbols=off hrm=off left_space restore_space   | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +LEFT_HAND_SPACE +RESTORE_SPACE
-selenium hrm=on                                           | +VIM_NAVIGATION +ENABLE_HRM
-selenium hrm=on left_space                                | +VIM_NAVIGATION +ENABLE_HRM +LEFT_HAND_SPACE
-selenium hrm=on restore_space                             | +VIM_NAVIGATION +ENABLE_HRM +RESTORE_SPACE
-selenium hrm=on left_space restore_space                  | +VIM_NAVIGATION +ENABLE_HRM +LEFT_HAND_SPACE +RESTORE_SPACE
-selenium hrm=on+mac                                       | +VIM_NAVIGATION +ENABLE_HRM +MAC_MODIFIERS
-selenium hrm=on+mac left_space                            | +VIM_NAVIGATION +ENABLE_HRM +MAC_MODIFIERS +LEFT_HAND_SPACE
-selenium hrm=on+mac restore_space                         | +VIM_NAVIGATION +ENABLE_HRM +MAC_MODIFIERS +RESTORE_SPACE
-selenium hrm=on+mac left_space restore_space              | +VIM_NAVIGATION +ENABLE_HRM +MAC_MODIFIERS +LEFT_HAND_SPACE +RESTORE_SPACE
-selenium symbols=off hrm=on                             | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM
-selenium symbols=off hrm=on left_space                  | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +LEFT_HAND_SPACE
-selenium symbols=off hrm=on restore_space               | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +RESTORE_SPACE
-selenium symbols=off hrm=on left_space restore_space    | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +LEFT_HAND_SPACE +RESTORE_SPACE
-selenium symbols=off hrm=on+mac                         | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS
-selenium symbols=off hrm=on+mac left_space              | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS +LEFT_HAND_SPACE
-selenium symbols=off hrm=on+mac restore_space           | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS +RESTORE_SPACE
-selenium symbols=off hrm=on+mac left_space restore_space| +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS +LEFT_HAND_SPACE +RESTORE_SPACE
+vim_nav hrm=off                                        | +VIM_NAVIGATION
+vim_nav symbols=off hrm=off                            | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER
+vim_nav hrm=on                                         | +VIM_NAVIGATION +ENABLE_HRM
+vim_nav hrm=on+mac                                     | +VIM_NAVIGATION +ENABLE_HRM +MAC_MODIFIERS
+vim_nav symbols=off hrm=on                             | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM
+vim_nav symbols=off hrm=on+mac                         | +VIM_NAVIGATION -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS
 
 # ── Layout variations ─────────────────────────────────────────────────
 # One compile test per non-default host layout to verify AS() expansion.

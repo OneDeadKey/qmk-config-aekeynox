@@ -126,3 +126,23 @@
 // #define OC_MR  KC_ENT
 // #define OC_BL  KC_LSFT
 // #define OC_BR  KC_RSFT
+
+/******************************************************************************
+ * Extra Upper Row (boards with a 5th physical row only)
+ ******************************************************************************/
+
+// Identical on every layer. Ignored on other boards.
+// Uncomment and edit to customize. Defaults to a number row.
+
+// #define UR_OL  KC_EQL
+// #define UR_1   KC_1
+// #define UR_2   KC_2
+// #define UR_3   KC_3
+// #define UR_4   KC_4
+// #define UR_5   KC_5
+// #define UR_6   KC_6
+// #define UR_7   KC_7
+// #define UR_8   KC_8
+// #define UR_9   KC_9
+// #define UR_0   KC_0
+// #define UR_OR  KC_MINS

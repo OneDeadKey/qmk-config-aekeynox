@@ -37,21 +37,6 @@
  * (Requires `ENABLE_HRM`)
  */
 
-// #define SIMPLE_THUMBS
-/* When active, uses an extra simple config without any tap-holds on the thumb
- * keys. It may be a *lot* simpler to use, but overall a lot less efficient,
- * since you need to reach to less comfortable spots for utility keys such as
- * Shift, Backspace or Enter. Those are assigned to their traditional outer
- * column slots in keymap.c; this option assumes your keyboard has them.
- *
- * Base thumb config: LSFT_T(KC_BSPC)  LT(_num_nav, KC_SPC)  RALT_T(KC_ENT)
- * When it's active:     MO(_num_nav)         KC_SPC         KC_RALT
- * (KC_RALT becomes the `_symbols` layer if `ENABLE_SYMBOLS_LAYER`
- * is active)
- *
- * (Prevents using `VIM_NAVIGATION`)
- */
-
 // #define VIM_NAVIGATION
 /* For those who like to move the cursor with HJKL in all apps with any keyboard
  * layout, it is possible to enable a Vim-like Navigation layer when the spacebar

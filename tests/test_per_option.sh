@@ -49,9 +49,6 @@ run_arsenik() {
         "$(enable ENABLE_HRM)" \
         "$(enable MAC_MODIFIERS)"
 
-    run_compile_test arsenik "simple_thumbs=on" \
-        "$(enable SIMPLE_THUMBS)"
-
     run_compile_test arsenik "vim_nav=on" \
         "$(enable VIM_NAVIGATION)"
 

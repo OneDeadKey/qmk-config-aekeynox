@@ -45,12 +45,7 @@
 #    define KC_LL KC_L
 #endif
 
-// Extra simple config for beginners
-#if defined SIMPLE_THUMBS
-#    define LTHUMB_HOME  MO(_num_nav)
-#    define THUMB_BAR    KC_SPC
-#    define RTHUMB_HOME  SYMBOLS
-#elif defined VIM_NAVIGATION
+#if defined VIM_NAVIGATION
 #    define LTHUMB_HOME  LSFT_T(KC_BSPC)
 #    define THUMB_BAR    LT(_vim_nav, KC_SPC)
 #    define RTHUMB_HOME  SYMBOLS_T(KC_ENT)
@@ -58,15 +53,4 @@
 #    define LTHUMB_HOME  LSFT_T(KC_BSPC)
 #    define THUMB_BAR    LT(_num_nav, KC_SPC)
 #    define RTHUMB_HOME  SYMBOLS_T(KC_ENT)
-#endif
-
-// Layer-specific thumb mappings
-#if defined SIMPLE_THUMBS
-#    define SYM_LTHUMB_HOME  __
-#    define NAV_LTHUMB_HOME  __
-#    define NAV_RTHUMB_HOME  __
-#else
-#    define SYM_LTHUMB_HOME  MO(_num_row)
-#    define NAV_LTHUMB_HOME  KC_DEL
-#    define NAV_RTHUMB_HOME  KC_ESC
 #endif

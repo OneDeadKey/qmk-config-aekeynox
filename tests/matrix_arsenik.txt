@@ -9,7 +9,6 @@
 #
 # Constraints:
 #   - MAC_MODIFIERS requires ENABLE_HRM
-#   - SIMPLE_THUMBS and VIM_NAVIGATION are mutually exclusive
 
 # ── Default thumb config ──────────────────────────────────────────────
 
@@ -19,15 +18,6 @@ default symbols=on hrm=on               | +ENABLE_HRM
 default symbols=off hrm=on              | -ENABLE_SYMBOLS_LAYER +ENABLE_HRM
 default symbols=on hrm=on+mac           | +ENABLE_HRM +MAC_MODIFIERS
 default symbols=off hrm=on+mac          | -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS
-
-# ── Simple thumbs ─────────────────────────────────────────────────────
-
-simple symbols=on hrm=off               | +SIMPLE_THUMBS
-simple symbols=off hrm=off              | +SIMPLE_THUMBS -ENABLE_SYMBOLS_LAYER
-simple symbols=on hrm=on                | +SIMPLE_THUMBS +ENABLE_HRM
-simple symbols=off hrm=on               | +SIMPLE_THUMBS -ENABLE_SYMBOLS_LAYER +ENABLE_HRM
-simple symbols=on hrm=on+mac            | +SIMPLE_THUMBS +ENABLE_HRM +MAC_MODIFIERS
-simple symbols=off hrm=on+mac           | +SIMPLE_THUMBS -ENABLE_SYMBOLS_LAYER +ENABLE_HRM +MAC_MODIFIERS
 
 # ── Vim navigation ──────────────────────────────────────────────────
 

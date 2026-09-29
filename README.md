@@ -1,4 +1,4 @@
-# qmk-config-aekeynox
+# Ækeynox-qmk
 
 [QMK](https://qmk.fm/) keymap implementations for [OneDeadKey](https://github.com/OneDeadKey) keyboard layouts.
 

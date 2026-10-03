@@ -193,14 +193,6 @@ static void shift_caps_release(void) {
 static uint8_t mhn_pinned_mods = 0;
 #endif
 
-#ifdef PINKY_MOD_HOLD
-// Ctrl/Alt/GUI pinned for the lifetime of a pinky home-key (A / ;) hold
-// (0 = inactive). Shift is excluded: it may be the pinky key's own HRM mod.
-#    define PMH_MODS_TO_PIN MOD_MASK_CAG
-
-static uint8_t pmh_pinned_mods = 0;
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         // Track whether another key was pressed while LSK_RALT is held
@@ -217,19 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (mhn_pinned_mods) {
             unregister_mods(mhn_pinned_mods);
             mhn_pinned_mods = 0;
-        }
-    }
-#endif
-
-#ifdef PINKY_MOD_HOLD
-    if (keycode == KC_AA || keycode == KC_SCSC) {
-        if (record->event.pressed) {
-            // Pin whichever target mods are held the instant the pinky goes down;
-            // they survive their source key's release until this pinky lifts.
-            pmh_pinned_mods = get_mods() & PMH_MODS_TO_PIN;
-        } else if (pmh_pinned_mods) {
-            unregister_mods(pmh_pinned_mods);
-            pmh_pinned_mods = 0;
         }
     }
 #endif
@@ -271,18 +250,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#if defined ENABLE_MOD_HOLD_NAVIGATION || defined PINKY_MOD_HOLD
+#ifdef ENABLE_MOD_HOLD_NAVIGATION
 // Runs after QMK's default processing: re-assert the pinned mods so any
 // HRM/mod-tap release during the hold can't clear them before the next HID
 // report. Decoupling the pin from its source key means it survives no matter
 // which key supplied the mod (KC_FF, KC_JJ, ...) or when it is released.
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-#    ifdef ENABLE_MOD_HOLD_NAVIGATION
     if (mhn_pinned_mods) { register_mods(mhn_pinned_mods); }
-#    endif
-#    ifdef PINKY_MOD_HOLD
-    if (pmh_pinned_mods) { register_mods(pmh_pinned_mods); }
-#    endif
 }
 #endif
 
@@ -326,8 +300,8 @@ static inline bool tap_keycode_is_tap_preferred(uint16_t keycode) {
         case KC_MUTE:
         case KC_PSCR:
 
-#if defined HRM_SHIFT || defined PINKY_MOD_HOLD
-        // pinky home keys (HRM_SHIFT and/or PINKY_MOD_HOLD hold-tap)
+#ifdef HRM_SHIFT
+        // pinky home keys (HRM_SHIFT hold-tap)
         case KC_A:
         case KC_SCLN:
 #endif

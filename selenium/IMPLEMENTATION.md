@@ -279,17 +279,6 @@ In Selenium QMK, we use `MO(_SE_NUM)` (momentary, hold-only) instead of the spec
 
 **Exception**: for `HT_TWO_THUMB_KEYS`, Selenium ZMK uses Selenium custom `&sc NUM_NAV_LAYER CAPSLOCK` — a `hold-preferred` hold-tap with CapsLock on tap. In Selenium QMK, we use QMK native `LT(_SE_NUM, KC_CAPS)`. Since `KC_CAPS` is not a text-producing key, `get_hold_on_other_key_press()` returns `true`, making it effectively hold-preferred — matching the ZMK behavior.
 
-## PINKY_MOD_HOLD (pinky mod-hold pinning)
-
-In Selenium ZMK, `PINKY_MOD_HOLD` wraps the pinky home keys (A / `;`) in the custom `zmk,behavior-mod-hold`: while the pinky is held, any currently-held Ctrl/Alt/GUI modifier stays registered until the pinky lifts, regardless of whether its source key released. With `HRM_SHIFT` the pinky is `&mhhrm` (Shift home-row mod that also pins); without it, `&mhkp` (a `tap-preferred` hold-tap: tap types the letter, hold pins). The purpose is one-handed home-row-mod chords where the modifier and the letter share a finger (e.g. Ctrl+D): hold the pinky to keep Ctrl held while you re-tap D. Shift is excluded from the pinned set.
-
-In Selenium QMK this reuses the same mechanism as `ENABLE_MOD_HOLD_NAVIGATION`: on the pinky keycode's press, `get_mods() & MOD_MASK_CAG` (Ctrl/Alt/GUI, both hands) is captured and held; on release it is unregistered; `post_process_record_user` re-asserts it each report so a mid-hold HRM release can't clear it.
-
-Two internals wire the pinky keycode (`internals.h`):
-
-- With `HRM_SHIFT`, the pinky is already `LSFT_T(KC_A)` / `RSFT_T(KC_SCLN)`; the pin rides on top and `MOD_MASK_CAG` leaves the key's own Shift untouched.
-- Without `HRM_SHIFT`, the pinky becomes `LT(0, KC_A)` / `LT(0, KC_SCLN)` — a no-op hold-tap (layer 0 is the base layer), used only for tap/hold timing so a deliberate hold engages the pin without emitting or auto-repeating the letter; a tap still types A / `;`. Both are `tap-preferred` (300 ms, no hold-on-other-key-press), matching ZMK's `&mhkp`.
-
 ## Configurable options
 
 All options from the Selenium specification are available in `options.h`:
@@ -297,6 +286,5 @@ All options from the Selenium specification are available in `options.h`:
 - **Hold-tap configs**: `HT_NONE`, `HT_THUMB_TAPS`, `HT_HOME_ROW_MODS` (default), `HT_TWO_THUMB_KEYS`
 - **VIM_NAVIGATION**: splits num-nav into vim-style navigation + number row layers
 - **HRM_SHIFT**: adds shift as a pinky home-row mod
-- **PINKY_MOD_HOLD**: pins held Ctrl/Alt/GUI while a pinky home key is held — see [PINKY_MOD_HOLD](#pinky_mod_hold-pinky-mod-hold-pinning) below
 - **LEFT_HAND_SPACE**: swaps space and backspace on thumbs
 - **Timing overrides**: `HRM_TAPPING_TERM`, `SHORT_TAPPING_TERM`, `QUICK_TAP`

@@ -103,13 +103,6 @@ run_selenium() {
     run_compile_test selenium "hrm_shift=on" \
         "$(enable HRM_SHIFT)"
 
-    run_compile_test selenium "pinky_mod_hold=on" \
-        "$(enable PINKY_MOD_HOLD)"
-
-    run_compile_test selenium "pinky_mod_hold=on hrm_shift=on" \
-        "$(enable PINKY_MOD_HOLD)" \
-        "$(enable HRM_SHIFT)"
-
     run_compile_test selenium "left_space=on" \
         "$(enable LEFT_HAND_SPACE)"
 

@@ -90,14 +90,6 @@
 #    error "ENABLE_MOD_HOLD_NAVIGATION requires VIM_NAVIGATION"
 #endif
 
-// [Experimental]
-// Uncomment the following line to pin any held Ctrl/Alt/GUI modifier for as long
-// as a pinky home key (A / ;) is held down. This enables one-handed home-row-mod
-// chords where the modifier and the letter share a finger (e.g. Ctrl+D): hold the
-// pinky to keep Ctrl held while you re-tap D. Works with or without HRM_SHIFT.
-
-// #define PINKY_MOD_HOLD
-
 // Uncomment the following line to swap Space and Backspace.
 // Beware: this increases the typing load of the left thumb.
 

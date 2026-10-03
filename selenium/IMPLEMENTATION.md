@@ -1,6 +1,6 @@
 # Selenium QMK Implementation
 
-This is a QMK implementation of the [Selenium specification](https://github.com/OneDeadKey/selenium). The [ZMK implementation](https://github.com/OneDeadKey/zmk-config-selenium) was used as a practical cross-reference during development, but the spec is the authority.
+This is a QMK implementation of the [Selenium specification](https://github.com/OneDeadKey/selenium). The [ZMK implementation](https://github.com/OneDeadKey/zmk-config-aekeynox) was used as a practical cross-reference during development, but the spec is the authority.
 
 QMK and ZMK don't offer the same features. This document explains the design decisions and platform differences.
 

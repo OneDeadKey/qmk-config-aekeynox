@@ -49,19 +49,8 @@ run_arsenik() {
         "$(enable ENABLE_HRM)" \
         "$(enable MAC_MODIFIERS)"
 
-    run_compile_test arsenik "simple_thumbs=on" \
-        "$(enable SIMPLE_THUMBS)"
-
-    run_compile_test arsenik "selenium_variant=on" \
+    run_compile_test arsenik "vim_nav=on" \
         "$(enable VIM_NAVIGATION)"
-
-    run_compile_test arsenik "selenium_variant=on left_space=on" \
-        "$(enable VIM_NAVIGATION)" \
-        "$(enable LEFT_HAND_SPACE)"
-
-    run_compile_test arsenik "selenium_variant=on restore_space=on" \
-        "$(enable VIM_NAVIGATION)" \
-        "$(enable RESTORE_SPACE)"
 
     # Host layouts
     local host_sed=""

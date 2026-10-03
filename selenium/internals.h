@@ -187,11 +187,9 @@
 
 // _nav_num layer thumb cluster
 #ifdef HT_TWO_THUMB_KEYS
-#    define NAV_LTHUMB_TUCK  S(KC_TAB)
-#    define NAV_LTHUMB_REACH __
+#    define NAV_LTHUMB_TUCK S(KC_TAB)
 #else
-#    define NAV_LTHUMB_TUCK  OSM(MOD_LSFT)
-#    define NAV_LTHUMB_REACH S(KC_TAB)
+#    define NAV_LTHUMB_TUCK LSFT_T(KC_CAPS)
 #endif
 
 // ╭─────────────────────────────────────────────────────────╮

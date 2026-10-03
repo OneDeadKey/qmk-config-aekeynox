@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  SC_ALL,   SC_SAVE,   S(KC_TAB),   KC_TAB,      XX,             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XX,      __,
         __,  SC_UNDO,  SC_CUT,    SC_COPY,     SC_PASTE,    SC_REDO,        MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  XX,      __,
 
-                     KC_CAPS,  LT(_fn_media, KC_DEL),  MO(_num_row),        __,  MO(_fn_media),  LSK_RALT
+             LSFT_T(KC_CAPS),  LT(_fn_media, KC_DEL),  __,                  __,  MO(_fn_media),  LSK_RALT
     ),
 
     // 4. NavNum layer -- inverted T navigation + numpad
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  SC_ALL,   KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_PGDN,        AS(MINS),       AS(4),  AS(5),  AS(6),  AS(0),     __,
         __,  SC_UNDO,  SC_CUT,   SC_COPY,  SC_PASTE,  SC_REDO,        AS(COMM),       AS(1),  AS(2),  AS(3),  AS(DOT),   __,
 
-    NAV_LTHUMB_TUCK,  LT(_fn_media, KC_DEL),  NAV_LTHUMB_REACH,       KC_ESC,  LT(_fn_media, KC_SPC),  LSK_RALT
+          NAV_LTHUMB_TUCK,  LT(_fn_media, KC_DEL),  S(KC_TAB),        __,  LT(_fn_media, KC_SPC),  LSK_RALT
     ),
 
     // 5. NumRow layer -- numbers on homerow (not accessible by default)

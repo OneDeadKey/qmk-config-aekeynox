@@ -66,13 +66,14 @@ ht_two_thumbs vim left_space              | +HT_TWO_THUMB_KEYS +VIM_NAVIGATION +
 ht_two_thumbs shift left_space            | +HT_TWO_THUMB_KEYS +HRM_SHIFT +LEFT_HAND_SPACE
 ht_two_thumbs vim shift left_space        | +HT_TWO_THUMB_KEYS +VIM_NAVIGATION +HRM_SHIFT +LEFT_HAND_SPACE
 
-# ── ENABLE_MOD_HOLD_NAVIGATION across HT modes ──────────────────────
+# ── ENABLE_MOD_HOLDS across HT modes ────────────────────────────────
 
-mod_hold_nav ht_none vim                  | +HT_NONE +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_thumb_taps vim            | +HT_THUMB_TAPS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_hrm vim                    | +HT_HOME_ROW_MODS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_two_thumbs vim            | +HT_TWO_THUMB_KEYS +VIM_NAVIGATION +ENABLE_MOD_HOLD_NAVIGATION
-mod_hold_nav ht_hrm vim left_space        | +HT_HOME_ROW_MODS +ENABLE_MOD_HOLD_NAVIGATION +VIM_NAVIGATION +LEFT_HAND_SPACE
+mod_holds ht_none                         | +HT_NONE +ENABLE_MOD_HOLDS
+mod_holds ht_thumb_taps                   | +HT_THUMB_TAPS +ENABLE_MOD_HOLDS
+mod_holds ht_hrm                          | +HT_HOME_ROW_MODS +ENABLE_MOD_HOLDS
+mod_holds ht_two_thumbs                   | +HT_TWO_THUMB_KEYS +ENABLE_MOD_HOLDS
+mod_holds ht_hrm vim                      | +HT_HOME_ROW_MODS +VIM_NAVIGATION +ENABLE_MOD_HOLDS
+mod_holds ht_hrm vim left_space           | +HT_HOME_ROW_MODS +ENABLE_MOD_HOLDS +VIM_NAVIGATION +LEFT_HAND_SPACE
 
 # ── Layout variations ─────────────────────────────────────────────────
 # One compile test per non-default host layout to verify AS() expansion.

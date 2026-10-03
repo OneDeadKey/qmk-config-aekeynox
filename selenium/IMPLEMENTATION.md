@@ -279,6 +279,17 @@ In Selenium QMK, we use `MO(_SE_NUM)` (momentary, hold-only) instead of the spec
 
 **Exception**: for `HT_TWO_THUMB_KEYS`, Selenium ZMK uses Selenium custom `&sc NUM_NAV_LAYER CAPSLOCK` — a `hold-preferred` hold-tap with CapsLock on tap. In Selenium QMK, we use QMK native `LT(_SE_NUM, KC_CAPS)`. Since `KC_CAPS` is not a text-producing key, `get_hold_on_other_key_press()` returns `true`, making it effectively hold-preferred — matching the ZMK behavior.
 
+## ENABLE_MOD_HOLDS (mod-hold on layer keys)
+
+In Selenium ZMK, `ENABLE_MOD_HOLDS` wraps the non-sticky base-layer layer keys in the custom `zmk,behavior-mod-hold` (mask `0xff`): every mod held when the key goes down stays registered until it lifts.
+
+In Selenium QMK, which has no native equivalent, this is implemented via custom logic in `process_record_user`:
+
+- `MOD_HOLD_KEYS` (`internals.h`): the wrapped keycodes for each flavor.
+- On press: pin `get_mods()`.
+- While pinned: swallow the release of a held mod-tap or modifier key whose mods are all pinned. `SHIFT_CAPS` and `LSK_RALT` skip pinned mods.
+- On release: unregister only the pinned mods whose source key was released during the pin.
+
 ## Configurable options
 
 All options from the Selenium specification are available in `options.h`:
@@ -286,5 +297,6 @@ All options from the Selenium specification are available in `options.h`:
 - **Hold-tap configs**: `HT_NONE`, `HT_THUMB_TAPS`, `HT_HOME_ROW_MODS` (default), `HT_TWO_THUMB_KEYS`
 - **VIM_NAVIGATION**: splits num-nav into vim-style navigation + number row layers
 - **HRM_SHIFT**: adds shift as a pinky home-row mod
+- **ENABLE_MOD_HOLDS**: see [ENABLE_MOD_HOLDS](#enable_mod_holds-mod-hold-on-layer-keys)
 - **LEFT_HAND_SPACE**: swaps space and backspace on thumbs
 - **Timing overrides**: `HRM_TAPPING_TERM`, `SHORT_TAPPING_TERM`, `QUICK_TAP`

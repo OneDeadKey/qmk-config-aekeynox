@@ -109,12 +109,11 @@ run_selenium() {
     run_compile_test selenium "macos=on" \
         "$(enable MACOS)"
 
-    run_compile_test selenium "mod_hold_nav=on vim=on" \
-        "$(enable ENABLE_MOD_HOLD_NAVIGATION)" \
-        "$(enable VIM_NAVIGATION)"
+    run_compile_test selenium "mod_holds=on" \
+        "$(enable ENABLE_MOD_HOLDS)"
 
-    run_compile_test selenium "mod_hold_nav=on vim=on left_space=on" \
-        "$(enable ENABLE_MOD_HOLD_NAVIGATION)" \
+    run_compile_test selenium "mod_holds=on vim=on left_space=on" \
+        "$(enable ENABLE_MOD_HOLDS)" \
         "$(enable VIM_NAVIGATION)" \
         "$(enable LEFT_HAND_SPACE)"
 

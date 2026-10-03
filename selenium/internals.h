@@ -126,19 +126,22 @@
 #endif
 
 // Thumb key definitions
+// MOD_HOLD_KEYS: the non-sticky layer keys that pin held mods under ENABLE_MOD_HOLDS
 #if defined HT_NONE
-#    define LTHUMB_TUCK  _ALT
-#    define LTHUMB_HOME  _CTL
-#    define LTHUMB_REACH _GUI
-#    define RTHUMB_REACH MO(_SE_NAV)
-#    define RTHUMB_HOME  KC_SPC
-#    define RTHUMB_TUCK  MO(_symbols)
+#    define LTHUMB_TUCK   _ALT
+#    define LTHUMB_HOME   _CTL
+#    define LTHUMB_REACH  _GUI
+#    define RTHUMB_REACH  MO(_SE_NAV)
+#    define RTHUMB_HOME   KC_SPC
+#    define RTHUMB_TUCK   MO(_symbols)
+#    define MOD_HOLD_KEYS RTHUMB_REACH
 
 #elif defined HT_THUMB_TAPS
-#    define LTHUMB_TUCK  SHIFT_CAPS
-#    define LTHUMB_REACH _GUI_T(_SE_REACH)
-#    define RTHUMB_REACH _ALT_T(KC_ENT)
-#    define RTHUMB_TUCK  OSL(_symbols)
+#    define LTHUMB_TUCK   SHIFT_CAPS
+#    define LTHUMB_REACH  _GUI_T(_SE_REACH)
+#    define RTHUMB_REACH  _ALT_T(KC_ENT)
+#    define RTHUMB_TUCK   OSL(_symbols)
+#    define MOD_HOLD_KEYS RTHUMB_HOME
 #    ifdef LEFT_HAND_SPACE
 #        define LTHUMB_HOME _CTL_T(KC_SPC)
 #        define RTHUMB_HOME LT(_SE_NAV, KC_BSPC)
@@ -148,10 +151,11 @@
 #    endif
 
 #elif defined HT_HOME_ROW_MODS
-#    define LTHUMB_TUCK  SHIFT_CAPS
-#    define LTHUMB_REACH LT(_fn_media, _SE_REACH)
-#    define RTHUMB_REACH LT(_SE_EXTRA, KC_ENT)
-#    define RTHUMB_TUCK  OSL(_symbols)
+#    define LTHUMB_TUCK   SHIFT_CAPS
+#    define LTHUMB_REACH  LT(_fn_media, _SE_REACH)
+#    define RTHUMB_REACH  LT(_SE_EXTRA, KC_ENT)
+#    define RTHUMB_TUCK   OSL(_symbols)
+#    define MOD_HOLD_KEYS LTHUMB_HOME, RTHUMB_HOME, LTHUMB_REACH, RTHUMB_REACH
 #    ifdef LEFT_HAND_SPACE
 #        define LTHUMB_HOME LT(_SE_NAV, KC_SPC)
 #        define RTHUMB_HOME LT(_SE_NAV, KC_BSPC)
@@ -161,10 +165,11 @@
 #    endif
 
 #elif defined HT_TWO_THUMB_KEYS
-#    define LTHUMB_TUCK  LSFT_T(_SE_REACH)
-#    define LTHUMB_REACH LTHUMB_TUCK
-#    define RTHUMB_REACH LT(_symbols, KC_ENT)
-#    define RTHUMB_TUCK  RTHUMB_REACH
+#    define LTHUMB_TUCK   LSFT_T(_SE_REACH)
+#    define LTHUMB_REACH  LTHUMB_TUCK
+#    define RTHUMB_REACH  LT(_symbols, KC_ENT)
+#    define RTHUMB_TUCK   RTHUMB_REACH
+#    define MOD_HOLD_KEYS LTHUMB_HOME, RTHUMB_HOME, RTHUMB_REACH
 #    ifdef LEFT_HAND_SPACE
 #        define LTHUMB_HOME LT(_SE_NAV, KC_SPC)
 #        define RTHUMB_HOME LT(_SE_EXTRA, KC_BSPC)

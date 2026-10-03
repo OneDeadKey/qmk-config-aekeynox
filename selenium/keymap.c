@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __,  SC_ALL,   SC_SAVE,   S(KC_TAB),   KC_TAB,      XX,             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XX,      __,
         __,  SC_UNDO,  SC_CUT,    SC_COPY,     SC_PASTE,    SC_REDO,        MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  XX,      __,
 
-             LSFT_T(KC_CAPS),  LT(_fn_media, KC_DEL),  __,                  __,  MO(_fn_media),  LSK_RALT
+                        LSFT_T(KC_CAPS),  LT(_fn_media, KC_DEL),  __,       __,  MO(_fn_media),  LSK_RALT
     ),
 
     // 4. NavNum layer -- inverted T navigation + numpad
@@ -142,6 +142,70 @@ static void vim_next_action(void) {
     }
 }
 
+#ifdef ENABLE_MOD_HOLDS
+// Each MOD_HOLD_KEYS hold pins the mods held at its press until it lifts.
+// `dropped` collects the pinned mods whose source key released mid-hold: only
+// those are unregistered at lift, so a mod still physically held survives.
+static const uint16_t mod_hold_keys[] = {MOD_HOLD_KEYS};
+static uint8_t mod_hold_pins[ARRAY_SIZE(mod_hold_keys)];
+static uint8_t mod_hold_dropped = 0;
+
+static uint8_t mod_hold_pinned(void) {
+    uint8_t pinned = 0;
+    for (uint8_t i = 0; i < ARRAY_SIZE(mod_hold_keys); i++) {
+        pinned |= mod_hold_pins[i];
+    }
+    return pinned;
+}
+
+// Mods a key's release unregisters: a held mod-tap's mods, or a modifier keycode's bit.
+static uint8_t mod_hold_source_mods(uint16_t keycode, keyrecord_t *record) {
+    if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) {
+        const uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+        return (mods & 0x10) ? (mods & 0x0F) << 4 : mods;
+    }
+    if (IS_MODIFIER_KEYCODE(keycode)) { return MOD_BIT(keycode); }
+    return 0;
+}
+
+// Returns false to swallow the release of a key whose mods are all pinned,
+// so the host never sees them drop.
+static bool mod_hold_process(uint16_t keycode, keyrecord_t *record) {
+    const bool pressed = record->event.pressed;
+
+    for (uint8_t i = 0; i < ARRAY_SIZE(mod_hold_keys); i++) {
+        if (keycode != mod_hold_keys[i]) { continue; }
+        if (pressed) {
+            mod_hold_pins[i] = get_mods();
+        } else {
+            mod_hold_pins[i] = 0;
+            const uint8_t to_drop = mod_hold_dropped & ~mod_hold_pinned();
+            if (to_drop) { unregister_mods(to_drop); }
+            mod_hold_dropped &= ~to_drop;
+        }
+        return true;
+    }
+
+    if (!pressed) {
+        const uint8_t source = mod_hold_source_mods(keycode, record);
+        if (source && (source & ~mod_hold_pinned()) == 0) {
+            mod_hold_dropped |= source;
+            return false;
+        }
+    }
+    return true;
+}
+#endif
+
+// Unregisters mods, except those a mod-hold key pins: they drop at its lift.
+static void unregister_unpinned_mods(uint8_t mods) {
+#ifdef ENABLE_MOD_HOLDS
+    mod_hold_dropped |= mods & mod_hold_pinned();
+    mods &= ~mod_hold_pinned();
+#endif
+    if (mods) { unregister_mods(mods); }
+}
+
 // SHIFT_CAPS: sticky Shift that reaches CapsLock on a double tap.
 // Hold = continuous Shift, tap = one-shot Shift, as OSM(MOD_LSFT) does.
 // A press while Shift is already down — the second tap, or any other Shift
@@ -175,23 +239,10 @@ static void shift_caps_press(void) {
 
 static void shift_caps_release(void) {
     if (!shift_caps_held) { return; }
-    unregister_mods(MOD_BIT(KC_LSFT));
+    unregister_unpinned_mods(MOD_BIT(KC_LSFT));
     if (!shift_caps_used) { set_oneshot_mods(MOD_BIT(KC_LSFT)); }
     shift_caps_held = false;
 }
-
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-// Mods pinned for the lifetime of the nav-layer thumb hold (0 = inactive).
-// These match VIM_PREV / VIM_NEXT's mod-morph trigger, which fires on LAlt or
-// LGUI: pin LGUI on Mac, LAlt elsewhere, so pinning actually engages the morph.
-#    ifdef MAC_MODIFIERS
-#        define MHN_MODS_TO_PIN (MOD_BIT(KC_LGUI))
-#    else
-#        define MHN_MODS_TO_PIN (MOD_BIT(KC_LALT))
-#    endif
-
-static uint8_t mhn_pinned_mods = 0;
-#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
@@ -201,16 +252,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (shift_caps_held && keycode != SHIFT_CAPS) { shift_caps_used = true; }
     }
 
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-    if (keycode == LTHUMB_HOME) {
-        if (record->event.pressed) {
-            // Pin whichever target mods are held at the instant the thumb goes down.
-            mhn_pinned_mods = get_mods() & MHN_MODS_TO_PIN;
-        } else if (mhn_pinned_mods) {
-            unregister_mods(mhn_pinned_mods);
-            mhn_pinned_mods = 0;
-        }
-    }
+#ifdef ENABLE_MOD_HOLDS
+    if (!mod_hold_process(keycode, record)) { return false; }
 #endif
 
     // NOTE: Insecable space (Shift+Space for Ergol) is NOT implemented.
@@ -240,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case SHIFT_CAPS: shift_caps_release(); return false;
             case LSK_RALT:
-                unregister_mods(MOD_BIT(KC_RALT));
+                unregister_unpinned_mods(MOD_BIT(KC_RALT));
                 if (!lsk_ralt_used) { set_oneshot_mods(MOD_BIT(KC_RALT)); }
                 lsk_ralt_held = false;
                 return false;
@@ -249,16 +292,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-#ifdef ENABLE_MOD_HOLD_NAVIGATION
-// Runs after QMK's default processing: re-assert the pinned mods so any
-// HRM/mod-tap release during the hold can't clear them before the next HID
-// report. Decoupling the pin from its source key means it survives no matter
-// which key supplied the mod (KC_FF, KC_JJ, ...) or when it is released.
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (mhn_pinned_mods) { register_mods(mhn_pinned_mods); }
-}
-#endif
 
 // Returns whether a hold-tap keycode should resolve as tap-preferred:
 //  - true  → long tapping term (HRM_TAPPING_TERM), no hold-on-other-key-press

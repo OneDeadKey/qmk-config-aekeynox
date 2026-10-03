@@ -159,7 +159,7 @@
 
 #elif defined HT_HOME_ROW_MODS
 #    define LTHUMB_TUCK  SHIFT_CAPS
-#    define LTHUMB_REACH LT(_SE_EXTRA, _SE_REACH)
+#    define LTHUMB_REACH LT(_fn_media, _SE_REACH)
 #    define RTHUMB_REACH LT(_SE_EXTRA, KC_ENT)
 #    define RTHUMB_TUCK  OSL(_symbols)
 #    ifdef LEFT_HAND_SPACE

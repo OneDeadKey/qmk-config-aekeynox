@@ -21,7 +21,7 @@ enum custom_keycodes {
     LSK_RALT,           // EZ_LSK(RALT): go to base layer, then sticky RALT
     VIM_PREV,           // Alt+Left; morphs to Shift+Grave when LAlt/LGUI is held
     VIM_NEXT,           // Alt+Right; morphs to Grave when LAlt/LGUI is held
-    SHIFT_CAPS,         // one-shot Shift; morphs to CapsLock when Shift is held
+    SHIFT_CAPS,         // one-shot Shift; toggles Caps Word when Shift is held
 };
 
 // QMK implementation of the Selenium specification.
@@ -206,17 +206,16 @@ static void unregister_unpinned_mods(uint8_t mods) {
     if (mods) { unregister_mods(mods); }
 }
 
-// SHIFT_CAPS: sticky Shift that reaches CapsLock on a double tap.
+// SHIFT_CAPS: sticky Shift that toggles Caps Word on a double tap.
 // Hold = continuous Shift, tap = one-shot Shift, as OSM(MOD_LSFT) does.
 // A press while Shift is already down — the second tap, or any other Shift
-// source — taps CapsLock instead, with that Shift masked out of the tap and a
-// pending sticky Shift consumed.
+// source — drops pending one-shot mods and toggles Caps Word instead.
 static bool shift_caps_held = false;
 static bool shift_caps_used = false;
 
 static void shift_caps_press(void) {
     const uint8_t oneshot = get_oneshot_mods() & MOD_MASK_SHIFT;
-    const uint8_t held    = get_mods() & MOD_MASK_SHIFT;
+    const uint8_t held = get_mods() & MOD_MASK_SHIFT;
 
     if (!oneshot && !held) {
         register_mods(MOD_BIT(KC_LSFT));
@@ -225,16 +224,8 @@ static void shift_caps_press(void) {
         return;
     }
 
-    if (oneshot) { clear_oneshot_mods(); }
-    if (held) {
-        del_mods(held);
-        send_keyboard_report();
-    }
-    tap_code(KC_CAPS);
-    if (held) {
-        add_mods(held);
-        send_keyboard_report();
-    }
+    clear_oneshot_mods();
+    caps_word_toggle();
 }
 
 static void shift_caps_release(void) {
@@ -361,27 +352,24 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
-        // Keycodes that continue Caps Word, with shift applied.
-        case KC_A:
-        case KC_B:
-        case KC_D ... KC_M:
-        case KC_P ... KC_Z:
-        case KC_SCLN:
-        case KC_COMM:
-        case KC_SLSH:
-            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
-            return true;
+        CAPS_WORD_SHIFT_CASES
+        add_weak_mods(MOD_BIT(KC_RSFT));
+        return true;
 
-        // Keycodes that continue Caps Word, without shifting.
-        case KC_1 ... KC_0:
-        case KC_C:
-        case KC_O:
-        case KC_BSPC:
+        CAPS_WORD_CONTINUE_CASES
+        case AS(1):
+        case AS(2):
+        case AS(3):
+        case AS(4):
+        case AS(5):
+        case AS(6):
+        case AS(7):
+        case AS(8):
+        case AS(9):
+        case AS(0):
         case KC_DEL:
-        case KC_RIGHT:
-        case KC_LEFT:
-        case KC_UNDS: return true;
+        case KC_BSPC: return true;
 
-        default: return false; // Deactivate Caps Word.
+        default: return false;
     }
 }

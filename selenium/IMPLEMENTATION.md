@@ -138,17 +138,17 @@ QMK's **default** behavior (no flags) is actually an exact match for ZMK native 
 
 Some Selenium ZMK behaviors (custom or reconfigured native) have no direct QMK native counterpart. These were either approximated with Selenium QMK custom keycodes, mapped to equivalent QMK native features, or left unimplemented:
 
-| Selenium ZMK behavior                                           | Selenium QMK approximation               | What's lost                                                                                                                   |
-| --------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `EZ_SK(LSHIFT)` (Selenium custom: sticky key hold-tap)          | QMK native `OSM(MOD_LSFT)`               | — (equivalent: QMK native `OSM()` is one-shot on tap and continuous modifier on hold)                                         |
-| `shift_caps` (Selenium custom: Shift→CapsLock morph)            | `SHIFT_CAPS` (Selenium QMK custom keycode)| — (equivalent: sticky Shift on tap, CapsLock when Shift is already down)                                                      |
-| `sym_shift_altgr` (Selenium custom: shift→AltGr morph)          | QMK native `OSL(_symbols)`               | Shift morph: tapping shift doesn't switch to AltGr                                                                            |
-| `EZ_SL` (Selenium custom: hold=momentary, tap=one-shot layer)   | QMK native `OSL(_symbols)`               | — (equivalent: QMK native `OSL()` provides one-shot on tap and momentary on hold)                                             |
-| `EZ_LSK(RALT)` (Selenium custom: sticky key on base layer)      | `LSK_RALT` (Selenium QMK custom keycode) | — (equivalent: see [EZ_LSK(RALT)](#ez_lskralt-sticky-altgr-on-base-layer) below)                                              |
-| `magic_backspace` / `magic_space` (Selenium custom: mod-morphs) | Not implemented                          | See [Mod-morph decision](#mod-morph-magic_backspacemagic_space) below                                                         |
-| `&lt FUNCTION LS(SPACE)` (ZMK native, with shifted tap)         | Not implemented                          | See [Insecable space](#insecable-space) below.                                                                                |
-| `&sl { ignore-modifiers; }` (ZMK native, reconfigured)          | QMK native default behavior              | — (equivalent: QMK native `OSL` natively preserves modifiers when chaining OSM→OSL)                                           |
-| `&sk { quick-release; }` (ZMK native, reconfigured)             | Similar QMK native default               | Minor timing difference: QMK releases OSM on next key release, ZMK `quick-release` on next key press. Negligible in practice. |
+| Selenium ZMK behavior                                           | Selenium QMK approximation                 | What's lost                                                                                                                   |
+| --------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `EZ_SK(LSHIFT)` (Selenium custom: sticky key hold-tap)          | QMK native `OSM(MOD_LSFT)`                 | — (equivalent: QMK native `OSM()` is one-shot on tap and continuous modifier on hold)                                         |
+| `shift_caps` (Selenium custom: Shift→Caps Word morph)           | `SHIFT_CAPS` (Selenium QMK custom keycode) | — (equivalent: sticky Shift on tap, Caps Word toggle when Shift is already down)                                              |
+| `sym_shift_altgr` (Selenium custom: shift→AltGr morph)          | QMK native `OSL(_symbols)`                 | Shift morph: tapping shift doesn't switch to AltGr                                                                            |
+| `EZ_SL` (Selenium custom: hold=momentary, tap=one-shot layer)   | QMK native `OSL(_symbols)`                 | — (equivalent: QMK native `OSL()` provides one-shot on tap and momentary on hold)                                             |
+| `EZ_LSK(RALT)` (Selenium custom: sticky key on base layer)      | `LSK_RALT` (Selenium QMK custom keycode)   | — (equivalent: see [EZ_LSK(RALT)](#ez_lskralt-sticky-altgr-on-base-layer) below)                                              |
+| `magic_backspace` / `magic_space` (Selenium custom: mod-morphs) | Not implemented                            | See [Mod-morph decision](#mod-morph-magic_backspacemagic_space) below                                                         |
+| `&lt FUNCTION LS(SPACE)` (ZMK native, with shifted tap)         | Not implemented                            | See [Insecable space](#insecable-space) below.                                                                                |
+| `&sl { ignore-modifiers; }` (ZMK native, reconfigured)          | QMK native default behavior                | — (equivalent: QMK native `OSL` natively preserves modifiers when chaining OSM→OSL)                                           |
+| `&sk { quick-release; }` (ZMK native, reconfigured)             | Similar QMK native default                 | Minor timing difference: QMK releases OSM on next key release, ZMK `quick-release` on next key press. Negligible in practice. |
 
 ## Key Overrides vs mod-morph: the capability boundary
 

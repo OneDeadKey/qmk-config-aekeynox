@@ -40,7 +40,7 @@ Override in your keymap's `options.h`:
 
 ## Lily58
 
-58 keys, 5 rows + 4 thumbs per side.
+58 keys: 4 rows of 6, 1 inner-corner key and 4 thumbs per side.
 
 Lily58 has **4 keys beyond** the 42-key Selenium/Arsenik spec: 1 inner-corner key per side (below the home row) and 1 extra outermost thumb per side.
 They default to `KC_NO` (inert). Override in your keymap's `options.h`:

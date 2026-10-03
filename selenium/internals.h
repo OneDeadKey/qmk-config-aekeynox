@@ -20,6 +20,69 @@
 #    define AS_MONEY AS(DLR) // $ on QWERTY/Lafayette
 #endif
 
+// Caps Word, per host layout: keys it shifts, and keys that continue it unshifted.
+// Every other key ends the word, except numbers, Delete and Backspace.
+#if defined KB_LAYOUT_QWERTY
+#    define CAPS_WORD_SHIFT_CASES case KC_A ... KC_Z:
+#    define CAPS_WORD_CONTINUE_CASES
+#elif defined KB_LAYOUT_QWERTY_LAFAYETTE
+#    define CAPS_WORD_SHIFT_CASES    case KC_A ... KC_Z:
+#    define CAPS_WORD_CONTINUE_CASES case KC_SCLN: case KC_MINS:
+#elif defined KB_LAYOUT_AZERTY
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_A ... KC_L: case KC_N ... KC_Z: case KC_SCLN:
+#    ifdef MAC_MODIFIERS
+#        define AZERTY_DEAD_TILDE_GRAVE case RALT(KC_N): case KC_NUHS:
+#    else
+#        define AZERTY_DEAD_TILDE_GRAVE case RALT(KC_2): case RALT(KC_7):
+#    endif
+#    define CAPS_WORD_CONTINUE_CASES \
+        case KC_1: case KC_2: case KC_4: case KC_6 ... KC_0: case KC_QUOT: \
+        case KC_LBRC: case S(KC_LBRC): AZERTY_DEAD_TILDE_GRAVE
+#elif defined KB_LAYOUT_ERGOL
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_Q: case KC_W: case KC_E: case KC_R: case KC_T: \
+        case KC_Y: case KC_U: case KC_I: case KC_P: \
+        case KC_A: case KC_S: case KC_D: case KC_F: case KC_G: \
+        case KC_H: case KC_J: case KC_K: case KC_L: case KC_SCLN: \
+        case KC_Z: case KC_X: case KC_V: case KC_B: \
+        case KC_M: case KC_COMM: case KC_SLSH:
+#    define CAPS_WORD_CONTINUE_CASES case KC_O: case KC_C:
+#elif defined KB_LAYOUT_ERGLACE
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_Q: case KC_E: case KC_R: case KC_T: \
+        case KC_Y: case KC_U: case KC_I: case KC_O: case KC_P: \
+        case KC_A: case KC_S: case KC_D: case KC_F: \
+        case KC_H: case KC_J: case KC_K: case KC_L: case KC_SCLN: \
+        case KC_Z: case KC_V: case KC_B: \
+        case KC_N: case KC_M: case KC_COMM: case KC_DOT: case KC_SLSH:
+#    define CAPS_WORD_CONTINUE_CASES case KC_C: case KC_W:
+#elif defined KB_LAYOUT_BEPO
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_Q: case KC_W: case KC_E: case KC_R: case KC_T: \
+        case KC_U: case KC_I: case KC_O: case KC_P: case KC_LBRC: case KC_RBRC: \
+        case KC_A: case KC_S: case KC_D: case KC_F: \
+        case KC_H: case KC_J: case KC_K: case KC_L: case KC_SCLN: case KC_QUOT: case KC_BSLS: \
+        case KC_NUBS: case KC_Z: case KC_X: case KC_C: case KC_B: \
+        case KC_M: case KC_COMM: case KC_DOT: case KC_SLSH:
+#    define CAPS_WORD_CONTINUE_CASES case KC_Y: case KC_N:
+#elif defined KB_LAYOUT_BEPOLAR
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_A ... KC_Z: case KC_SCLN: case KC_COMM: case KC_DOT: case KC_SLSH:
+#    define CAPS_WORD_CONTINUE_CASES
+#elif defined KB_LAYOUT_DVORAK
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_R: case KC_T: \
+        case KC_Y: case KC_U: case KC_I: case KC_O: case KC_P: \
+        case KC_A: case KC_S: case KC_D: case KC_F: case KC_G: \
+        case KC_H: case KC_J: case KC_K: case KC_L: case KC_SCLN: \
+        case KC_X: case KC_C: case KC_V: case KC_B: \
+        case KC_N: case KC_M: case KC_COMM: case KC_DOT: case KC_SLSH:
+#    define CAPS_WORD_CONTINUE_CASES case KC_Q:
+#else
+#    error "Caps Word has no key lists for the selected KB_LAYOUT_*"
+#endif
+
 // ╭─────────────────────────────────────────────────────────╮
 // │               Hold-Tap configuration                    │
 // ╰─────────────────────────────────────────────────────────╯

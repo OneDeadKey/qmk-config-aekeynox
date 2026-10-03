@@ -127,28 +127,18 @@
 
 // Thumb key definitions
 #if defined HT_NONE
-#    define LTHUMB_TUCK KC_LALT
-#    ifdef MAC_MODIFIERS
-#        define LTHUMB_HOME  KC_LGUI
-#        define LTHUMB_REACH KC_LCTL
-#    else
-#        define LTHUMB_HOME  KC_LCTL
-#        define LTHUMB_REACH KC_LGUI
-#    endif
+#    define LTHUMB_TUCK  _ALT
+#    define LTHUMB_HOME  _CTL
+#    define LTHUMB_REACH _GUI
 #    define RTHUMB_REACH MO(_SE_NAV)
 #    define RTHUMB_HOME  KC_SPC
 #    define RTHUMB_TUCK  MO(_symbols)
 
 #elif defined HT_THUMB_TAPS
-#    define LTHUMB_TUCK SHIFT_CAPS
-#    ifdef MAC_MODIFIERS
-#        define LTHUMB_REACH LCTL_T(_SE_REACH)
-#        define RTHUMB_REACH LGUI_T(KC_ENT)
-#    else
-#        define LTHUMB_REACH LGUI_T(_SE_REACH)
-#        define RTHUMB_REACH LALT_T(KC_ENT)
-#    endif
-#    define RTHUMB_TUCK OSL(_symbols)
+#    define LTHUMB_TUCK  SHIFT_CAPS
+#    define LTHUMB_REACH _GUI_T(_SE_REACH)
+#    define RTHUMB_REACH _ALT_T(KC_ENT)
+#    define RTHUMB_TUCK  OSL(_symbols)
 #    ifdef LEFT_HAND_SPACE
 #        define LTHUMB_HOME _CTL_T(KC_SPC)
 #        define RTHUMB_HOME LT(_SE_NAV, KC_BSPC)

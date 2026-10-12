@@ -170,7 +170,11 @@ detect_onedeadkey_layout_name() {
 
     local kb_layouts
     kb_layouts=$(qmk info -kb "$keyboard_model" -km default -f json 2>/dev/null \
-        | jq -r '.layouts | to_entries[] | [.key, (.value.layout | length)] | @tsv')
+        | jq -r '.layouts as $l
+            | ($l | to_entries[] | [.key, (.value.layout | length)]),
+              ((.layout_aliases // {}) | to_entries[] | select($l[.value])
+                  | [.key, ($l[.value].layout | length), .value])
+            | @tsv')
 
     if [ -z "$kb_layouts" ]; then
         log_error "Could not read layouts for '$keyboard_model' from 'qmk info'."
@@ -181,14 +185,18 @@ detect_onedeadkey_layout_name() {
     # keep only those supported by shared/layouts.h.
     # A bare "LAYOUT" macro (used by some single-layout boards) maps to the
     # keyboard's slug, e.g. lily58/rev1 -> ONEDEADKEY_LAYOUT_lily58.
+    # Layout aliases (3rd column: the aliased layout) count only when the
+    # aliased layout matched nothing itself, e.g. planck/rev5 reaches
+    # planck_mit through LAYOUT_planck_mit -> LAYOUT_planck_1x2uC.
     local slug
     slug=$(echo "$keyboard_model" | sed 's,/,_,g' | sed 's/_rev[0-9]*$//')
     local supported
     supported=$(get_supported_layouts)
 
-    local candidates=""
-    while IFS=$'\t' read -r kb_layout key_count; do
+    local candidates="" matched=" "
+    while IFS=$'\t' read -r kb_layout key_count alias_of; do
         [ -z "$kb_layout" ] && continue
+        [ -n "$alias_of" ] && [[ "$matched" == *" $alias_of "* ]] && continue
         local candidate
         if [ "$kb_layout" = "LAYOUT" ]; then
             candidate="ONEDEADKEY_LAYOUT_$slug"
@@ -196,6 +204,7 @@ detect_onedeadkey_layout_name() {
             candidate="ONEDEADKEY_${kb_layout}"
         fi
         if echo "$supported" | grep -qx "$candidate"; then
+            matched+="$kb_layout "
             candidates+="$candidate"$'\t'"$key_count"$'\n'
         fi
     done <<< "$kb_layouts"

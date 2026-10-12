@@ -87,6 +87,21 @@
 // │               Hold-Tap configuration                    │
 // ╰─────────────────────────────────────────────────────────╯
 
+// THREE_THUMB_KEYS (set by boards with a central spacebar in shared/layouts.h)
+// forces the Arsenik thumb keys regardless of other HT options
+#ifdef THREE_THUMB_KEYS
+#    undef HT_NONE
+#    undef HT_THUMB_TAPS
+#    undef HT_HOME_ROW_MODS
+#    undef HT_TWO_THUMB_KEYS
+#    undef LEFT_HAND_SPACE
+#    ifndef HT_ARSENIK
+#        define HT_ARSENIK
+#    endif
+#else
+#    undef HT_ARSENIK
+#endif
+
 // FOUR_THUMB_KEYS forces HT_TWO_THUMB_KEYS regardless of other HT options
 #ifdef FOUR_THUMB_KEYS
 #    undef HT_NONE
@@ -96,7 +111,7 @@
 #endif
 
 // Default to HT_HOME_ROW_MODS if no hold-tap config is selected
-#if !defined HT_NONE && !defined HT_THUMB_TAPS && !defined HT_HOME_ROW_MODS && !defined HT_TWO_THUMB_KEYS
+#if !defined HT_NONE && !defined HT_THUMB_TAPS && !defined HT_HOME_ROW_MODS && !defined HT_TWO_THUMB_KEYS && !defined HT_ARSENIK
 #    define HT_HOME_ROW_MODS
 #endif
 
@@ -134,8 +149,8 @@
 #define SC_SAVE  _SC(S)
 #define SC_ALL   _SC(A)
 
-// Home-row mods (enabled for HT_HOME_ROW_MODS and HT_TWO_THUMB_KEYS)
-#if defined HT_HOME_ROW_MODS || defined HT_TWO_THUMB_KEYS
+// Home-row mods (enabled for HT_HOME_ROW_MODS, HT_TWO_THUMB_KEYS and HT_ARSENIK)
+#if defined HT_HOME_ROW_MODS || defined HT_TWO_THUMB_KEYS || defined HT_ARSENIK
 #    define KC_SS _GUI_T(KC_S)
 #    define KC_DD _CTL_T(KC_D)
 #    define KC_FF _ALT_T(KC_F)
@@ -241,13 +256,30 @@
 #        define RTHUMB_HOME LT(_SE_S34, KC_SPC)
 #    endif
 
+#elif defined HT_ARSENIK
+#    define LTHUMB_TUCK   LSFT_T(KC_BSPC)
+#    define LTHUMB_HOME   XX
+#    define LTHUMB_REACH  XX
+#    define RTHUMB_REACH  XX
+#    define RTHUMB_HOME   LT(_SE_NAV, KC_SPC)
+#    define RTHUMB_TUCK   LT(_symbols, KC_ENT)
+#    define MOD_HOLD_KEYS RTHUMB_HOME
+
 #endif
 
-// _nav_num layer thumb cluster
-#ifdef HT_TWO_THUMB_KEYS
+// Nav layers' thumb keys
+#if defined HT_ARSENIK
+#    define NAV_LTHUMB_TUCK LSFT_T(KC_DEL)
+#    define VIM_LTHUMB_TUCK NAV_LTHUMB_TUCK
+#    define NAV_RTHUMB_TUCK MO(_fn_media)
+#elif defined HT_TWO_THUMB_KEYS
 #    define NAV_LTHUMB_TUCK S(KC_TAB)
+#    define VIM_LTHUMB_TUCK LSFT_T(KC_CAPS)
+#    define NAV_RTHUMB_TUCK LSK_RALT
 #else
 #    define NAV_LTHUMB_TUCK LSFT_T(KC_CAPS)
+#    define VIM_LTHUMB_TUCK NAV_LTHUMB_TUCK
+#    define NAV_RTHUMB_TUCK LSK_RALT
 #endif
 
 // ╭─────────────────────────────────────────────────────────╮

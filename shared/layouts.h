@@ -3,72 +3,58 @@
 #pragma once
 
 // ╭─────────────────────────────────────────────────────────╮
-// │          Keymap facades over ONEDEADKEY_LAYOUT          │
+// │          SELENIUM_LAYOUT — one per board                │
 // ╰─────────────────────────────────────────────────────────╯
-
-// Row 1 is outside Selenium's 42-key spec; the facade fills its 12 slots with the UR_* keys
-// (defaults in selenium/internals.h).
-#define SELENIUM_LAYOUT(\
-    LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
-    LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
-    LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
-                     LT1, LT2, LT3,     RT3, RT2, RT1\
-) ONEDEADKEY_LAYOUT(\
-    UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,    UR_6,  UR_7, UR_8, UR_9, UR_0, UR_OR,\
-    LOUT1, L21,  L22,  L23,  L24,  L25,     R21,   R22,  R23,  R24,  R25,  ROUT1,\
-    LOUT2, L31,  L32,  L33,  L34,  L35,     R31,   R32,  R33,  R34,  R35,  ROUT2,\
-    LOUT3, L41,  L42,  L43,  L44,  L45,     R41,   R42,  R43,  R44,  R45,  ROUT3,\
-                         LT1, LT2, LT3,     RT3, RT2, RT1)
-
-// ╭─────────────────────────────────────────────────────────╮
-// │     Physical descriptors — ONEDEADKEY_LAYOUT per board  │
-// ╰─────────────────────────────────────────────────────────╯
+//
+// Each board maps SELENIUM_LAYOUT (3×12 + 6 thumbs: LT1 LT2 LT3, RT3 RT2 RT1)
+// onto its QMK LAYOUT macro.
+//
+// Board-specific cases:
+//   - 5th Upper Row → UR_* keys (selenium/internals.h).
+//   - Central spacebar: defines THREE_THUMB_KEYS (Arsenik thumb keys).
 
 //  ──────────────────────────< Generic layouts >──────────────────────────
 
 #if defined ONEDEADKEY_LAYOUT_split_3x5_2
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_split_3x5_2(\
-             k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b,\
-             k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b,\
-             k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b,\
-                       k51, k52,               k55, k56\
+             L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25,\
+             L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35,\
+             L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45,\
+                            LT1, LT2,     RT2, RT1\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_split_3x5_3
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_split_3x5_3(\
-             k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b,\
-             k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b,\
-             k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b,\
-                       k51, k52, k53,     k54, k55, k56\
+             L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25,\
+             L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35,\
+             L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45,\
+                       LT1, LT2, LT3,     RT3, RT2, RT1\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_split_3x6_3
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_split_3x6_3(\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )
 
 //  ──< Corne v4 ex2: 3x6_3 + 2 inner-column keys per side (top + middle) >──
@@ -90,18 +76,17 @@
 #ifndef ODK_EXT_RB
 #    define ODK_EXT_RB KC_NO
 #endif
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_split_3x6_3_ex2(\
-        k21, k22, k23, k24, k25, k26, ODK_EXT_LT,     ODK_EXT_RT, k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36, ODK_EXT_LB,     ODK_EXT_RB, k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,                             k47, k48, k49, k4a, k4b, k4c,\
-                                 k51, k52, k53,     k54, k55, k56\
+        LOUT1, L21, L22, L23, L24, L25, ODK_EXT_LT,     ODK_EXT_RT, R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35, ODK_EXT_LB,     ODK_EXT_RB, R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,                             R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,                             RT3, RT2, RT1\
     )
 
 //  ──< Corne v4 ex2: 3x5_3 + 2 inner-column keys per side (top + middle) >──
@@ -119,130 +104,122 @@
 #ifndef ODK_EXT_RB
 #    define ODK_EXT_RB KC_NO
 #endif
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_split_3x5_3_ex2(\
-             k22, k23, k24, k25, k26, ODK_EXT_LT,     ODK_EXT_RT, k27, k28, k29, k2a, k2b,\
-             k32, k33, k34, k35, k36, ODK_EXT_LB,     ODK_EXT_RB, k37, k38, k39, k3a, k3b,\
-             k42, k43, k44, k45, k46,                             k47, k48, k49, k4a, k4b,\
-                                 k51, k52, k53,     k54, k55, k56\
+             L21, L22, L23, L24, L25, ODK_EXT_LT,     ODK_EXT_RT, R21, R22, R23, R24, R25,\
+             L31, L32, L33, L34, L35, ODK_EXT_LB,     ODK_EXT_RB, R31, R32, R33, R34, R35,\
+             L41, L42, L43, L44, L45,                             R41, R42, R43, R44, R45,\
+                       LT1, LT2, LT3,                             RT3, RT2, RT1\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_ortho_4x10
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_ortho_4x10(\
-             k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b,\
-             k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b,\
-             k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b,\
-             XX,  XX,  k51, k52, k53,     k54, k55, k56, XX,  XX\
+             L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25,\
+             L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35,\
+             L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45,\
+             XX,  XX,  LT1, LT2, LT3,     RT3, RT2, RT1, XX,  XX\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_ortho_4x12
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_ortho_4x12(\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-        XX,  XX,  XX,  k51, k52, k53,     k54, k55, k56, XX,  XX,  XX\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+        XX,    XX,  XX,  LT1, LT2, LT3,     RT3, RT2, RT1, XX,  XX,  XX\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_ortho_5x10
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_ortho_5x10(\
-             k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b,\
-             k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b,\
-             k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b,\
-             k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b,\
-             XX,  XX,  k51, k52, k53,     k54, k55, k56, XX,  XX\
+             UR_1, UR_2, UR_3, UR_4, UR_5,  UR_6, UR_7, UR_8, UR_9, UR_0,\
+             L21,  L22,  L23,  L24,  L25,   R21,  R22,  R23,  R24,  R25,\
+             L31,  L32,  L33,  L34,  L35,   R31,  R32,  R33,  R34,  R35,\
+             L41,  L42,  L43,  L44,  L45,   R41,  R42,  R43,  R44,  R45,\
+             XX,   XX,   LT1,  LT2,  LT3,   RT3,  RT2,  RT1,  XX,   XX\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_ortho_5x12
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_ortho_5x12(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-        XX,  XX,  XX,  k51, k52, k53,     k54, k55, k56, XX,  XX,  XX\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,    UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,     R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,     R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45,     R41,  R42,  R43,  R44,  R45,  ROUT3,\
+        XX,    XX,   XX,   LT1,  LT2,  LT3,     RT3,  RT2,  RT1,  XX,   XX,   XX\
     )
 
 //  ─────────────────< Custom keyboard-specific layouts >──────────────
 
 //  ──< Planck MIT: 2u spacebar >──
-//  Central spacebar: Arsenik thumb keys on k51, k55 (2u) and k56.
+//  Arsenik thumbs: LT1 left of the spacebar, RT2 on it, RT1 right of it.
 #elif defined ONEDEADKEY_LAYOUT_planck_mit
 #define THREE_THUMB_KEYS
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_planck_mit(\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-        XX,  XX,  XX,  XX,  k51,      k55,     k56, XX,  XX,  XX,  XX\
+        LOUT1, L21, L22, L23, L24, L25,        R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,        R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,        R41, R42, R43, R44, R45, ROUT3,\
+        XX,  XX,  XX,  XX,  LT1,         RT2,        RT1, XX,  XX,  XX,  XX\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_planck_grid
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,      k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,      k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,      k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,      k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,      k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     )\
     LAYOUT_planck_grid(\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-	XX,  XX,  XX,  k51, k52, k53,     k54, k55, k56, XX,  XX,  XX\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+        XX,    XX,  XX,  LT1, LT2, LT3,     RT3, RT2, RT1, XX,  XX,  XX\
     )
 
 #elif defined ONEDEADKEY_LAYOUT_keebio_iris
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,      k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,      k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,      k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,      k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,      k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     ) LAYOUT(\
-        k11, k12, k13, k14, k15, k16,         k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,         k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,         k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46, XX, XX, k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,         k54, k55, k56\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,        UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,         R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,         R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45, XX, XX, R41,  R42,  R43,  R44,  R45,  ROUT3,\
+                             LT1, LT2, LT3,         RT3,  RT2,  RT1\
     )
 
 //  ──< Lily58: 5 rows × 6 + 2 inner-corner + 4 thumbs per side (58 keys) >──
@@ -250,7 +227,7 @@
 //  distinct ONEDEADKEY_LAYOUT_lily58* names per sub-variant, so we match
 //  all known ones here.
 //
-//  Four keys lie outside the 4×12+6 logical grid — inner corner below the
+//  Four keys lie outside the Selenium grid — inner corner below the
 //  home row (2, one per side) and an outermost thumb (2, one per side).
 //  They default to KC_NO. Override in options.h:
 //    #define ODK_EXT_INNER_L     KC_LBRC
@@ -276,18 +253,17 @@
 #ifndef ODK_EXT_THUMB_OUT_R
 #    define ODK_EXT_THUMB_OUT_R KC_NO
 #endif
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     ) LAYOUT(\
-        k11, k12, k13, k14, k15, k16,                                     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,                                     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,                                     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46, ODK_EXT_INNER_L, ODK_EXT_INNER_R,   k47, k48, k49, k4a, k4b, k4c,\
-                         ODK_EXT_THUMB_OUT_L, k51, k52, k53,     k54, k55, k56, ODK_EXT_THUMB_OUT_R\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,                                  UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,                                   R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,                                   R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45, ODK_EXT_INNER_L, ODK_EXT_INNER_R, R41,  R42,  R43,  R44,  R45,  ROUT3,\
+        ODK_EXT_THUMB_OUT_L, LT1, LT2, LT3,                                   RT3, RT2, RT1, ODK_EXT_THUMB_OUT_R\
     )
 
 //  ──< Sofle: Lily58 + 1 extra outermost thumb per side (60 keys) >──
@@ -333,18 +309,19 @@
 #ifndef ODK_EXT_THUMB_FAR_R
 #    define ODK_EXT_THUMB_FAR_R KC_NO
 #endif
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     ) LAYOUT(\
-        k11, k12, k13, k14, k15, k16,                                     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,                                     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,                                     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46, ODK_EXT_INNER_L, ODK_EXT_INNER_R,   k47, k48, k49, k4a, k4b, k4c,\
-        ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L, k51, k52, k53,     k54, k55, k56, ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,                                  UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,                                   R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,                                   R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45, ODK_EXT_INNER_L, ODK_EXT_INNER_R, R41,  R42,  R43,  R44,  R45,  ROUT3,\
+        ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L,\
+                             LT1, LT2, LT3,                                   RT3, RT2, RT1,\
+        ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R\
     )
 
 #elif defined(ONEDEADKEY_LAYOUT_keyboardio_atreus)
@@ -372,17 +349,18 @@
 #ifndef ODK_EXT_THUMB_FAR_EXT_R
 #    define ODK_EXT_THUMB_FAR_EXT_R KC_NO
 #endif
-#define ONEDEADKEY_LAYOUT(\
-        k11, k12, k13, k14, k15, k16,     k17, k18, k19, k1a, k1b, k1c,\
-        k21, k22, k23, k24, k25, k26,     k27, k28, k29, k2a, k2b, k2c,\
-        k31, k32, k33, k34, k35, k36,     k37, k38, k39, k3a, k3b, k3c,\
-        k41, k42, k43, k44, k45, k46,     k47, k48, k49, k4a, k4b, k4c,\
-                       k51, k52, k53,     k54, k55, k56\
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
     ) LAYOUT(\
-        k22, k23, k24, k25, k26,                                   k27, k28, k29, k2a, k2b,\
-        k32, k33, k34, k35, k36,                                   k37, k38, k39, k3a, k3b,\
-        k42, k43, k44, k45, k46, ODK_EXT_INNER_L, ODK_EXT_INNER_R, k47, k48, k49, k4a, k4b,\
-        ODK_EXT_THUMB_FAR_EXT_L, ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L, k51, k52, k53, k54, k55, k56, ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R, ODK_EXT_THUMB_FAR_EXT_R\
+        L21, L22, L23, L24, L25,                                   R21, R22, R23, R24, R25,\
+        L31, L32, L33, L34, L35,                                   R31, R32, R33, R34, R35,\
+        L41, L42, L43, L44, L45, ODK_EXT_INNER_L, ODK_EXT_INNER_R, R41, R42, R43, R44, R45,\
+        ODK_EXT_THUMB_FAR_EXT_L, ODK_EXT_THUMB_FAR_L, ODK_EXT_THUMB_OUT_L,\
+                  LT1, LT2, LT3,                                   RT3, RT2, RT1,\
+        ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R, ODK_EXT_THUMB_FAR_EXT_R\
     )
 
 #else

@@ -13,7 +13,7 @@ The following physical layouts are supported:
 - `LAYOUT_ortho_4x12`
 - `LAYOUT_ortho_5x10`
 - `LAYOUT_ortho_5x12`
-- `LAYOUT_planck_mit`
+- `LAYOUT_planck_mit` (Arsenik thumb keys — see [Planck MIT](#planck-mit))
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))
@@ -36,13 +36,13 @@ Override in your keymap's `options.h`:
 #define UR_OR  KC_MINS  // right outer key
 ```
 
-`XX` makes a key inert. Arsenik uses the top row natively.
+`XX` makes a key inert.
 
 ## Lily58
 
 58 keys: 4 rows of 6, 1 inner-corner key and 4 thumbs per side.
 
-Lily58 has **4 keys beyond** the 42-key Selenium/Arsenik spec: 1 inner-corner key per side (below the home row) and 1 extra outermost thumb per side.
+Lily58 has **4 keys beyond** the 42-key Selenium spec: 1 inner-corner key per side (below the home row) and 1 extra outermost thumb per side.
 They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 
 ```c
@@ -71,13 +71,13 @@ Everything from the [Lily58](#lily58) section applies, plus two more override sl
 **`keebart/sofle_choc_pro` needs a manual override.** Unlike other Sofle variants, this board reports its layout to QMK as `LAYOUT_split_4x6_5` — a generic community-shared name that means a different physical layout on non-Sofle boards. The generator refuses to auto-bind it to avoid producing wrong keymaps elsewhere. Pass `-layout LAYOUT_sofle` to force the Sofle layout:
 
 ```bash
-./generator.sh -src ./arsenik -kb keebart/sofle_choc_pro -layout LAYOUT_sofle --copy
+./generator.sh -src ./selenium -kb keebart/sofle_choc_pro -layout LAYOUT_sofle --copy
 ```
 
 ## Inner-column extensions (`_ex2` layouts)
 
 Boards that expose an `_ex2` variant have **4 extra physical keys** — 2 per side, stacked as a short inner column on the top and middle rows.
-These keys are outside the Selenium/Arsenik spec, so they default to `KC_NO` (inert).
+These keys are outside the Selenium spec, so they default to `KC_NO` (inert).
 
 Known boards:
 
@@ -99,7 +99,7 @@ The bound keycode is the same across all layers.
 
 44 keys (Keyboard.io Atreus), exposed by QMK as `LAYOUT_keyboardio_atreus`.
 
-Atreus has **8 keys beyond** the 42-key Selenium/Arsenik spec: 1 inner-corner key per side (between the home block and the thumb cluster) and 3 extra thumb keys per side.
+Atreus has **8 keys beyond** the 42-key Selenium spec: 1 inner-corner key per side (between the home block and the thumb cluster) and 3 extra thumb keys per side.
 They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 
 ```c
@@ -115,3 +115,9 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 
 `ODK_EXT_INNER_*`, `ODK_EXT_THUMB_OUT_*` and `ODK_EXT_THUMB_FAR_*` are shared with [Lily58](#lily58) / [Sofle](#sofle).
 `ODK_EXT_THUMB_FAR_EXT_L` and `ODK_EXT_THUMB_FAR_EXT_R` are Atreus-only.
+
+## Planck MIT
+
+47 keys, exposed by QMK as `LAYOUT_planck_mit`.
+
+The 2u spacebar sits between two thumb keys, so the keymap uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys instead of Selenium's: Shift/Backspace, Nav/Space, Symbols/Enter, with home-row mods. The `HT_*` hold-tap configs and `LEFT_HAND_SPACE` don't apply.

@@ -60,7 +60,7 @@ Each option is documented with inline comments. Edit this file **before** genera
 
 The defaults work out of the box — you can skip this step and come back later.
 
-> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
+> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus, Planck MIT) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
 
 ### 5. Generate the keymap and copy it to QMK
 

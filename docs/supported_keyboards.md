@@ -13,7 +13,7 @@ The following physical layouts are supported:
 - `LAYOUT_ortho_4x12`
 - `LAYOUT_ortho_5x10`
 - `LAYOUT_ortho_5x12`
-- `LAYOUT_planck_mit` (Arsenik thumb keys — see [Planck MIT](#planck-mit))
+- `LAYOUT_planck_mit` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT](#planck-mit))
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))
@@ -121,3 +121,25 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 47 keys, exposed by QMK as `LAYOUT_planck_mit`.
 
 The 2u spacebar sits between two thumb keys, so the keymap uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys instead of Selenium's: Shift/Backspace, Nav/Space, Symbols/Enter, with home-row mods. The `HT_*` hold-tap configs and `LEFT_HAND_SPACE` don't apply.
+
+Planck MIT has **8 keys beyond** the spec: the 4 bottom-row keys on each side of the thumb keys.
+Numbered from the outer edge, they default to:
+
+| Macro               | Default   | Position                    |
+| ------------------- | --------- | --------------------------- |
+| `ODK_EXT_BOTTOM_L1` | `KC_NO`   | left outermost              |
+| `ODK_EXT_BOTTOM_L2` | `KC_LCTL` |                             |
+| `ODK_EXT_BOTTOM_L3` | `KC_LALT` |                             |
+| `ODK_EXT_BOTTOM_L4` | `KC_LGUI` | next to the left thumb key  |
+| `ODK_EXT_BOTTOM_R4` | `KC_LEFT` | next to the right thumb key |
+| `ODK_EXT_BOTTOM_R3` | `KC_DOWN` |                             |
+| `ODK_EXT_BOTTOM_R2` | `KC_UP`   |                             |
+| `ODK_EXT_BOTTOM_R1` | `KC_RGHT` | right outermost             |
+
+Override any of them in your keymap's `options.h`:
+
+```c
+#define ODK_EXT_BOTTOM_L1 KC_ESC  // left outermost
+```
+
+The bound keycode is the same across all layers.

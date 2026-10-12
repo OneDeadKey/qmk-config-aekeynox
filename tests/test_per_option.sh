@@ -18,7 +18,7 @@ while [ "$#" -gt 0 ]; do
         -target) shift; TARGET="$1" ;;
         -layout) shift; LAYOUT_OVERRIDE="$1" ;;
         -j)      shift; JOBS="$1" ;;
-        *)       echo "Usage: $0 [-kb <keyboard>] [-target arsenik|selenium] [-layout <LAYOUT>] [-j <jobs>]"; exit 1 ;;
+        *)       echo "Usage: $0 [-kb <keyboard>] [-target selenium] [-layout <LAYOUT>] [-j <jobs>]"; exit 1 ;;
     esac
     shift
 done
@@ -29,54 +29,6 @@ setup_env
 enable() { echo "s|^// *#define $1|#define $1|"; }
 # Helper: disable a #define
 disable() { echo "s|^#define $1|// #define $1|"; }
-
-# ─────────────────────────────────────────────────────────────
-# Arsenik per-option
-# ─────────────────────────────────────────────────────────────
-
-run_arsenik() {
-    log_section "Arsenik — per-option tests"
-
-    run_compile_test arsenik "defaults" ""
-
-    run_compile_test arsenik "lafayette=off" \
-        "$(disable ENABLE_SYMBOLS_LAYER)"
-
-    run_compile_test arsenik "hrm=on" \
-        "$(enable ENABLE_HRM)"
-
-    run_compile_test arsenik "hrm=on mac=on" \
-        "$(enable ENABLE_HRM)" \
-        "$(enable MAC_MODIFIERS)"
-
-    run_compile_test arsenik "simple_thumbs=on" \
-        "$(enable SIMPLE_THUMBS)"
-
-    run_compile_test arsenik "selenium_variant=on" \
-        "$(enable VIM_NAVIGATION)"
-
-    run_compile_test arsenik "selenium_variant=on left_space=on" \
-        "$(enable VIM_NAVIGATION)" \
-        "$(enable LEFT_HAND_SPACE)"
-
-    run_compile_test arsenik "selenium_variant=on restore_space=on" \
-        "$(enable VIM_NAVIGATION)" \
-        "$(enable RESTORE_SPACE)"
-
-    # Host layouts
-    local host_sed=""
-    for layout in QWERTY AZERTY ERGOL ERGLACE BEPO DVORAK COLEMAK WORKMAN; do
-        host_sed=""
-        for l in QWERTY AZERTY ERGOL ERGLACE BEPO DVORAK COLEMAK WORKMAN; do
-            if [ "$l" = "$layout" ]; then
-                host_sed+="s|^// *#define KB_LAYOUT_$l|#define KB_LAYOUT_$l|;"
-            else
-                host_sed+="s|^#define KB_LAYOUT_$l|// #define KB_LAYOUT_$l|;"
-            fi
-        done
-        run_compile_test arsenik "host=$layout" "$host_sed"
-    done
-}
 
 # ─────────────────────────────────────────────────────────────
 # Selenium per-option
@@ -136,9 +88,8 @@ run_selenium() {
 TARGET="${TARGET:-all}"
 
 case "$TARGET" in
-    arsenik)  run_arsenik ;;
     selenium) run_selenium ;;
-    all)      run_arsenik; run_selenium ;;
+    all)      run_selenium ;;
     *)        echo "Unknown target: $TARGET"; exit 1 ;;
 esac
 

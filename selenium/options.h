@@ -36,6 +36,10 @@
 
 // #define FOUR_THUMB_KEYS
 
+// Keyboards with a central spacebar (Planck MIT) always use the Arsenik thumb
+// keys: Shift/Backspace, Nav/Space, Symbols/Enter, with home-row mods. The
+// hold-tap configs above and LEFT_HAND_SPACE don't apply there.
+
 // Timing is key! Keep the default value if unsure.
 // This defines how long (in ms) a hold-tap key with the "tap-preferred" flavor
 // must be held to be considered as a modifier or layer shift. These hold-taps

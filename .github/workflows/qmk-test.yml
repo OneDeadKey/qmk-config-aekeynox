@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [arsenik, selenium]
+        target: [selenium]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,15 +49,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [arsenik, selenium]
+        target: [selenium]
         # One (board, branch) pair per ONEDEADKEY_LAYOUT_* branch the canonical
         # split_3x6_3 board (compile-per-option) never activates. Each board is
         # the smallest mainline QMK target that exposes the branch's LAYOUT
         # macro; the ex2 boards are RP2040, the rest AVR. planck/rev5 exposes
-        # ortho_4x12, the planck_grid alias and planck_mit.
+        # ortho_4x12, the planck_grid alias and the planck_mit alias; planck_mit
+        # also covers the Arsenik thumb keys (THREE_THUMB_KEYS).
         layout:
           - { kb: planck/rev5, name: ortho_4x12 }
           - { kb: planck/rev5, name: planck_grid }
+          - { kb: planck/rev5, name: planck_mit }
           - { kb: boardsource/5x12, name: ortho_5x12 }
           - { kb: 40percentclub/5x5, name: ortho_5x10 }
           - { kb: marksard/rhymestone/rev1, name: ortho_4x10 }
@@ -100,7 +102,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [arsenik, selenium]
+        target: [selenium]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

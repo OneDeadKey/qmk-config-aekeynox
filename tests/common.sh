@@ -62,7 +62,7 @@ setup_env() {
 
 # Generate a keymap, patch options.h, and install to QMK_HOME
 # Sets KEYMAP_NAME for use by callers
-# $1 = target (arsenik|selenium)
+# $1 = target (selenium)
 # $2... = sed expressions to patch options.h
 _generate_and_install() {
     local target="$1"
@@ -112,7 +112,7 @@ _cleanup() {
 # ─────────────────────────────────────────────────────────────
 
 # Run a compile test with sed expressions
-# $1 = target (arsenik|selenium)
+# $1 = target (selenium)
 # $2 = test name
 # $3... = sed expressions to patch options.h
 run_compile_test() {

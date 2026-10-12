@@ -4,8 +4,7 @@
 
 ## Keymaps
 
-- **arsenik/** — [Arsenik](https://github.com/OneDeadKey/arsenik) QMK keymap
-- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap (configurable Arsenik variant for split keyboards)
+- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap. On boards with a central spacebar (Planck MIT), it uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys.
 
 ## Getting started
 
@@ -98,7 +97,7 @@ Other useful invocations:
 ### 6. Compile and flash
 
 ```bash
-# Compile the firmware (replace `selenium` with `arsenik` if you generated Arsenik)
+# Compile the firmware
 qmk compile -kb beekeeb/piantor -km selenium
 
 # Connect your keyboard, then flash
@@ -141,7 +140,7 @@ Any QMK keyboard with a compatible physical layout works:
 - 42-key splits (3×6, 3 thumbs) — Corne (crkbd), Piantor
 - 46-key splits, inner column — Corne v4 → see [docs](docs/supported_keyboards.md#inner-column-extensions-_ex2-layouts)
 - 40-key ortho (4×10)
-- 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout)
+- 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit)
 - 48-key ortho (4×12) — Planck-likes (grid layout)
 - 50-key ortho (5×10)
 - 60-key ortho (5×12) — Preonic-likes (grid layout)
@@ -192,7 +191,6 @@ Pass `-layout` to disambiguate without the prompt. When none qualify, the genera
 Keymap files can be formatted with [qmk-layout-fmt](https://github.com/OneDeadKey/qmk-layout-fmt):
 
 ```bash
-qmk-layout-fmt arsenik/keymap.c
 qmk-layout-fmt selenium/keymap.c
 ```
 
@@ -201,7 +199,6 @@ qmk-layout-fmt selenium/keymap.c
 ### Structure
 
 ```
-arsenik/          keymap source files
 selenium/         keymap source files
 shared/           common QMK headers (keycodes, layouts, host layout definitions)
 tests/            compile tests and matrix files

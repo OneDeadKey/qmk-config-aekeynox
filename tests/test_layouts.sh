@@ -11,7 +11,7 @@
 # exercises every branch (see .github/workflows/qmk-test.yml).
 #
 # Usage:
-#   ./test_layouts.sh -kb <keyboard> -layout <LAYOUT> [-target arsenik|selenium] [-j <jobs>]
+#   ./test_layouts.sh -kb <keyboard> -layout <LAYOUT> [-target selenium] [-j <jobs>]
 
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
@@ -23,7 +23,7 @@ while [ "$#" -gt 0 ]; do
         -target) shift; TARGET="$1" ;;
         -layout) shift; LAYOUT_OVERRIDE="$1" ;;
         -j)      shift; JOBS="$1" ;;
-        *)       echo "Usage: $0 -kb <keyboard> -layout <LAYOUT> [-target arsenik|selenium] [-j <jobs>]"; exit 1 ;;
+        *)       echo "Usage: $0 -kb <keyboard> -layout <LAYOUT> [-target selenium] [-j <jobs>]"; exit 1 ;;
     esac
     shift
 done
@@ -40,9 +40,8 @@ run_layout() {
 TARGET="${TARGET:-all}"
 
 case "$TARGET" in
-    arsenik)  run_layout arsenik ;;
     selenium) run_layout selenium ;;
-    all)      run_layout arsenik; run_layout selenium ;;
+    all)      run_layout selenium ;;
     *)        echo "Unknown target: $TARGET"; exit 1 ;;
 esac
 

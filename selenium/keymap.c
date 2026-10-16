@@ -34,11 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 0. Base layer
     [_base] = SELENIUM_LAYOUT(
-        OC_TL,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,        KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     OC_TR,
-        OC_ML,    KC_AA,  KC_SS,  KC_DD,  KC_FF,  KC_G,        KC_H,  KC_JJ,  KC_KK,    KC_LL,   KC_SCSC,  OC_MR,
-        OC_BL,    KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,        KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  OC_BR,
+        OC_TL,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,        KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     OC_TR,
+        OC_ML,  KC_AA,  KC_SS,  KC_DD,  KC_FF,  KC_G,        KC_H,  KC_JJ,  KC_KK,    KC_LL,   KC_SCSC,  OC_MR,
+        OC_BL,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,        KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  OC_BR,
 
-              LTHUMB_TUCK,  LTHUMB_HOME,  LTHUMB_REACH,        RTHUMB_REACH,  RTHUMB_HOME,  RTHUMB_TUCK
+            LTHUMB_TUCK,  LTHUMB_HOME,  LTHUMB_REACH,        RTHUMB_REACH,  RTHUMB_HOME,  RTHUMB_TUCK
     ),
 
     // 1. NumLock layer -- sticky NavNum that stays on until deactivated
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 3. VimNav layer -- HJKL arrow cluster + mouse scroll + GUI shortcuts (not accessible by default)
     [_vim_nav] = SELENIUM_LAYOUT(
-        __,  XX,       SC_CTL_W,  VIM_PREV,    VIM_NEXT,    XX,             KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_DEL,  __,
-        __,  SC_ALL,   SC_SAVE,   S(KC_TAB),   KC_TAB,      XX,             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XX,      __,
-        __,  SC_UNDO,  SC_CUT,    SC_COPY,     SC_PASTE,    SC_REDO,        MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  XX,      __,
+        __,  XX,       SC_CTL_W,  VIM_PREV,   VIM_NEXT,  XX,             KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_DEL,  __,
+        __,  SC_ALL,   SC_SAVE,   S(KC_TAB),  KC_TAB,    XX,             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XX,      __,
+        __,  SC_UNDO,  SC_CUT,    SC_COPY,    SC_PASTE,  SC_REDO,        MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  XX,      __,
 
-                        VIM_LTHUMB_TUCK,  LT(_fn_media, KC_DEL),  __,       __,  MO(_fn_media),  NAV_RTHUMB_TUCK
+                    VIM_LTHUMB_TUCK,  LT(_fn_media, KC_DEL),  __,        __,  MO(_fn_media),  NAV_RTHUMB_TUCK
     ),
 
     // 4. NavNum layer -- inverted T navigation + numpad
@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 6. FnMedia layer -- F1..12 + media controls + modifiers on right homerow
     [_fn_media] = SELENIUM_LAYOUT(
-        __,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   XX,        XX,  KC_MNXT,          KC_VOLU,          KC_BRIU,  KC_SCRL,          __,
+        __,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   XX,        XX,  KC_MNXT,          KC_VOLU,          KC_BRIU,        KC_SCRL,          __,
         __,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   XX,        XX,  _ALT_T(KC_MPLY),  _CTL_T(KC_MUTE),  _GUI_T(KC_NO),  LSFT_T(KC_PSCR),  __,
-        __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  KC_MPRV,          KC_VOLD,          KC_BRID,  KC_INS,           __,
+        __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  KC_MPRV,          KC_VOLD,          KC_BRID,        KC_INS,           __,
 
                                  __,  QK_BOOT,  __,        __,  QK_RBT,  __
     ),

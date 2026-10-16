@@ -60,6 +60,7 @@ jobs:
           - { kb: planck/rev5, name: ortho_4x12 }
           - { kb: planck/rev5, name: planck_grid }
           - { kb: planck/rev5, name: planck_mit }
+          - { kb: preonic/rev2, name: preonic_1x2uC }
           - { kb: boardsource/5x12, name: ortho_5x12 }
           - { kb: 40percentclub/5x5, name: ortho_5x10 }
           - { kb: marksard/rhymestone/rev1, name: ortho_4x10 }

@@ -4,7 +4,7 @@
 
 ## Keymaps
 
-- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap. On boards with a central spacebar (Planck MIT), it uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys.
+- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap. On boards with a central spacebar (Planck MIT, Preonic 1x2uC), it uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys.
 
 ## Getting started
 
@@ -60,7 +60,7 @@ Each option is documented with inline comments. Edit this file **before** genera
 
 The defaults work out of the box — you can skip this step and come back later.
 
-> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus, Planck MIT) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
+> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus, Planck MIT, Preonic 1x2uC) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
 
 ### 5. Generate the keymap and copy it to QMK
 
@@ -143,6 +143,7 @@ Any QMK keyboard with a compatible physical layout works:
 - 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit)
 - 48-key ortho (4×12) — Planck-likes (grid layout)
 - 50-key ortho (5×10)
+- 59-key ortho (5×12 with 2u spacebar) — Preonic-likes (1x2uC layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit)
 - 60-key ortho (5×12) — Preonic-likes (grid layout)
 - Iris (keebio)
 - Atreus (keyboardio) → see [docs](docs/supported_keyboards.md#atreus)

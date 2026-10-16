@@ -177,13 +177,16 @@
 
 //  ─────────────────< Custom keyboard-specific layouts >──────────────
 
-//  ──< Planck MIT: 2u spacebar, 4 bottom-row keys per side around the thumbs >──
+//  ──< Planck MIT / Preonic 1x2uC: 2u spacebar, 4 bottom-row keys per side around the thumbs >──
 //  Arsenik thumbs: LT1 left of the spacebar, RT2 on it, RT1 right of it.
 //  The 8 extra keys are off-spec, numbered from the outer edge. Defaults:
 //  L1–L4 = none, Ctrl, Alt, GUI; R4–R1 = Left, Down, Up, Right. Override in
 //  options.h, e.g.:
 //    #define ODK_EXT_BOTTOM_L1 KC_ESC
-#elif defined ONEDEADKEY_LAYOUT_planck_mit
+//
+//  Preonic 1x2uC: upper row carries the UR_*.
+#elif defined(ONEDEADKEY_LAYOUT_planck_mit) \
+   || defined(ONEDEADKEY_LAYOUT_preonic_1x2uC)
 #ifndef ODK_EXT_BOTTOM_L1
 #    define ODK_EXT_BOTTOM_L1 KC_NO
 #endif
@@ -209,6 +212,7 @@
 #    define ODK_EXT_BOTTOM_R4 KC_LEFT
 #endif
 #define THREE_THUMB_KEYS
+#if defined ONEDEADKEY_LAYOUT_planck_mit
 #define SELENIUM_LAYOUT(\
         LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
         LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
@@ -223,6 +227,23 @@
                                    LT1,  RT2,  RT1,\
         ODK_EXT_BOTTOM_R4, ODK_EXT_BOTTOM_R3, ODK_EXT_BOTTOM_R2, ODK_EXT_BOTTOM_R1\
     )
+#else
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
+    )\
+    LAYOUT_preonic_1x2uC(\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,        UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,         R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,         R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45,         R41,  R42,  R43,  R44,  R45,  ROUT3,\
+        ODK_EXT_BOTTOM_L1, ODK_EXT_BOTTOM_L2, ODK_EXT_BOTTOM_L3, ODK_EXT_BOTTOM_L4,\
+                                        LT1,  RT2,  RT1,\
+        ODK_EXT_BOTTOM_R4, ODK_EXT_BOTTOM_R3, ODK_EXT_BOTTOM_R2, ODK_EXT_BOTTOM_R1\
+    )
+#endif
 
 #elif defined ONEDEADKEY_LAYOUT_planck_grid
 #define SELENIUM_LAYOUT(\

@@ -14,6 +14,7 @@ The following physical layouts are supported:
 - `LAYOUT_ortho_5x10`
 - `LAYOUT_ortho_5x12`
 - `LAYOUT_planck_mit` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT](#planck-mit))
+- `LAYOUT_preonic_1x2uC` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT](#planck-mit))
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))
@@ -119,10 +120,11 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 ## Planck MIT
 
 47 keys, exposed by QMK as `LAYOUT_planck_mit`.
+Preonic with a centered 2u spacebar (59 keys, `LAYOUT_preonic_1x2uC`) shares the same bottom row, and its top row is an [upper row](#upper-row).
 
 The 2u spacebar sits between two thumb keys, so the keymap uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys instead of Selenium's: Shift/Backspace, Nav/Space, Symbols/Enter, with home-row mods. The `HT_*` hold-tap configs and `LEFT_HAND_SPACE` don't apply.
 
-Planck MIT has **8 keys beyond** the spec: the 4 bottom-row keys on each side of the thumb keys.
+Both have **8 keys beyond** the spec: the 4 bottom-row keys on each side of the thumb keys.
 Numbered from the outer edge, they default to:
 
 | Macro               | Default   | Position                    |

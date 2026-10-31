@@ -27,6 +27,8 @@
 #ifndef SHORT_TAPPING_TERM
 #    define SHORT_TAPPING_TERM 150
 #endif
+// Overrides any board-level TAPPING_TERM.
+#undef TAPPING_TERM
 #define TAPPING_TERM SHORT_TAPPING_TERM
 
 #ifndef QUICK_TAP

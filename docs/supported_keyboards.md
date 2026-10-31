@@ -20,6 +20,7 @@ The following physical layouts are supported:
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))
 - `LAYOUT` on Lily58 (all variants: `rev1`, `light`, `lite_rev3`, `glow_enc`, `r2g` — see [Lily58](#lily58))
 - `LAYOUT` on Sofle (all variants: `sofle/rev1`, `sofle/keyhive`, `sofle_choc`, `sofle_pico`, `splitkb/aurora/sofle_v2`, `mechboards/sofle/pro`, `keebart/sofle_choc_pro` — see [Sofle](#sofle))
+- `LAYOUT` on Silakka54 (top row is an [upper row](#upper-row))
 
 If your keyboard is not listed, you can add its layout to `shared/layouts.h` or [open an issue](https://github.com/OneDeadKey/qmk-config-aekeynox/issues) for help.
 

@@ -317,6 +317,22 @@
         ODK_EXT_THUMB_OUT_L, LT1, LT2, LT3,                                   RT3, RT2, RT1, ODK_EXT_THUMB_OUT_R\
     )
 
+//  ──< Silakka54: 4 rows × 6 + 3 thumbs per side (54 keys) >──
+//  Upper row: carries the UR_* and defaults to a num row.
+#elif defined(ONEDEADKEY_LAYOUT_silakka54)
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
+    ) LAYOUT(\
+        UR_OL, UR_1, UR_2, UR_3, UR_4, UR_5,     UR_6, UR_7, UR_8, UR_9, UR_0, UR_OR,\
+        LOUT1, L21,  L22,  L23,  L24,  L25,      R21,  R22,  R23,  R24,  R25,  ROUT1,\
+        LOUT2, L31,  L32,  L33,  L34,  L35,      R31,  R32,  R33,  R34,  R35,  ROUT2,\
+        LOUT3, L41,  L42,  L43,  L44,  L45,      R41,  R42,  R43,  R44,  R45,  ROUT3,\
+                           LT1,  LT2,  LT3,      RT3,  RT2,  RT1\
+    )
+
 //  ──< Sofle: Lily58 + 1 extra outermost thumb per side (60 keys) >──
 //  Sofle's extra thumb (matrix [4,0] left, [9,0] right) sits at the
 //  outermost position and is typically wired to a rotary encoder press.

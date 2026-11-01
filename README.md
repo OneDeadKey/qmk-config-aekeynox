@@ -4,7 +4,7 @@
 
 ## Keymaps
 
-- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap. On boards with a central spacebar (Planck MIT, Preonic 1x2uC), it uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys.
+- **selenium/** — [Selenium](https://github.com/OneDeadKey/selenium) QMK keymap ([layout overview](https://onedeadkey.github.io/selenium/)). On boards with a central spacebar (Planck MIT, Preonic 1x2uC), it uses the [Arsenik](https://github.com/OneDeadKey/arsenik) thumb keys.
 
 ## Getting started
 

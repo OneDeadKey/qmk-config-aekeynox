@@ -55,9 +55,9 @@
 #elif defined KB_LAYOUT_COLEMAK
 #    define AS(stripped_keycode) CM_##stripped_keycode
 #    include "keymap_colemak.h"
-#elif defined KB_LAYOUT_WORKMAN
-#    define AS(stripped_keycode) WK_##stripped_keycode
-#    include "keymap_workman.h"
+#elif defined KB_LAYOUT_COLEMAK_DH_ANSI || defined KB_LAYOUT_COLEMAK_DH_ORTHO
+#    define AS(stripped_keycode) CD_##stripped_keycode
+#    include "keymap_colemak_dh.h"
 #else
 #    error "No `KB_LAYOUT_*` option was found or recognised"
 #endif

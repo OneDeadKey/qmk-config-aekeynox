@@ -15,6 +15,9 @@
 // #define KB_LAYOUT_BEPO
 // #define KB_LAYOUT_BEPOLAR
 // #define KB_LAYOUT_DVORAK
+// #define KB_LAYOUT_COLEMAK
+// #define KB_LAYOUT_COLEMAK_DH_ANSI
+// #define KB_LAYOUT_COLEMAK_DH_ORTHO
 
 // Uncomment the following line if using a Mac:
 

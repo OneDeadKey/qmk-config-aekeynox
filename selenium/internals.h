@@ -79,6 +79,11 @@
         case KC_X: case KC_C: case KC_V: case KC_B: \
         case KC_N: case KC_M: case KC_COMM: case KC_DOT: case KC_SLSH:
 #    define CAPS_WORD_CONTINUE_CASES case KC_Q:
+#elif defined KB_LAYOUT_COLEMAK || defined KB_LAYOUT_COLEMAK_DH_ANSI || defined KB_LAYOUT_COLEMAK_DH_ORTHO
+// Letters on every Qwerty letter key except P (;), plus the Qwerty ; key (O)
+#    define CAPS_WORD_SHIFT_CASES \
+        case KC_A ... KC_O: case KC_Q ... KC_Z: case KC_SCLN:
+#    define CAPS_WORD_CONTINUE_CASES
 #else
 #    error "Caps Word has no key lists for the selected KB_LAYOUT_*"
 #endif

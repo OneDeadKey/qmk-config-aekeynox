@@ -60,7 +60,7 @@ Each option is documented with inline comments. Edit this file **before** genera
 
 The defaults work out of the box — you can skip this step and come back later.
 
-> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus, Planck MIT, Preonic 1x2uC) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
+> **Boards with extra keys** (Lily58, Sofle, Corne v4, cornifi, Atreus, Planck MIT, Preonic 1x2uC, Preonic 2x2u) leave the extras inert by default. See [docs/supported_keyboards.md](docs/supported_keyboards.md) for the `ODK_EXT_*` override macros that bind them.
 
 ### 5. Generate the keymap and copy it to QMK
 
@@ -140,10 +140,11 @@ Any QMK keyboard with a compatible physical layout works:
 - 42-key splits (3×6, 3 thumbs) — Corne (crkbd), Piantor
 - 46-key splits, inner column — Corne v4 → see [docs](docs/supported_keyboards.md#inner-column-extensions-_ex2-layouts)
 - 40-key ortho (4×10)
-- 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit)
+- 47-key ortho (4×12 with 2u spacebar) — Planck-likes (MIT layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit--preonic-1x2uc)
 - 48-key ortho (4×12) — Planck-likes (grid layout)
 - 50-key ortho (5×10)
-- 59-key ortho (5×12 with 2u spacebar) — Preonic-likes (1x2uC layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit)
+- 59-key ortho (5×12 with 2u spacebar) — Preonic-likes (1x2uC layout), Arsenik thumb keys → see [docs](docs/supported_keyboards.md#planck-mit--preonic-1x2uc)
+- 58-key ortho (5×12 with two 2u keys) — Preonic (2x2u layout), 2×3 or 2×2 thumb keys → see [docs](docs/supported_keyboards.md#preonic-2x2u)
 - 60-key ortho (5×12) — Preonic-likes (grid layout)
 - Iris (keebio)
 - Atreus (keyboardio) → see [docs](docs/supported_keyboards.md#atreus)

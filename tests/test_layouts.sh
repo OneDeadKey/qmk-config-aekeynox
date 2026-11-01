@@ -9,9 +9,11 @@
 #
 # One branch per run. CI's layout matrix fans this out over the board set that
 # exercises every branch (see .github/workflows/qmk-test.yml).
+# -options takes +DEFINE / -DEFINE directives, for branches that split on an
+# options.h define (e.g. preonic_2x2u on FOUR_THUMB_KEYS).
 #
 # Usage:
-#   ./test_layouts.sh -kb <keyboard> -layout <LAYOUT> [-target selenium] [-j <jobs>]
+#   ./test_layouts.sh -kb <keyboard> -layout <LAYOUT> [-options "<+DEFINE ...>"] [-target selenium] [-j <jobs>]
 
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
@@ -22,8 +24,9 @@ while [ "$#" -gt 0 ]; do
         -kb)     shift; KEYBOARD="$1" ;;
         -target) shift; TARGET="$1" ;;
         -layout) shift; LAYOUT_OVERRIDE="$1" ;;
+        -options) shift; OPTIONS="$1" ;;
         -j)      shift; JOBS="$1" ;;
-        *)       echo "Usage: $0 -kb <keyboard> -layout <LAYOUT> [-target selenium] [-j <jobs>]"; exit 1 ;;
+        *)       echo "Usage: $0 -kb <keyboard> -layout <LAYOUT> [-options \"<+DEFINE ...>\"] [-target selenium] [-j <jobs>]"; exit 1 ;;
     esac
     shift
 done
@@ -34,7 +37,7 @@ setup_env
 run_layout() {
     local target="$1"
     log_section "$target — layout compile ($LAYOUT_OVERRIDE on $KEYBOARD)"
-    run_compile_test "$target" "$LAYOUT_OVERRIDE defaults" ""
+    run_matrix_test "$target" "$LAYOUT_OVERRIDE ${OPTIONS:-defaults}" "${OPTIONS:-}"
 }
 
 TARGET="${TARGET:-all}"

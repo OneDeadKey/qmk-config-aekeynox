@@ -13,8 +13,9 @@ The following physical layouts are supported:
 - `LAYOUT_ortho_4x12`
 - `LAYOUT_ortho_5x10`
 - `LAYOUT_ortho_5x12`
-- `LAYOUT_planck_mit` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT](#planck-mit))
-- `LAYOUT_preonic_1x2uC` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT](#planck-mit))
+- `LAYOUT_planck_mit` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT / Preonic 1x2uC](#planck-mit--preonic-1x2uc))
+- `LAYOUT_preonic_1x2uC` (Arsenik thumb keys, 8 extra bottom-row keys — see [Planck MIT / Preonic 1x2uC](#planck-mit--preonic-1x2uc))
+- `LAYOUT_preonic_2x2u` (2×3 or 2×2 thumb keys — see [Preonic 2x2u](#preonic-2x2u))
 - `LAYOUT_planck_grid`
 - `LAYOUT_keebio_iris`
 - `LAYOUT_keyboardio_atreus` (8 keys beyond the spec — see [Atreus](#atreus))
@@ -117,7 +118,7 @@ They default to `KC_NO` (inert). Override in your keymap's `options.h`:
 `ODK_EXT_INNER_*`, `ODK_EXT_THUMB_OUT_*` and `ODK_EXT_THUMB_FAR_*` are shared with [Lily58](#lily58) / [Sofle](#sofle).
 `ODK_EXT_THUMB_FAR_EXT_L` and `ODK_EXT_THUMB_FAR_EXT_R` are Atreus-only.
 
-## Planck MIT
+## Planck MIT / Preonic 1x2uC
 
 47 keys, exposed by QMK as `LAYOUT_planck_mit`.
 Preonic with a centered 2u spacebar (59 keys, `LAYOUT_preonic_1x2uC`) shares the same bottom row, and its top row is an [upper row](#upper-row).
@@ -145,3 +146,16 @@ Override any of them in your keymap's `options.h`:
 ```
 
 The bound keycode is the same across all layers.
+
+## Preonic 2x2u
+
+58 keys, exposed by QMK as `LAYOUT_preonic_2x2u` (`preonic/rev3`). The top row is an [upper row](#upper-row).
+
+The bottom row has one 2u key per side, and the keymap uses Selenium thumb keys. Pick one of the two thumb setups:
+
+| Setup         | `options.h`               | Left thumbs | Right thumbs | Hold-tap configs    |
+| ------------- | ------------------------- | ----------- | ------------ | ------------------- |
+| 2×3           | —                         | x2, x3, 2u  | 2u, x8, x9   | all `HT_*`          |
+| 2×2           | `#define FOUR_THUMB_KEYS` | x3, 2u      | 2u, x8       | `HT_TWO_THUMB_KEYS` |
+
+The remaining bottom-row keys use the [Planck MIT / Preonic 1x2uC](#planck-mit--preonic-1x2uc) `ODK_EXT_BOTTOM_*` macros, numbered from the outer edge: `L1`–`L2` / `R2`–`R1` in 2×3, `L1`–`L3` / `R3`–`R1` in 2×2.

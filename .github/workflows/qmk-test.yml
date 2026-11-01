@@ -42,7 +42,7 @@ jobs:
         run: bash $GITHUB_WORKSPACE/tests/test_per_option.sh -target ${{ matrix.target }} -kb $QMK_KEYBOARD -layout $QMK_LAYOUT -j 0
 
   compile-layouts:
-    name: Compile layout (${{ matrix.layout.name }} / ${{ matrix.target }})
+    name: Compile layout (${{ matrix.layout.name }}${{ matrix.layout.options && format(' {0}', matrix.layout.options) || '' }} / ${{ matrix.target }})
     runs-on: ubuntu-latest
     container:
       image: qmkfm/qmk_cli:latest
@@ -55,12 +55,15 @@ jobs:
         # the smallest mainline QMK target that exposes the branch's LAYOUT
         # macro; the ex2 boards are RP2040, the rest AVR. planck/rev5 exposes
         # ortho_4x12, the planck_grid alias and the planck_mit alias; planck_mit
-        # also covers the Arsenik thumb keys (THREE_THUMB_KEYS).
+        # also covers the Arsenik thumb keys (THREE_THUMB_KEYS). preonic_2x2u
+        # splits on FOUR_THUMB_KEYS, so it runs once per side of the split.
         layout:
           - { kb: planck/rev5, name: ortho_4x12 }
           - { kb: planck/rev5, name: planck_grid }
           - { kb: planck/rev5, name: planck_mit }
           - { kb: preonic/rev2, name: preonic_1x2uC }
+          - { kb: preonic/rev3, name: preonic_2x2u }
+          - { kb: preonic/rev3, name: preonic_2x2u, options: +FOUR_THUMB_KEYS }
           - { kb: boardsource/5x12, name: ortho_5x12 }
           - { kb: 40percentclub/5x5, name: ortho_5x10 }
           - { kb: marksard/rhymestone/rev1, name: ortho_4x10 }
@@ -91,7 +94,7 @@ jobs:
           qmk config user.qmk_home=$QMK_HOME
 
       - name: Compile layout branch
-        run: bash $GITHUB_WORKSPACE/tests/test_layouts.sh -target ${{ matrix.target }} -kb ${{ matrix.layout.kb }} -layout ${{ matrix.layout.name }} -j 0
+        run: bash $GITHUB_WORKSPACE/tests/test_layouts.sh -target ${{ matrix.target }} -kb ${{ matrix.layout.kb }} -layout ${{ matrix.layout.name }} -options "${{ matrix.layout.options }}" -j 0
 
   compile-exhaustive:
     name: Compile exhaustive (${{ matrix.target }})

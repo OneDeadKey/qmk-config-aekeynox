@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 6. FnMedia layer -- F1..12 + media controls + modifiers on right homerow
     [_fn_media] = SELENIUM_LAYOUT(
-        __,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   XX,        XX,  KC_MNXT,          KC_VOLU,          KC_BRIU,        KC_SCRL,          __,
+        __,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   XX,        XX,  KC_MPRV,          KC_VOLU,          KC_BRIU,        KC_SCRL,          __,
         __,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   XX,        XX,  _ALT_T(KC_MPLY),  _CTL_T(KC_MUTE),  _GUI_T(KC_NO),  LSFT_T(KC_PSCR),  __,
-        __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  KC_MPRV,          KC_VOLD,          KC_BRID,        KC_INS,           __,
+        __,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  XX,        XX,  KC_MNXT,          KC_VOLD,          KC_BRID,        KC_INS,           __,
 
                                  __,  QK_BOOT,  __,        __,  QK_RBT,  __
     ),

@@ -468,6 +468,120 @@
                   LT1, LT2, LT3,                                   RT3, RT2, RT1,\
         ODK_EXT_THUMB_OUT_R, ODK_EXT_THUMB_FAR_R, ODK_EXT_THUMB_FAR_EXT_R\
     )
+#elif defined(ONEDEADKEY_LAYOUT_ergodox_pretty)
+
+#ifndef ODK_EXT_INNER_TL
+#    define ODK_EXT_INNER_TL KC_NO
+#endif
+#ifndef ODK_EXT_INNER_TR
+#    define ODK_EXT_INNER_TR KC_NO
+#endif
+#ifndef ODK_EXT_INNER_ML
+#    define ODK_EXT_INNER_ML KC_NO
+#endif
+#ifndef ODK_EXT_INNER_MR
+#    define ODK_EXT_INNER_MR KC_NO
+#endif
+#ifndef ODK_EXT_INNER_BL
+#    define ODK_EXT_INNER_BL KC_NO
+#endif
+#ifndef ODK_EXT_INNER_BR
+#    define ODK_EXT_INNER_BR KC_NO
+#endif
+
+#ifndef ODK_EXT_BOTTOM_L1
+#    define ODK_EXT_BOTTOM_L1 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_L2
+#    define ODK_EXT_BOTTOM_L2 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_L3
+#    define ODK_EXT_BOTTOM_L3 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_L4
+#    define ODK_EXT_BOTTOM_L4 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_R1
+#    define ODK_EXT_BOTTOM_R1 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_R2
+#    define ODK_EXT_BOTTOM_R2 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_R3
+#    define ODK_EXT_BOTTOM_R3 KC_NO
+#endif
+#ifndef ODK_EXT_BOTTOM_R4
+#    define ODK_EXT_BOTTOM_R4 KC_NO
+#endif
+
+#ifndef ODK_EXT_THUMB_OUT_TL
+#    define ODK_EXT_THUMB_OUT_TL KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_ML
+#    define ODK_EXT_THUMB_OUT_ML KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_BL
+#    define ODK_EXT_THUMB_OUT_BL KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_TR
+#    define ODK_EXT_THUMB_OUT_TR KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_MR
+#    define ODK_EXT_THUMB_OUT_MR KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_OUT_BR
+#    define ODK_EXT_THUMB_OUT_BR KC_NO
+#endif
+
+#ifndef ODK_EXT_THUMB_3L_TOP
+#    define ODK_EXT_THUMB_3L_TOP KC_NO
+#endif
+#ifndef ODK_EXT_THUMB_3R_TOP
+#    define ODK_EXT_THUMB_3R_TOP KC_NO
+#endif
+
+// Shortcuts to keep the ergodox layout more readable
+#define ODK_EITL ODK_EXT_INNER_TL
+#define ODK_EIML ODK_EXT_INNER_ML
+#define ODK_EIBL ODK_EXT_INNER_BL
+#define ODK_EITR ODK_EXT_INNER_TR
+#define ODK_EIMR ODK_EXT_INNER_MR
+#define ODK_EIBR ODK_EXT_INNER_BR
+
+#define ODK_EBL1 ODK_EXT_BOTTOM_L1
+#define ODK_EBL2 ODK_EXT_BOTTOM_L2
+#define ODK_EBL3 ODK_EXT_BOTTOM_L3
+#define ODK_EBL4 ODK_EXT_BOTTOM_L4
+#define ODK_EBR1 ODK_EXT_BOTTOM_R1
+#define ODK_EBR2 ODK_EXT_BOTTOM_R2
+#define ODK_EBR3 ODK_EXT_BOTTOM_R3
+#define ODK_EBR4 ODK_EXT_BOTTOM_R4
+
+#define ODK_ETOTL ODK_EXT_THUMB_OUT_TL
+#define ODK_ETOML ODK_EXT_THUMB_OUT_ML
+#define ODK_ETOBL ODK_EXT_THUMB_OUT_BL
+#define ODK_ETOTR ODK_EXT_THUMB_OUT_TR
+#define ODK_ETOMR ODK_EXT_THUMB_OUT_MR
+#define ODK_ETOBR ODK_EXT_THUMB_OUT_BR
+
+#define ODK_ET3LT ODK_EXT_THUMB_3L_TOP
+#define ODK_ET3RT ODK_EXT_THUMB_3R_TOP
+
+#define SELENIUM_LAYOUT(\
+        LOUT1, L21, L22, L23, L24, L25,     R21, R22, R23, R24, R25, ROUT1,\
+        LOUT2, L31, L32, L33, L34, L35,     R31, R32, R33, R34, R35, ROUT2,\
+        LOUT3, L41, L42, L43, L44, L45,     R41, R42, R43, R44, R45, ROUT3,\
+                         LT1, LT2, LT3,     RT3, RT2, RT1\
+    ) LAYOUT_ergodox_pretty(\
+        UR_OL,    UR_1,     UR_2,     UR_3,     UR_4, UR_5,      ODK_EITL,    ODK_EITR,      UR_6, UR_7,     UR_8,     UR_9,     UR_0,    UR_OR,\
+        LOUT1,    L21,      L22,      L23,      L24,  L25,       ODK_EIML,    ODK_EIMR,       R21,  R22,      R23,      R24,      R25,    ROUT1,\
+        LOUT2,    L31,      L32,      L33,      L34,  L35,                                    R31,  R32,      R33,      R34,      R35,    ROUT2,\
+        LOUT3,    L41,      L42,      L43,      L44,  L45,       ODK_EIBL,    ODK_EIBR,       R41,  R42,      R43,      R44,      R45,    ROUT3,\
+        ODK_EBL1, ODK_EBL2, ODK_EBL3, ODK_EBL4, LT1,                                                RT1, ODK_EBR4, ODK_EBR3, ODK_EBR2, ODK_EBR1,\
+                                                      ODK_ET3LT, ODK_ETOTL,  ODK_ETOTR, ODK_ET3RT,\
+                                                                 ODK_ETOML,  ODK_ETOMR,\
+                                                LT2,  LT3,       ODK_ETOBL,  ODK_ETOBR,       RT3,  RT2\
+    )
 
 #else
 #    error "Your keyboard appears unsupported — open an issue on GitHub to propose an implementation or ask the team for support."

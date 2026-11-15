@@ -471,73 +471,72 @@
 #elif defined(ONEDEADKEY_LAYOUT_ergodox_pretty)
 
 #ifndef ODK_EXT_INNER_TL
-#    define ODK_EXT_INNER_TL KC_NO
+#    define ODK_EXT_INNER_TL KC_GRV
 #endif
 #ifndef ODK_EXT_INNER_TR
-#    define ODK_EXT_INNER_TR KC_NO
+#    define ODK_EXT_INNER_TR KC_NUBS
 #endif
 #ifndef ODK_EXT_INNER_ML
-#    define ODK_EXT_INNER_ML KC_NO
+#    define ODK_EXT_INNER_ML KC_LBRC
 #endif
 #ifndef ODK_EXT_INNER_MR
-#    define ODK_EXT_INNER_MR KC_NO
+#    define ODK_EXT_INNER_MR KC_RBRC
 #endif
 #ifndef ODK_EXT_INNER_BL
-#    define ODK_EXT_INNER_BL KC_NO
+#    define ODK_EXT_INNER_BL KC_QUOT
 #endif
 #ifndef ODK_EXT_INNER_BR
-#    define ODK_EXT_INNER_BR KC_NO
+#    define ODK_EXT_INNER_BR KC_NUHS
 #endif
 
 #ifndef ODK_EXT_BOTTOM_L1
-#    define ODK_EXT_BOTTOM_L1 KC_NO
+#    define ODK_EXT_BOTTOM_L1 KC_HOME
 #endif
 #ifndef ODK_EXT_BOTTOM_L2
-#    define ODK_EXT_BOTTOM_L2 KC_NO
+#    define ODK_EXT_BOTTOM_L2 KC_PGDN
 #endif
 #ifndef ODK_EXT_BOTTOM_L3
-#    define ODK_EXT_BOTTOM_L3 KC_NO
+#    define ODK_EXT_BOTTOM_L3 KC_PGUP
 #endif
 #ifndef ODK_EXT_BOTTOM_L4
-#    define ODK_EXT_BOTTOM_L4 KC_NO
+#    define ODK_EXT_BOTTOM_L4 KC_END
 #endif
 #ifndef ODK_EXT_BOTTOM_R1
-#    define ODK_EXT_BOTTOM_R1 KC_NO
+#    define ODK_EXT_BOTTOM_R1 KC_RIGHT
 #endif
 #ifndef ODK_EXT_BOTTOM_R2
-#    define ODK_EXT_BOTTOM_R2 KC_NO
+#    define ODK_EXT_BOTTOM_R2 KC_UP
 #endif
 #ifndef ODK_EXT_BOTTOM_R3
-#    define ODK_EXT_BOTTOM_R3 KC_NO
+#    define ODK_EXT_BOTTOM_R3 KC_DOWN
 #endif
 #ifndef ODK_EXT_BOTTOM_R4
-#    define ODK_EXT_BOTTOM_R4 KC_NO
+#    define ODK_EXT_BOTTOM_R4 KC_LEFT
 #endif
 
 #ifndef ODK_EXT_THUMB_OUT_TL
-#    define ODK_EXT_THUMB_OUT_TL KC_NO
+#    define ODK_EXT_THUMB_OUT_TL KC_LCTL
 #endif
 #ifndef ODK_EXT_THUMB_OUT_ML
-#    define ODK_EXT_THUMB_OUT_ML KC_NO
+#    define ODK_EXT_THUMB_OUT_ML LCTL(KC_LALT)
 #endif
 #ifndef ODK_EXT_THUMB_OUT_BL
-#    define ODK_EXT_THUMB_OUT_BL KC_NO
+#    define ODK_EXT_THUMB_OUT_BL KC_LGUI
 #endif
 #ifndef ODK_EXT_THUMB_OUT_TR
-#    define ODK_EXT_THUMB_OUT_TR KC_NO
+#    define ODK_EXT_THUMB_OUT_TR KC_RCTL
 #endif
 #ifndef ODK_EXT_THUMB_OUT_MR
-#    define ODK_EXT_THUMB_OUT_MR KC_NO
+#    define ODK_EXT_THUMB_OUT_MR KC_APP
 #endif
 #ifndef ODK_EXT_THUMB_OUT_BR
-#    define ODK_EXT_THUMB_OUT_BR KC_NO
+#    define ODK_EXT_THUMB_OUT_BR KC_RGUI
 #endif
-
 #ifndef ODK_EXT_THUMB_3L_TOP
-#    define ODK_EXT_THUMB_3L_TOP KC_NO
+#    define ODK_EXT_THUMB_3L_TOP KC_MEH
 #endif
 #ifndef ODK_EXT_THUMB_3R_TOP
-#    define ODK_EXT_THUMB_3R_TOP KC_NO
+#    define ODK_EXT_THUMB_3R_TOP KC_HYPR
 #endif
 
 // Shortcuts to keep the ergodox layout more readable
